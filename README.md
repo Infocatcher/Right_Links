@@ -1,0 +1,1 @@
+<a href="https://addons.mozilla.org/firefox/addon/right-links/">Right Links</a> Firefox and SeaMonkey extension

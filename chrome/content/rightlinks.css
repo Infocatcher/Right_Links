@@ -1,0 +1,21 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#rightLinks-toggleStatus-status {
+	cursor: pointer;
+}
+#rightLinks-toggleStatus-status,
+toolbar[iconsize="small"] #rightLinks-toggleStatus-tbutton {
+	list-style-image: url("icons16.png");
+	-moz-image-region: rect(0 16px 16px 0);
+}
+#rightLinks-toggleStatus-status[rl_status="disabled"],
+toolbar[iconsize="small"] #rightLinks-toggleStatus-tbutton[rl_status="disabled"] {
+	-moz-image-region: rect(0 32px 16px 16px);
+}
+#rightLinks-toggleStatus-tbutton {
+	list-style-image: url("icons24.png");
+	-moz-image-region: rect(0 24px 24px 0);
+}
+#rightLinks-toggleStatus-tbutton[rl_status="disabled"] {
+	-moz-image-region: rect(0 48px 24px 24px);
+}

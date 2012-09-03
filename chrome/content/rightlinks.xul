@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://rightlinks/content/rightlinks.css" type="text/css"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://rightlinks/locale/rl.dtd">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/javascript" src="chrome://rightlinks/content/prefUtils.js" />
+	<script type="application/javascript" src="chrome://rightlinks/content/rightlinks.js" />
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="rightLinks-strings" src="chrome://rightlinks/locale/rl.properties" />
+	</stringbundleset>
+	<keyset id="mainKeyset">
+		<key id="rightLinks-key-toggleStatus" oncommand="rightLinks.toggleStatus(true);" disabled="true" />
+		<key id="rightLinks-key-showSettingsPopup" oncommand="rightLinks.showSettingsPopup();" disabled="true" />
+	</keyset>
+	<menupopup id="menu_ToolsPopup">
+		<menuitem id="rightLinks-toggleStatus-mi" insertbefore="sanitizeSeparator" type="checkbox"
+			key="rightLinks-key-toggleStatus" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();"
+			label="&rl.menuitemLabel;" />
+	</menupopup>
+	<menupopup id="appmenu_customizeMenu"> <!-- Firefox 4 -->
+		<menuitem id="rightLinks-toggleStatus-mi-app" insertafter="appmenu_preferences" type="checkbox"
+			key="rightLinks-key-toggleStatus" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();"
+			label="&rl.menuitemLabel;" />
+		<menuseparator id="rightLinks-toggleStatus-mi-app-separator" insertafter="appmenu_preferences" />
+	</menupopup>
+	<statusbar id="status-bar">
+		<statusbarpanel id="rightLinks-toggleStatus-status" class="statusbarpanel-iconic" insertafter="page-report-button"
+			context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();" />
+	</statusbar>
+	<toolbarpalette id="BrowserToolbarPalette">
+		<toolbarbutton id="rightLinks-toggleStatus-tbutton"
+			class="chromeclass-toolbar-additional toolbarbutton-1"
+			type="checkbox" autoCheck="false"
+			label="&rl.tbuttonLabel;" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();" />
+	</toolbarpalette>
+	<popupset id="mainPopupSet">
+		<menupopup id="rightLinks-settingsPopup"
+			onpopupshowing="if(event.target == this) rightLinks.readPrefs();"
+			oncommand="rightLinks.setPref(event.target); this.__rlPrefsChanged = true;"
+			onclick="rightLinks.closePrefsMenu(event, this);"
+			oncontextmenu="return !rightLinksPrefUtils.pref('ui.closeMenuRightClick');"
+			onpopuphidden="
+				if(event.target != this)
+					return;
+				if('__rlPrefsChanged' in this) {
+					delete this.__rlPrefsChanged;
+					rightLinksPrefUtils.savePrefFile();
+				}
+				delete this.__rlShowEnabledItem;">
+			<menuitem type="checkbox" rl_pref="enabled" default="true" label="&rl.enabled;" />
+			<menuseparator />
+			<menuitem type="checkbox" rl_pref="loadInBackground" label="&rl.loadInBackground;" />
+			<menuitem type="checkbox" rl_pref="loadJavaScriptLinksInBackground" label="&rl.loadJavaScriptLinksInBackground;" />
+			<menuseparator />
+			<menuitem type="checkbox" rl_pref="sendReferer" label="&rl.sendReferer;" />
+			<menuseparator />
+			<menuitem type="checkbox" rl_pref="enabledOnImages" label="&rl.enabledOnImages;" />
+			<menuitem type="checkbox" rl_pref="enabledOnBookmarks" label="&rl.enabledOnBookmarks;" />
+			<menuitem type="checkbox" rl_pref="enabledOnHistoryItems" label="&rl.enabledOnHistoryItems;" />
+			<menuseparator />
+			<menuitem type="checkbox" rl_pref="closePopups" label="&rl.closePopups;" />
+			<menuseparator />
+			<menu id="rightLinks-settings-longLeftClickMenu" label="&rl.longLeftClick;">
+				<menupopup>
+					<menuitem type="checkbox" rl_pref="loadInBackground.left" label="&rl.loadInBackground;" />
+					<menuitem type="checkbox" rl_pref="loadJavaScriptLinksInBackground.left" label="&rl.loadJavaScriptLinksInBackground;" />
+					<menuseparator />
+					<menuitem type="checkbox" rl_pref="closePopups.left" label="&rl.closePopups;" />
+				</menupopup>
+			</menu>
+			<menu label="&rl.optionsMenu;">
+				<menupopup>
+					<menuitem type="checkbox" rl_pref="enabled.right" label="&rl.enableRight;" />
+					<menuitem type="checkbox" rl_pref="enabled.left" label="&rl.enableLeft;" />
+					<menuseparator />
+					<menuitem type="checkbox" rl_pref="loadJavaScriptLinks" label="&rl.loadJavaScriptLinks;" />
+					<menuitem type="checkbox" rl_pref="notifyJavaScriptLinks" label="&rl.notifyJavaScriptLinks;" />
+					<menuseparator />					<menuitem type="checkbox" rl_pref="loadVoidLinksWithHandlers" label="&rl.loadVoidLinksWithHandlers;" />
+					<menuitem type="checkbox" rl_pref="notifyVoidLinksWithHandlers" label="&rl.notifyVoidLinksWithHandlers;" />
+				</menupopup>
+			</menu>
+			<menu label="&rl.appearance;">
+				<menupopup>
+					<menuitem type="checkbox" rl_pref="ui.toolbarbuttonCheckedStyle" label="&rl.toolbarbuttonCheckedStyle;" />
+					<menuseparator />
+					<menuitem type="checkbox" rl_pref="ui.showInToolsMenu" label="&rl.showInToolsMenu;" />
+					<menuitem type="checkbox" rl_pref="ui.showInAppMenu" label="&rl.showInAppMenu;" />
+					<menuitem type="checkbox" rl_pref="ui.showInStatusbar" label="&rl.showInStatusbar;" />
+					<menuseparator />
+					<menuitem type="checkbox" rl_pref="ui.closeMenu" label="&rl.closeMenu;" />
+					<menuitem type="checkbox" rl_pref="ui.closeMenuRightClick" label="&rl.closeMenuRightClick;" />
+				</menupopup>
+			</menu>
+		</menupopup>
+	</popupset>
+
+	<!-- SeaMonkey -->
+	<menupopup id="taskPopup">
+		<menuitem id="rightLinks-toggleStatus-mi" insertafter="downloadmgr" type="checkbox" label="&rl.menuitemLabel;"
+			key="rightLinks-key-toggleStatus" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();" />
+	</menupopup>
+</overlay>

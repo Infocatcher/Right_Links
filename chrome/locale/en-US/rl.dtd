@@ -1,0 +1,35 @@
+<!-- Item in Tools and App menu -->
+<!ENTITY rl.menuitemLabel "Right Links">
+<!-- Toolbar button -->
+<!ENTITY rl.tbuttonLabel "Right Links">
+
+<!-- Settings pop-up -->
+<!ENTITY rl.enabled "Enabled">
+<!ENTITY rl.loadInBackground "Load links in background">
+<!ENTITY rl.loadJavaScriptLinksInBackground "Load JavaScript-links in background">
+<!ENTITY rl.sendReferer "Send referer">
+<!ENTITY rl.enabledOnImages "Handle clicks on images">
+<!ENTITY rl.enabledOnBookmarks "Handle clicks on bookmarks">
+<!ENTITY rl.enabledOnHistoryItems "Handle clicks on history items">
+<!ENTITY rl.closePopups "Close menus after click">
+
+<!ENTITY rl.longLeftClick "Long left-click">
+
+<!ENTITY rl.optionsMenu "Options">
+<!ENTITY rl.enableRight "Enable right-click">
+<!ENTITY rl.enableLeft "Enable long left-click">
+<!ENTITY rl.loadJavaScriptLinks "Load JavaScript-links (javascript: …)">
+<!ENTITY rl.notifyJavaScriptLinks "Notify JavaScript-links (javascript: …)">
+<!ENTITY rl.loadVoidLinksWithHandlers "Load “void” links with click handlers">
+<!ENTITY rl.notifyVoidLinksWithHandlers "Notify “void” links with click handlers">
+
+<!ENTITY rl.appearance "View">
+<!ENTITY rl.toolbarbuttonCheckedStyle "“Checked” button style">
+<!ENTITY rl.showInToolsMenu "Show in Tools menu">
+<!ENTITY rl.showInAppMenu "Show in App menu">
+<!ENTITY rl.showInStatusbar "Show in Status Bar">
+<!ENTITY rl.closeMenu "Close this menu after left-click">
+<!ENTITY rl.closeMenuRightClick "Close this menu after right-click">
+
+<!-- Options button in Gecko 7.0 and higher -->
+<!ENTITY rl.options "Options…">

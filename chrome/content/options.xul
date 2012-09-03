@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE window SYSTEM "chrome://rightlinks/locale/rl.dtd">
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	width="1"
+	height="1"
+	style="visibility: collapse;">
+
+	<script type="application/javascript">
+	<![CDATA[
+	(function() {
+		if(window.top.location.href != "chrome://rightlinks/content/options.xul")
+			return;
+		window.close();
+		opener.setTimeout(function(opener) {
+			var w = opener.Components.classes["@mozilla.org/appshell/window-mediator;1"]
+				.getService(opener.Components.interfaces.nsIWindowMediator)
+				.getMostRecentWindow("navigator:browser");
+			if(!w || !("rightLinks" in w))
+				return;
+			var popup = w.document.getElementById("rightLinks-settingsPopup");
+			if(!popup)
+				return;
+			var d = opener.document;
+			var fe;
+			if("getElementsByAttribute" in d) {
+				// Hack for recent updated addons in Firefox 9.0
+				var rows = d.getElementsByAttribute("value", "{B5F5E8D3-AE31-49A1-AC42-78B7B1CC5CDC}");
+				if(rows.length)
+					fe = d.getAnonymousElementByAttribute(rows[0], "anonid", "preferences-btn");
+			}
+			if(!fe)
+				fe = d.commandDispatcher.focusedElement;
+			if(!fe && "querySelector" in d)
+				fe = d.querySelector(":hover");
+			if(!fe)
+				fe = d.documentElement;
+
+			popup.__rlShowEnabledItem = true;
+			if("openPopup" in popup)
+				popup.openPopup(fe, "after_start");
+			else
+				popup.showPopup(fe, -1, -1, "popup", "bottomleft", "topleft");
+
+		}, 0, opener);
+	})();
+	]]>
+	</script>
+
+	<setting type="control">
+		<button id="rightLinks-optionsPopupButton" label="&rl.options;"
+			oncommand='
+				var w = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+					.getService(Components.interfaces.nsIWindowMediator)
+					.getMostRecentWindow("navigator:browser");
+				if(w &amp;&amp; "rightLinks" in w) {
+					var popup = w.document.getElementById("rightLinks-settingsPopup");
+					if(popup) {
+						popup.__rlShowEnabledItem = true;
+						popup.openPopup(this, "before_start");
+					}
+				}' />
+	</setting>
+
+</window>

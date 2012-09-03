@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+	<Description about="urn:mozilla:install-manifest">
+
+		<em:id>{B5F5E8D3-AE31-49A1-AC42-78B7B1CC5CDC}</em:id>
+		<em:type>2</em:type>
+		<em:name>Right Links</em:name>
+		<em:version>0.3.7.1</em:version>
+		<em:description>Right-click for open links in new tabs (for touchpads etc.)</em:description>
+		<em:creator>Infocatcher</em:creator>
+		<em:optionsURL>chrome://rightlinks/content/options.xul</em:optionsURL>
+		<em:optionsType>2</em:optionsType>
+		<em:updateURL>http://infocatcher.ucoz.net/ext/fx/right_links/update-dev.rdf</em:updateURL>
+		<em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDLgtEbrhCdZetIAanFNvkT441WwBgXcg1Zzlo5s5
+		              j9VLByj/L6UXAVqSria1dejjkKfxVbRXvqalJ7mENRambKpZ4AfV3dBCKUDjME56CMaAK7+DxMqaM3
+		              KEDKXn8XfqL2qkFsgcVjqh6AfltKRcyLGkU9+YQ82EXo6xm47hywoQIDAQAB</em:updateKey>
+
+		<em:targetApplication> <!-- Firefox -->
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>1.5</em:minVersion>
+				<em:maxVersion>18.0a1</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+
+		<em:targetApplication> <!-- SeaMonkey -->
+			<Description>
+				<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+				<em:minVersion>2.0</em:minVersion>
+				<em:maxVersion>2.15a1</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+
+		<em:localized>
+			<Description>
+				<em:locale>ru</em:locale>
+				<em:name>Right Links</em:name>
+				<em:description>Позволяет открывать ссылки в новых вкладках по клику правой кнопкой мыши (для тачпадов и т.п.)</em:description>
+				<em:creator>Infocatcher</em:creator>
+			</Description>
+		</em:localized>
+
+	</Description>
+</RDF>

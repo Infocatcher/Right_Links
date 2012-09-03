@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="data:text/css,.rl-clickable, .rl-clickable * { cursor: pointer; }" type="text/css"?>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	id="rightlinksNotify"
+	windowtype="rightlinks:notify"
+	align="start"
+	onload="rlNotify.init();"
+	onclick="rlNotify.click(event);">
+
+	<script type="application/javascript">
+	<![CDATA[
+		var rlNotify = {
+			init: function() {
+				var wa = window.arguments;
+				this.$("rlNotifyHeader").value = wa[1];
+				this.$("rlNotifyDesc").textContent = wa[2];
+				this.$("rlNotifyImg").style["margin" + (wa[3] ? "Right" : "Left")] = "-24px";
+				if(typeof wa[4] == "function")
+					document.documentElement.className += " rl-clickable";
+				window.sizeToContent();
+				var wo = window.opener;
+
+				var x = wo.screenX + wo.outerWidth - window.outerWidth;
+				var sBar = wo.document.getElementById("browser-bottombox") || wo.document.getElementById("status-bar");
+				var y = (sBar ? sBar.boxObject.screenY : wo.screenY + wo.outerHeight) - window.outerHeight;
+				window.moveTo(x, y);
+
+				var hbs = this.$("rlNotifyBox").style;
+				setTimeout(function() { hbs.borderColor = "blue"; }, 150);
+				setTimeout(function() { hbs.borderColor = "";     }, 300);
+				this._timer = setTimeout(window.close, wa[0]);
+			},
+			click: function(e) {
+				clearTimeout(this._timer);
+				var wa = window.arguments;
+				if(e.button == 0 && typeof wa[4] == "function")
+					wa[4]();
+				window.close();
+			},
+			$: function(id) {
+				return document.getElementById(id);
+			}
+		};
+	]]>
+	</script>
+
+	<hbox id="rlNotifyBox" style="border: 2px solid; padding: 10px;">
+		<hbox align="center" valign="top" style="overflow: hidden;">
+			<image id="rlNotifyImg" src="icons24.png" autostretch="never" />
+		</hbox>
+		<vbox style="margin-left: 5px;">
+			<label id="rlNotifyHeader" class="header" value="[Header]" />
+			<description id="rlNotifyDesc" style="white-space: pre;">[Message]</description>
+		</vbox>
+	</hbox>
+
+</window>

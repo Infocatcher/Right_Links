@@ -1,0 +1,35 @@
+<!-- Item in Tools and App menu -->
+<!ENTITY rl.menuitemLabel "Right Links">
+<!-- Toolbar button -->
+<!ENTITY rl.tbuttonLabel "Right Links">
+
+<!-- Settings pop-up -->
+<!ENTITY rl.enabled "Включено">
+<!ENTITY rl.loadInBackground "Открывать ссылки в фоне">
+<!ENTITY rl.loadJavaScriptLinksInBackground "Открывать JavaScript-ссылки в фоне">
+<!ENTITY rl.sendReferer "Отправлять referer">
+<!ENTITY rl.enabledOnImages "Обрабатывать клики по изображениям">
+<!ENTITY rl.enabledOnBookmarks "Обрабатывать клики по закладкам">
+<!ENTITY rl.enabledOnHistoryItems "Обрабатывать клики по элементам журнала">
+<!ENTITY rl.closePopups "Закрывать меню после клика">
+
+<!ENTITY rl.longLeftClick "Долгий клик левой кнопкой мыши">
+
+<!ENTITY rl.optionsMenu "Настройки">
+<!ENTITY rl.enableRight "Включить клик правой кнопкой мыши">
+<!ENTITY rl.enableLeft "Включить долгий клик левой кнопкой мыши">
+<!ENTITY rl.loadJavaScriptLinks "Открывать JavaScript-ссылки (javascript: …)">
+<!ENTITY rl.notifyJavaScriptLinks "Сообщать о JavaScript-ссылках (javascript: …)">
+<!ENTITY rl.loadVoidLinksWithHandlers "Открывать «пустые» ссылки с обработчиками кликов">
+<!ENTITY rl.notifyVoidLinksWithHandlers "Сообщать о «пустых» ссылках с обработчиками кликов">
+
+<!ENTITY rl.appearance "Вид">
+<!ENTITY rl.toolbarbuttonCheckedStyle "«Нажатый» вид кнопки">
+<!ENTITY rl.showInToolsMenu "Показывать в меню Инструменты">
+<!ENTITY rl.showInAppMenu "Показывать в меню приложения">
+<!ENTITY rl.showInStatusbar "Показывать в строке состояния">
+<!ENTITY rl.closeMenu "Закрывать это меню после клика левой кнопкой мыши">
+<!ENTITY rl.closeMenuRightClick "Закрывать это меню после клика правой кнопкой мыши">
+
+<!-- Options button in Gecko 7.0 and higher -->
+<!ENTITY rl.options "Настройки…">

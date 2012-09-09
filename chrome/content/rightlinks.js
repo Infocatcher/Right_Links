@@ -496,6 +496,7 @@ var rightLinks = {
 		this.removeMoveHandler();
 		if(this.isLeft && this.stopClick)
 			this.stopEvent(e);
+		this.cancelDelayedAction();
 		this.setTimeout(function() {
 			this.stopContextMenu = false;
 			this.stopClick = false;

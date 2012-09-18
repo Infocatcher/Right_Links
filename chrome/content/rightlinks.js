@@ -360,6 +360,23 @@ var rightLinks = {
 		e.preventDefault();
 		e.stopPropagation();
 	},
+	stopSingleEvent: function(e, callback) {
+		// Prevent page handlers, but don't stop Mouse Gestures
+		var top = e.view.top;
+		var root = top === content ? gBrowser.selectedBrowser : top;
+		var _this = this;
+		root.addEventListener(
+			e.type,
+			function stopEvent(e) {
+				root.removeEventListener(e.type, stopEvent, true);
+				if(_this.isEnabled(e)) {
+					_this.stopEvent(e);
+					callback && callback(e);
+				}
+			},
+			true
+		);
+	},
 	isPrimitive: function(v) {
 		if(v === null || v === undefined)
 			return true;
@@ -444,25 +461,12 @@ var rightLinks = {
 
 		this._stopMousedown = !this.isLeft && !this.isChromeWin(e.view.top)
 			&& this.pu.pref("stopMousedownEvent");
-		if(this._stopMousedown) {
-			// Prevent page handlers, but don't stop Mouse Gestures
-			var root = e.view.top === content ? gBrowser.selectedBrowser : e.view.top;
-			var _this = this;
-			root.addEventListener(
-				"mousedown",
-				function stopMousedown(e) {
-					root.removeEventListener("mousedown", stopMousedown, true);
-					if(!_this.isEnabled(e))
-						return;
-					_this.stopEvent(e);
-					setTimeout(function() {
-						if(document.commandDispatcher.focusedElement != a)
-							a.focus();
-					}, 0);
-				},
-				true
-			);
-		}
+		this._stopMousedown && this.stopSingleEvent(e, function(e) {
+			setTimeout(function() {
+				if(document.commandDispatcher.focusedElement != a)
+					a.focus();
+			}, 0);
+		});
 
 		this.event = e;
 		this.saveXY(e);
@@ -491,8 +495,12 @@ var rightLinks = {
 			return;
 		this.saveXY(e);
 		this.removeMoveHandlers();
-		if(this.isLeft && this.stopClick)
-			this.stopEvent(e);
+		if(this.isLeft && this.stopClick) {
+			if(this.isChromeWin(e.view.top))
+				this.stopEvent(e);
+			else
+				this.stopSingleEvent(e);
+		}
 		this.cancelDelayedAction();
 		this.setTimeout(function() {
 			this.stopContextMenu = false;

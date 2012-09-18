@@ -495,7 +495,7 @@ var rightLinks = {
 			return;
 		this.saveXY(e);
 		this.removeMoveHandlers();
-		if(this.isLeft && this.stopClick) {
+		if(this.isLeft && this.stopClick && this.pu.pref("stopMouseupEvent")) {
 			if(this.isChromeWin(e.view.top))
 				this.stopEvent(e);
 			else

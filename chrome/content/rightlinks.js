@@ -495,6 +495,8 @@ var rightLinks = {
 		this.saveXY(e);
 		this.removeMoveHandlers();
 		if(this.isLeft && this.stopClick && this.pu.pref("stopMouseupEvent")) {
+			if(this.pu.pref("fakeMouseup"))
+				this.createMouseEvents(e, gBrowser.selectedBrowser.parentNode, ["mouseup"], 0)();
 			if(this.isChromeWin(e.view.top))
 				this.stopEvent(e);
 			else

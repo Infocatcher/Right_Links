@@ -478,16 +478,7 @@ var rightLinks = {
 			}, cmt);
 		}
 
-		if(!this._hasMoveHandlers) {
-			this.disallowMousemove = this.pu.pref("disallowMousemoveDist") >= 0;
-			this.mousemoveParams = {
-				dist: 0,
-				screenX: e.screenX,
-				screenY: e.screenY
-			};
-			this.setListeners(["mousemove", "draggesture", "TabSelect"], true);
-			this._hasMoveHandlers = true;
-		}
+		this.initMoveHandlers(e);
 	},
 	mouseupHandler: function(e) {
 		if(!this.enabled)
@@ -579,12 +570,24 @@ var rightLinks = {
 		this.cancelDelayedAction();
 		this.removeMoveHandlers();
 	},
+	initMoveHandlers: function(e) {
+		if(this._hasMoveHandlers)
+			return;
+		this._hasMoveHandlers = true;
+		this.disallowMousemove = this.pu.pref("disallowMousemoveDist") >= 0;
+		this.mousemoveParams = {
+			dist: 0,
+			screenX: e.screenX,
+			screenY: e.screenY
+		};
+		this.setListeners(["mousemove", "draggesture", "TabSelect"], true);
+	},
 	removeMoveHandlers: function() {
 		if(!this._hasMoveHandlers)
 			return;
+		this._hasMoveHandlers = false;
 		this.setListeners(["mousemove", "draggesture", "TabSelect"], false);
 		this.mousemoveParams = null;
-		this._hasMoveHandlers = false;
 	},
 	_xy: {
 		screenX: 0,

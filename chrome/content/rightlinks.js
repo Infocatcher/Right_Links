@@ -30,7 +30,7 @@ var rightLinks = {
 		window.removeEventListener("unload", this, false);
 		this.setListeners(["mousedown", "mouseup", "click", "contextmenu", "popupshowing"], false);
 		this.cancelDelayedAction();
-		this.removeMoveHandler();
+		this.removeMoveHandlers();
 		this.pu.destroy();
 	},
 	handleEvent: function(e) {
@@ -493,7 +493,7 @@ var rightLinks = {
 		if(!this.enabled)
 			return;
 		this.saveXY(e);
-		this.removeMoveHandler();
+		this.removeMoveHandlers();
 		if(this.isLeft && this.stopClick)
 			this.stopEvent(e);
 		this.cancelDelayedAction();
@@ -577,9 +577,9 @@ var rightLinks = {
 		this.stopContextMenu = false;
 		this.stopClick = false;
 		this.cancelDelayedAction();
-		this.removeMoveHandler();
+		this.removeMoveHandlers();
 	},
-	removeMoveHandler: function() {
+	removeMoveHandlers: function() {
 		if(!this._hasMoveHandlers)
 			return;
 		this.setListeners(["mousemove", "draggesture", "TabSelect"], false);

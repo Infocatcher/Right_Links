@@ -15,7 +15,8 @@ pref("extensions.rightlinks.longLeftClickTimeout", 500);
 pref("extensions.rightlinks.closePopups", true);
 pref("extensions.rightlinks.closePopups.left", true);
 pref("extensions.rightlinks.disallowMousemoveDist", 14);
-pref("extensions.rightlinks.stopMousedownEvent", false);
+pref("extensions.rightlinks.stopMousedownEvent", false); // Only for right-click now
+pref("extensions.rightlinks.stopMouseupEvent", true); // Only for left-click now
 
 pref("extensions.rightlinks.loadInBackground", true);
 pref("extensions.rightlinks.loadInBackground.left", false);

@@ -1,6 +1,7 @@
 var rightLinks = {
 	pu: rightLinksPrefUtils,
 
+	enabled: false,
 	runned: false,
 	cancelled: false,
 	stopContextMenu: false,
@@ -20,7 +21,6 @@ var rightLinks = {
 		window.removeEventListener("load", this, false);
 		window.addEventListener("unload", this, false);
 
-		this.setListeners(["mousedown", "mouseup", "click", "contextmenu", "popupshowing"], true);
 		this.pu.init();
 		this.setStatus();
 		this.setUIVisibility();
@@ -28,10 +28,16 @@ var rightLinks = {
 	},
 	destroy: function() {
 		window.removeEventListener("unload", this, false);
-		this.setListeners(["mousedown", "mouseup", "click", "contextmenu", "popupshowing"], false);
-		this.cancelDelayedAction();
-		this.removeMoveHandlers();
+		if(this.enabled)
+			this.setClickHandlers(false);
 		this.pu.destroy();
+	},
+	setClickHandlers: function(enabled) {
+		this.setListeners(["mousedown", "mouseup", "click", "contextmenu", "popupshowing"], enabled);
+		if(!enabled) {
+			this.cancelDelayedAction();
+			this.removeMoveHandlers();
+		}
 	},
 	handleEvent: function(e) {
 		switch(e.type) {
@@ -481,7 +487,7 @@ var rightLinks = {
 		this.initMoveHandlers(e);
 	},
 	mouseupHandler: function(e) {
-		if(!this.enabled)
+		if(!this.enabled) //~ todo: can we check this.isEnabled(e) here?
 			return;
 		this.saveXY(e);
 		this.removeMoveHandlers();
@@ -835,12 +841,11 @@ var rightLinks = {
 
 	// GUI:
 	toggleStatus: function(notify) {
-		var enabled = this.enabled = !this.enabled;
+		var enabled = !this.enabled;
 		this.pu.pref("enabled", enabled);
 		if(enabled && !this.enabledRight && !this.enabledLeft)
-			this.pu.pref("enabled.right", true); // => prefsChanged()
-		else
-			this.setStatus(enabled);
+			this.pu.pref("enabled.right", true);
+		// => prefsChanged() => setStatus()
 		if(
 			!notify
 			|| this.isElementVisible(this.status)
@@ -882,12 +887,15 @@ var rightLinks = {
 		this.enabledRight = this.pu.pref("enabled.right");
 		this.enabledLeft = this.pu.pref("enabled.left");
 		if(!this.enabledRight && !this.enabledLeft)
-			this.enabled = enabled = false;
-		else {
-			if(enabled === undefined)
-				enabled = this.pu.pref("enabled");
+			enabled = false;
+		else if(enabled === undefined)
+			enabled = this.pu.pref("enabled");
+
+		if(enabled != this.enabled) {
 			this.enabled = enabled;
+			this.setClickHandlers(enabled);
 		}
+
 		var st = this.status;
 		var stVal = enabled ? "enabled" : "disabled";
 		st.setAttribute("rl_status", stVal);

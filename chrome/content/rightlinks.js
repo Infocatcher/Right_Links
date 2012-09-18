@@ -360,7 +360,7 @@ var rightLinks = {
 		e.preventDefault();
 		e.stopPropagation();
 	},
-	stopSingleEvent: function(e, callback) {
+	stopSingleEvent: function(e) {
 		// Prevent page handlers, but don't stop Mouse Gestures
 		var top = e.view.top;
 		var root = top === content ? gBrowser.selectedBrowser : top;
@@ -369,10 +369,8 @@ var rightLinks = {
 			e.type,
 			function stopEvent(e) {
 				root.removeEventListener(e.type, stopEvent, true);
-				if(_this.isEnabled(e)) {
+				if(_this.isEnabled(e))
 					_this.stopEvent(e);
-					callback && callback(e);
-				}
 			},
 			true
 		);
@@ -461,12 +459,13 @@ var rightLinks = {
 
 		this._stopMousedown = !this.isLeft && !this.isChromeWin(e.view.top)
 			&& this.pu.pref("stopMousedownEvent");
-		this._stopMousedown && this.stopSingleEvent(e, function(e) {
+		if(this._stopMousedown) {
+			this.stopSingleEvent(e);
 			setTimeout(function() {
 				if(document.commandDispatcher.focusedElement != a)
 					a.focus();
 			}, 0);
-		});
+		}
 
 		this.event = e;
 		this.saveXY(e);

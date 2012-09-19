@@ -490,23 +490,29 @@ var rightLinks = {
 		this.initMoveHandlers(e);
 	},
 	mouseupHandler: function(e) {
-		if(!this.enabled) //~ todo: can we check this.isEnabled(e) here?
+		if(!this.enabled)
 			return;
-		this.saveXY(e);
+		// Case: mousedown -> schedule delayed action -> press Shift -> mouseup
+		// We should perform cleanup in this case!
 		this.removeMoveHandlers();
-		if(this.isLeft && this.stopClick && this.pu.pref("stopMouseupEvent")) {
-			if(this.pu.pref("fakeMouseup"))
-				this.createMouseEvents(e, gBrowser.selectedBrowser.parentNode, ["mouseup"], 0)();
-			if(this.isChromeWin(e.view.top))
-				this.stopEvent(e);
-			else
-				this.stopSingleEvent(e);
-		}
 		this.cancelDelayedAction();
-		this.setTimeout(function() {
-			this.stopContextMenu = false;
-			this.stopClick = false;
-		}, 5);
+		if(!this.isEnabled(e))
+			this.stopContextMenu = this.stopClick = false;
+		else {
+			this.setTimeout(function() {
+				this.stopContextMenu = this.stopClick = false;
+			}, 5);
+			this.saveXY(e);
+			if(this.isLeft && this.stopClick && this.pu.pref("stopMouseupEvent")) {
+				if(this.pu.pref("fakeMouseup"))
+					this.createMouseEvents(e, gBrowser.selectedBrowser.parentNode, ["mouseup"], 0)();
+				if(this.isChromeWin(e.view.top))
+					this.stopEvent(e);
+				else
+					this.stopSingleEvent(e);
+			}
+		}
+
 		this._cleanupTimer = this.setTimeout(function() {
 			this._cleanupTimer = 0;
 			this.item = this.origItem = this.event = null;

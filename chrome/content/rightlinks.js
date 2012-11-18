@@ -36,7 +36,7 @@ var rightLinks = {
 		this.setListeners(["mousedown", "mouseup", "click", "contextmenu", "popupshowing"], enabled);
 		if(!enabled) {
 			this.cancelDelayedAction();
-			this.removeMoveHandlers();
+			this.setMoveHandlers(false);
 		}
 	},
 	handleEvent: function(e) {
@@ -495,14 +495,14 @@ var rightLinks = {
 			}, cmt);
 		}
 
-		this.initMoveHandlers(e);
+		this.setMoveHandlers(e);
 	},
 	mouseupHandler: function(e) {
 		if(!this.enabled)
 			return;
 		// Case: mousedown -> schedule delayed action -> press Shift -> mouseup
 		// We should perform cleanup in this case!
-		this.removeMoveHandlers();
+		this.setMoveHandlers(false);
 		this.cancelDelayedAction();
 		if(!this.isEnabled(e))
 			this.stopContextMenu = this.stopClick = false;
@@ -572,18 +572,19 @@ var rightLinks = {
 		this.saveXY(e);
 		if(!this.disallowMousemove)
 			return;
-		var mp = this.mousemoveParams, x = e.screenX, y = e.screenY;
-		this.mousemoveParams = {
-			dist: mp.dist + Math.sqrt(
-				Math.pow(mp.screenX - x, 2) +
-				Math.pow(mp.screenY - y, 2)
-			),
-			screenX: x,
-			screenY: y
-		};
-		if(this.mousemoveParams.dist < this.pu.pref("disallowMousemoveDist"))
+		var mp = this.mousemoveParams;
+		var x = e.screenX;
+		var y = e.screenY;
+		mp.dist += Math.sqrt(
+			Math.pow(mp.screenX - x, 2) +
+			Math.pow(mp.screenY - y, 2)
+		);
+		if(mp.dist >= this.disallowMousemoveDist) {
+			this.cancel();
 			return;
-		this.cancel();
+		}
+		mp.screenX = x;
+		mp.screenY = y;
 	},
 	dragHandler: function(e) {
 		if(this.disallowMousemove)
@@ -594,26 +595,26 @@ var rightLinks = {
 		this.stopContextMenu = false;
 		this.stopClick = false;
 		this.cancelDelayedAction();
-		this.removeMoveHandlers();
+		this.setMoveHandlers(false);
 	},
-	initMoveHandlers: function(e) {
-		if(this._hasMoveHandlers)
+	setMoveHandlers: function(add) {
+		if(!add ^ this._hasMoveHandlers)
 			return;
-		this._hasMoveHandlers = true;
-		this.disallowMousemove = this.pu.pref("disallowMousemoveDist") >= 0;
-		this.mousemoveParams = {
-			dist: 0,
-			screenX: e.screenX,
-			screenY: e.screenY
-		};
-		this.setListeners(["mousemove", "draggesture", "TabSelect", this.wheelEvent], true);
-	},
-	removeMoveHandlers: function() {
-		if(!this._hasMoveHandlers)
-			return;
-		this._hasMoveHandlers = false;
-		this.setListeners(["mousemove", "draggesture", "TabSelect", this.wheelEvent], false);
-		this.mousemoveParams = null;
+		this._hasMoveHandlers = !!add;
+		if(add) {
+			var dist = this.disallowMousemoveDist = this.pu.pref("disallowMousemoveDist");
+			this.disallowMousemove = dist >= 0;
+			this.mousemoveParams = {
+				dist: 0,
+				screenX: add.screenX,
+				screenY: add.screenY,
+				__proto__: null
+			};
+		}
+		else {
+			this.mousemoveParams = null;
+		}
+		this.setListeners(["mousemove", "draggesture", "TabSelect", this.wheelEvent], add);
 	},
 	_xy: {
 		screenX: 0,

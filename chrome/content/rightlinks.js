@@ -50,7 +50,9 @@ var rightLinks = {
 			case "popupshowing": this.popupshowingHandler(e); break;
 			case "mousemove":    this.mousemoveHandler(e);    break;
 			case "draggesture":  this.dragHandler(e);         break;
-			case "TabSelect":    this.tabSelectHandler(e);
+			case "TabSelect":    this.cancel();               break;
+			case "DOMMouseScroll": // Legacy
+			case "wheel":        this.cancel();
 		}
 	},
 	setListeners: function(evtTypes, addFlag) {
@@ -58,6 +60,12 @@ var rightLinks = {
 		evtTypes.forEach(function(evtType) {
 			window[act](evtType, this, true);
 		}, this);
+	},
+	get wheelEvent() {
+		delete this.wheelEvent;
+		return this.wheelEvent = "WheelEvent" in window
+			? "wheel"
+			: "DOMMouseScroll";
 	},
 
 	isVoidURI: function(uri) {
@@ -581,9 +589,6 @@ var rightLinks = {
 		if(this.disallowMousemove)
 			this.cancel();
 	},
-	tabSelectHandler: function(e) {
-		this.cancel();
-	},
 	cancel: function() {
 		this.cancelled = true;
 		this.stopContextMenu = false;
@@ -601,13 +606,13 @@ var rightLinks = {
 			screenX: e.screenX,
 			screenY: e.screenY
 		};
-		this.setListeners(["mousemove", "draggesture", "TabSelect"], true);
+		this.setListeners(["mousemove", "draggesture", "TabSelect", this.wheelEvent], true);
 	},
 	removeMoveHandlers: function() {
 		if(!this._hasMoveHandlers)
 			return;
 		this._hasMoveHandlers = false;
-		this.setListeners(["mousemove", "draggesture", "TabSelect"], false);
+		this.setListeners(["mousemove", "draggesture", "TabSelect", this.wheelEvent], false);
 		this.mousemoveParams = null;
 	},
 	_xy: {

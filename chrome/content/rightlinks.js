@@ -55,10 +55,10 @@ var rightLinks = {
 			case "wheel":        this.cancel();
 		}
 	},
-	setListeners: function(evtTypes, addFlag) {
-		var act = addFlag ? "addEventListener" : "removeEventListener";
+	setListeners: function(evtTypes, add) {
+		var act = add ? addEventListener : removeEventListener;
 		evtTypes.forEach(function(evtType) {
-			window[act](evtType, this, true);
+			act.call(window, evtType, this, true);
 		}, this);
 	},
 	get wheelEvent() {

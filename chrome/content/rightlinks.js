@@ -720,19 +720,23 @@ var rightLinks = {
 			this.openURIInTab(href);
 	},
 	openURIInTab: function(href) {
-		// Open a new tab as a child of the current tab (Tree Style Tab)
-		// http://piro.sakura.ne.jp/xul/_treestyletab.html.en#api
-		if((this.itemType == "link" || this.itemType == "img") && "TreeStyleTabService" in window)
-			TreeStyleTabService.readyToOpenChildTab(gBrowser.selectedTab);
-
-		if("tabkit" in window) // Tab Kit https://addons.mozilla.org/firefox/addon/5447/
-			tabkit.addingTab("related");
+		var openAsChild = this.itemType == "link" || this.itemType == "img";
+		if(openAsChild) {
+			// Open a new tab as a child of the current tab (Tree Style Tab)
+			// http://piro.sakura.ne.jp/xul/_treestyletab.html.en#api
+			if("TreeStyleTabService" in window)
+				TreeStyleTabService.readyToOpenChildTab(gBrowser.selectedTab);
+			// Tab Kit https://addons.mozilla.org/firefox/addon/tab-kit/
+			// TabKit 2nd Edition https://addons.mozilla.org/firefox/addon/tabkit-2nd-edition/
+			if("tabkit" in window)
+				tabkit.addingTab("related");
+		}
 
 		var tab = gBrowser.addTab(href, this.getReferer());
 		if(!this.pu.pref("loadInBackground" + this.leftPref))
 			gBrowser.selectedTab = tab;
 
-		if("tabkit" in window)
+		if(openAsChild && "tabkit" in window)
 			tabkit.addingTabOver();
 	},
 	openURIInWindow: function(href) {

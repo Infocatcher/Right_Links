@@ -646,7 +646,7 @@ var rightLinks = {
 			if(this.pu.pref("notifyJavaScriptLinks"))
 				this.notify(
 					this.getLocalized("title"),
-					this.getLocalized("JavaScriptLink" + (loadJS ? "" : "Click")),
+					this.getLocalized("javaScriptLink" + (loadJS ? "" : "Click")),
 					true,
 					loadJS ? null : loadJSFunc
 				);
@@ -695,8 +695,8 @@ var rightLinks = {
 					.getService(Components.interfaces.nsIPromptService)
 					.alert(
 						window,
-						this.getLocalized("RegExpErrorTitle"),
-						this.getLocalized("RegExpError")
+						this.getLocalized("errorTitle"),
+						this.getLocalized("regExpError")
 							.replace("%r", re)
 							.replace("%p", this.pu.prefNS + rePref)
 							.replace("%e", e)
@@ -766,6 +766,13 @@ var rightLinks = {
 				secMan.checkLoadURIStr(doc.documentURI, url, secMan.STANDARD);
 		}
 		catch(e) {
+			this.notify(
+				this.getLocalized("warningTitle"),
+				this.getLocalized("securityError")
+					.replace("%u", url)
+					.replace("%s", this.item.ownerDocument.documentURI),
+				false
+			);
 			Components.utils.reportError(e);
 			throw new Error("Load of " + url + " from " + doc.documentURI + " denied.");
 		}

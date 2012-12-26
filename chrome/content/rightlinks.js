@@ -714,6 +714,7 @@ var rightLinks = {
 				return;
 			}
 		}
+		this.urlSecurityCheck(a.ownerDocument, href);
 		if(this.pu.pref("loadInWindow" + this.leftPref))
 			this.openURIInWindow(href);
 		else
@@ -750,6 +751,24 @@ var rightLinks = {
 			null,
 			false
 		);
+	},
+	get secMan() {
+		delete this.secMan;
+		return this.secMan = Components.classes["@mozilla.org/scriptsecuritymanager;1"]
+			.getService(Components.interfaces.nsIScriptSecurityManager);
+	},
+	urlSecurityCheck: function(doc, url) {
+		var secMan = this.secMan;
+		try {
+			if("checkLoadURIStrWithPrincipal" in secMan) // Firefox 3.0+
+				secMan.checkLoadURIStrWithPrincipal(doc.nodePrincipal, url, secMan.STANDARD);
+			else
+				secMan.checkLoadURIStr(doc.documentURI, url, secMan.STANDARD);
+		}
+		catch(e) {
+			Components.utils.reportError(e);
+			throw new Error("Load of " + url + " from " + doc.documentURI + " denied.");
+		}
 	},
 	loadJSLink: function(a) {
 		var disId = "dom.disable_open_during_load";

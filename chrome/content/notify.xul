@@ -50,7 +50,7 @@
 		<hbox align="center" valign="top" style="overflow: hidden;">
 			<image id="rlNotifyImg" src="icons24.png" autostretch="never" />
 		</hbox>
-		<vbox style="margin-left: 5px;">
+		<vbox style="-moz-margin-start: 5px;">
 			<label id="rlNotifyHeader" class="header" value="[Header]" />
 			<description id="rlNotifyDesc" style="white-space: pre;">[Message]</description>
 		</vbox>

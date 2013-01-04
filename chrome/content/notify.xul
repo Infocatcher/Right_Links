@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<?xml-stylesheet href="data:text/css,.rl-clickable, .rl-clickable * { cursor: pointer; }" type="text/css"?>
+<?xml-stylesheet href="data:text/css,
+	.rl-clickable, .rl-clickable * { cursor: pointer; }
+	* { -moz-user-select: text !important; }
+" type="text/css"?>
 
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	id="rightlinksNotify"
@@ -15,7 +18,7 @@
 			_timer: 0,
 			init: function() {
 				var wa = window.arguments;
-				this.$("rlNotifyHeader").value = wa[1];
+				this.$("rlNotifyHeader").textContent = wa[1] + "\n";
 				this.$("rlNotifyDesc").textContent = wa[2];
 				this.$("rlNotifyImg").style["margin" + (wa[3] ? "Right" : "Left")] = "-24px";
 				if(typeof wa[4] == "function")
@@ -70,7 +73,7 @@
 			<image id="rlNotifyImg" src="icons24.png" autostretch="never" />
 		</hbox>
 		<vbox style="-moz-margin-start: 5px;">
-			<label id="rlNotifyHeader" class="header" value="[Header]" />
+			<description id="rlNotifyHeader" class="header">[Header]</description>
 			<description id="rlNotifyDesc" style="white-space: pre;">[Message]</description>
 		</vbox>
 	</hbox>

@@ -531,6 +531,16 @@ var rightLinks = {
 			return;
 		if(this.isLeft) {
 			this.cancelDelayedAction();
+			var view = e.view.top;
+			if( // Looks like (already fixed) Firefox bug
+				view != content
+				&& this.fxVersion < 4
+				&& !this.isChromeWin(view)
+				&& gBrowser.browsers.some(function(browser) {
+					return browser.contentWindow == view; // D'oh, click on inactive browser...
+				})
+			)
+				this.stopClick = true;
 			if(this.stopClick) {
 				this.stopClick = false;
 				this.stopEvent(e);

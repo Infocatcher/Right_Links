@@ -12,6 +12,7 @@
 	<script type="application/javascript">
 	<![CDATA[
 		var rlNotify = {
+			_timer: 0,
 			init: function() {
 				var wa = window.arguments;
 				this.$("rlNotifyHeader").value = wa[1];
@@ -27,10 +28,28 @@
 				var y = (sBar ? sBar.boxObject.screenY : wo.screenY + wo.outerHeight) - window.outerHeight;
 				window.moveTo(x, y);
 
+				var closeDelay = wa[0];
 				var hbs = this.$("rlNotifyBox").style;
-				setTimeout(function() { hbs.borderColor = "blue"; }, 150);
-				setTimeout(function() { hbs.borderColor = "";     }, 300);
-				this._timer = setTimeout(window.close, wa[0]);
+				var transition = "transition" in hbs && "transition"
+					|| "MozTransition" in hbs && "MozTransition";
+				if(transition) {
+					var transitionDuration = 200;
+					hbs.opacity = 0;
+					setTimeout(function() {
+						hbs[transition] = "opacity " + transitionDuration + "ms ease-in-out";
+						hbs.opacity = 1;
+					}, 0);
+					closeDelay = Math.max(0, closeDelay - transitionDuration);
+					this._timer = setTimeout(function(_this) {
+						hbs.opacity = 0;
+						_this._timer = setTimeout(window.close, transitionDuration);
+					}, closeDelay, this);
+				}
+				else {
+					setTimeout(function() { hbs.borderColor = "blue"; }, 150);
+					setTimeout(function() { hbs.borderColor = "";     }, 300);
+					this._timer = setTimeout(window.close, closeDelay);
+				}
 			},
 			click: function(e) {
 				clearTimeout(this._timer);

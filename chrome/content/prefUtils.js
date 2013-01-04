@@ -59,7 +59,10 @@ var rightLinksPrefUtils = {
 		if(v < 2) // Added: 2009-12-12
 			this.pref("closePopups", _pref(this.prefNS + "hideBookmarksPopup", true));
 
-		this.pref("prefsVersion", this.prefVer).savePrefFile();
+		this.pref("prefsVersion", this.prefVer);
+		setTimeout(function(_this) {
+			_this.savePrefFile();
+		}, 0, this);
 	},
 
 	// Preferences observer:

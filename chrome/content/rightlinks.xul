@@ -44,7 +44,9 @@
 					return;
 				if('__rlPrefsChanged' in this) {
 					delete this.__rlPrefsChanged;
-					rightLinksPrefUtils.savePrefFile();
+					setTimeout(function() {
+						rightLinksPrefUtils.savePrefFile();
+					}, 0);
 				}
 				delete this.__rlShowEnabledItem;">
 			<menuitem type="checkbox" rl_pref="enabled" default="true" label="&rl.enabled;" />

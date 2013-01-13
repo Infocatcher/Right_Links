@@ -731,24 +731,33 @@ var rightLinks = {
 			this.openURIInTab(href);
 	},
 	openURIInTab: function(href) {
+		var win = window;
 		var openAsChild = this.itemType == "link" || this.itemType == "img";
+		if(
+			"getTopWin" in win
+			&& getTopWin.length > 0 // Only in Firefox for now
+			&& !win.toolbar.visible // Popup window
+		) {
+			win = getTopWin(true);
+			openAsChild = false;
+		}
 		if(openAsChild) {
 			// Open a new tab as a child of the current tab (Tree Style Tab)
 			// http://piro.sakura.ne.jp/xul/_treestyletab.html.en#api
-			if("TreeStyleTabService" in window)
-				TreeStyleTabService.readyToOpenChildTab(gBrowser.selectedTab);
+			if("TreeStyleTabService" in win)
+				win.TreeStyleTabService.readyToOpenChildTab(win.gBrowser.selectedTab);
 			// Tab Kit https://addons.mozilla.org/firefox/addon/tab-kit/
 			// TabKit 2nd Edition https://addons.mozilla.org/firefox/addon/tabkit-2nd-edition/
-			if("tabkit" in window)
-				tabkit.addingTab("related");
+			if("tabkit" in win)
+				win.tabkit.addingTab("related");
 		}
 
-		var tab = gBrowser.addTab(href, this.getReferer());
+		var tab = win.gBrowser.addTab(href, this.getReferer());
 		if(!this.pu.pref("loadInBackground" + this.leftPref))
-			gBrowser.selectedTab = tab;
+			win.gBrowser.selectedTab = tab;
 
-		if(openAsChild && "tabkit" in window)
-			tabkit.addingTabOver();
+		if(openAsChild && "tabkit" in win)
+			win.tabkit.addingTabOver();
 	},
 	openURIInWindow: function(href) {
 		window.openDialog(

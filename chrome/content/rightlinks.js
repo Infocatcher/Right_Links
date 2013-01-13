@@ -737,6 +737,7 @@ var rightLinks = {
 			"getTopWin" in win
 			&& getTopWin.length > 0 // Only in Firefox for now
 			&& !win.toolbar.visible // Popup window
+			&& this.pu.pref("dontUseTabsInPopupWindows")
 		) {
 			win = getTopWin(true);
 			openAsChild = false;

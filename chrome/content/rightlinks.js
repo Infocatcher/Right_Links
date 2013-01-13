@@ -746,6 +746,7 @@ var rightLinks = {
 		) {
 			win = getTopWin(true);
 			relatedToCurrent = openAsChild = false;
+			win.setTimeout(win.focus, 0);
 		}
 		if(openAsChild) {
 			// Open a new tab as a child of the current tab (Tree Style Tab)

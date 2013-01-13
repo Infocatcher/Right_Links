@@ -730,9 +730,14 @@ var rightLinks = {
 		else
 			this.openURIInTab(href);
 	},
+	get isOldAddTab() {
+		delete this.isOldAddTab;
+		return this.isOldAddTab = String(gBrowser.addTab).indexOf("arguments.length == 2") == -1;
+	},
 	openURIInTab: function(href) {
 		var win = window;
 		var openAsChild = this.itemType == "link" || this.itemType == "img";
+		var relatedToCurrent = openAsChild;
 		if(
 			"getTopWin" in win
 			&& getTopWin.length > 0 // Only in Firefox for now
@@ -740,7 +745,7 @@ var rightLinks = {
 			&& this.pu.pref("dontUseTabsInPopupWindows")
 		) {
 			win = getTopWin(true);
-			openAsChild = false;
+			relatedToCurrent = openAsChild = false;
 		}
 		if(openAsChild) {
 			// Open a new tab as a child of the current tab (Tree Style Tab)
@@ -753,7 +758,14 @@ var rightLinks = {
 				win.tabkit.addingTab("related");
 		}
 
-		var tab = win.gBrowser.addTab(href, this.getReferer());
+		if(this.isOldAddTab)
+			var tab = win.gBrowser.addTab(href, this.getReferer());
+		else {
+			var tab = win.gBrowser.addTab(href, {
+				referrerURI: this.getReferer(),
+				relatedToCurrent: relatedToCurrent
+			});
+		}
 		if(!this.pu.pref("loadInBackground" + this.leftPref))
 			win.gBrowser.selectedTab = tab;
 

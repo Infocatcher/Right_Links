@@ -654,18 +654,26 @@ var rightLinks = {
 			this.closeMenus(a);
 
 		if(this.isLeft) {
+			var _ignoreMouseup = false;
 			var _this = this;
 			var dragStartEvent = this.dragStartEvent;
 			var evtHandler = function(e) {
+				if(e.type == "mouseup" && _ignoreMouseup) {
+					_ignoreMouseup = false;
+					return;
+				}
 				window.removeEventListener("mouseup", evtHandler, true);
 				window.removeEventListener(dragStartEvent, evtHandler, true);
+				window.removeEventListener("popuphiding", evtHandler, true);
 				if(e.type == dragStartEvent) {
 					e.preventDefault();
 					_this._log(e.type + " => preventDefault()");
 				}
+				_this._log(e.type + " => remove \"dragstart\" listener");
 			}
 			window.addEventListener("mouseup", evtHandler, true);
 			window.addEventListener(dragStartEvent, evtHandler, true);
+			window.addEventListener("popuphiding", evtHandler, true);
 		}
 
 		var voidURI = this.isVoidURI(href);
@@ -716,8 +724,12 @@ var rightLinks = {
 				if(_re.test(href)) {
 					if(flp == 1)
 						gBrowser.loadURI(href, this.getReferer());
-					else //~ todo: find way to cancel drag operation
+					else {
+						// Bug? We stop "dragstart", but menu doesn't work
+						if(this.isLeft)
+							_ignoreMouseup = true;
 						this.showContextMenu(this.isLeft || this._stopMousedown);
+					}
 					return;
 				}
 			}

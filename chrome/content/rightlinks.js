@@ -49,7 +49,8 @@ var rightLinks = {
 			case "contextmenu":  this.contextmenuHandler(e);  break;
 			case "popupshowing": this.popupshowingHandler(e); break;
 			case "mousemove":    this.mousemoveHandler(e);    break;
-			case "draggesture":  this.dragHandler(e);         break;
+			case "draggesture": // Legacy
+			case "dragstart":    this.dragHandler(e);         break;
 			case "TabSelect":    this.cancel();               break;
 			case "DOMMouseScroll": // Legacy
 			case "wheel":        this.cancel();
@@ -66,6 +67,12 @@ var rightLinks = {
 		return this.wheelEvent = "WheelEvent" in window
 			? "wheel"
 			: "DOMMouseScroll";
+	},
+	get dragStartEvent() {
+		delete this.dragStartEvent;
+		return this.dragStartEvent = "ondragstart" in window
+			? "dragstart"
+			: "draggesture";
 	},
 
 	isVoidURI: function(uri) {
@@ -624,7 +631,7 @@ var rightLinks = {
 		else {
 			this.mousemoveParams = null;
 		}
-		this.setListeners(["mousemove", "draggesture", "TabSelect", this.wheelEvent], add);
+		this.setListeners(["mousemove", this.dragStartEvent, "TabSelect", this.wheelEvent], add);
 	},
 	_xy: {
 		screenX: 0,

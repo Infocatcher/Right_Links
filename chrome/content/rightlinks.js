@@ -653,6 +653,21 @@ var rightLinks = {
 		)
 			this.closeMenus(a);
 
+		if(this.isLeft) {
+			var _this = this;
+			var dragStartEvent = this.dragStartEvent;
+			var evtHandler = function(e) {
+				window.removeEventListener("mouseup", evtHandler, true);
+				window.removeEventListener(dragStartEvent, evtHandler, true);
+				if(e.type == dragStartEvent) {
+					e.preventDefault();
+					_this._log(e.type + " => preventDefault()");
+				}
+			}
+			window.addEventListener("mouseup", evtHandler, true);
+			window.addEventListener(dragStartEvent, evtHandler, true);
+		}
+
 		var voidURI = this.isVoidURI(href);
 		if(!voidURI && this.isJSURI(href)) {
 			var _this = this;

@@ -762,7 +762,9 @@ var rightLinks = {
 	},
 	get isOldAddTab() {
 		delete this.isOldAddTab;
-		return this.isOldAddTab = String(gBrowser.addTab).indexOf("arguments.length == 2") == -1;
+		return this.isOldAddTab = this.isSeaMonkey
+			? this.fxVersion < 4
+			: this.fxVersion < 3.6;
 	},
 	openURIInTab: function(href) {
 		var win = window;

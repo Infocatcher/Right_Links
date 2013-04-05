@@ -13,7 +13,7 @@
 		<key id="rightLinks-key-showSettingsPopup" oncommand="rightLinks.showSettingsPopup();" disabled="true" />
 	</keyset>
 	<menupopup id="menu_ToolsPopup">
-		<menuitem id="rightLinks-toggleStatus-mi" insertbefore="sanitizeSeparator" type="checkbox"
+		<menuitem id="rightLinks-toggleStatus-mi" insertafter="menu_pageInfo" type="checkbox"
 			key="rightLinks-key-toggleStatus" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();"
 			label="&rl.menuitemLabel;" />
 	</menupopup>

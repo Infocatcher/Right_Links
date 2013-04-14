@@ -459,6 +459,14 @@ var rightLinks = {
 		this.leftPref = this.isLeft ? ".left" : "";
 
 		var a = this.item = this.getItem(e);
+		if( // Workaround for https://addons.mozilla.org/addon/budaneki/
+			a
+			&& e.button == 0
+			&& a.parentNode
+			&& a.parentNode.id == "budaneki-icon-menu-clonned"
+			&& a.ownerDocument == document
+		)
+			return;
 		this.origItem = e.originalTarget;
 		this.runned = false;
 		this.cancelled = false;

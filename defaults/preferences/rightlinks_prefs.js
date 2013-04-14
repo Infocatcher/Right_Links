@@ -37,6 +37,10 @@ pref("extensions.rightlinks.notifyOpenTime", 3000);
 pref("extensions.rightlinks.sendReferer", true);
 pref("extensions.rightlinks.filesLinksMask", "^[^?&=#]+\.(?:zip|rar|7z|gz|tar|bz2|iso|cab|exe|msi|msu|xpi|jar)$");
 pref("extensions.rightlinks.filesLinksPolicy", 0);
+// 0 - don't check
+// 1 - open link in current tab
+// 2 - show context menu
+// 3 - copy link location
 
 pref("extensions.rightlinks.key.toggleStatus", "VK_F2");
 pref("extensions.rightlinks.key.showSettingsPopup", "alt VK_F2");

@@ -712,7 +712,7 @@ var rightLinks = {
 		}
 
 		var flp = this.pu.pref("filesLinksPolicy");
-		if(flp > 0) { // 0 - not check, 1 - load in current tab, 2 - show context menu
+		if(flp > 0) {
 			var rePref = "filesLinksMask";
 			var re = this.pu.pref(rePref);
 			if(re) try {
@@ -720,11 +720,25 @@ var rightLinks = {
 				if(_re.test(href)) {
 					if(flp == 1)
 						gBrowser.loadURI(href, this.getReferer());
-					else {
+					else if(flp == 2) {
 						// Bug? We stop "dragstart", but menu doesn't work
 						if(this.isLeft)
 							_ignoreMouseup = true;
 						this.showContextMenu(this.isLeft || this._stopMousedown);
+					}
+					else if(flp == 3) {
+						href = href.replace(/^mailto:/i, "");
+						Components.classes["@mozilla.org/widget/clipboardhelper;1"]
+							.getService(Components.interfaces.nsIClipboardHelper)
+							.copyString(href, a.ownerDocument);
+
+						var hasStyle = a.hasAttribute("style");
+						a.style.setProperty("opacity", "0.3", "important");
+						setTimeout(function() {
+							a.style.opacity = "";
+							if(!hasStyle)
+								a.removeAttribute("style");
+						}, 150);
 					}
 					return;
 				}

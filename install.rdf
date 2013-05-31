@@ -35,6 +35,15 @@
 
 		<em:localized>
 			<Description>
+				<em:locale>en-US</em:locale>
+				<em:name>Right Links</em:name>
+				<em:description>Right-click for open links in new tabs (for touchpads etc.)</em:description>
+				<em:creator>Infocatcher</em:creator>
+			</Description>
+		</em:localized>
+
+		<em:localized>
+			<Description>
 				<em:locale>ru</em:locale>
 				<em:name>Right Links</em:name>
 				<em:description>Позволяет открывать ссылки в новых вкладках по клику правой кнопкой мыши (для тачпадов и т.п.)</em:description>

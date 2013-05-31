@@ -881,9 +881,12 @@ var rightLinks = {
 			this.pu.setPref(disId, dis);
 		}, 5);
 	},
+	_restorePrefsTimer: 0,
 	setLoadJSLinksPolicy: function() {
-		if("_origPrefs" in this)
+		if("_origPrefs" in this) {
+			clearTimeout(this._restorePrefsTimer);
 			return;
+		}
 		var origs = this._origPrefs = { __proto__: null };
 		var inWin = this.pu.pref("loadInWindow" + this.leftPref);
 		var prefs = {
@@ -915,11 +918,13 @@ var rightLinks = {
 		if(!("_origPrefs" in this))
 			return;
 		var prefs = this._origPrefs;
-		this.setTimeout(function() { // For Firefox 3.0+, timeout should be > 0 for Firefox 11.0+
+		clearTimeout(this._restorePrefsTimer);
+		this._restorePrefsTimer = this.setTimeout(function() {
+			// For Firefox 3.0+, timeout should be > 0 for Firefox 11.0+
 			for(var p in prefs)
 				this.pu.setPref(p, prefs[p]);
 			delete this._origPrefs;
-		}, 5);
+		}, 25);
 	},
 	get sendReferer() {
 		return (this.itemType == "link" || this.itemType == "img") && this.pu.pref("sendReferer");

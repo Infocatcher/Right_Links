@@ -97,9 +97,11 @@ var rightLinks = {
 		if(_uri.charAt(0) != "#")
 			return false;
 		var anchor = _uri.substr(1);
+		if(!anchor) // <a href="#">
+			return true;
 		if(anchor.charAt(0) == "!") // site.com/#!... links on JavaScript-based sites like http://twitter.com/
 			return false;
-		return !anchor || !doc.getElementById(anchor) && !doc.getElementsByName(anchor).length;
+		return !doc.getElementById(anchor) && !doc.getElementsByName(anchor).length && 2;
 	},
 	uri: function(uri) {
 		return /^[\w-]+:\S*$/.test(uri) && uri;
@@ -697,8 +699,12 @@ var rightLinks = {
 			loadJS && loadJSFunc();
 			return;
 		}
-		if(voidURI || this.isDummyURI(a, href, e)) {
-			var evts = this.createMouseEvents(e, a, ["mousedown", "mouseup", "click"], 0);
+		var dummyURI = !voidURI && this.isDummyURI(a, href, e);
+		if(voidURI || dummyURI) {
+			var evts = this.createMouseEvents(e, a, ["mousedown", "mouseup", "click"], {
+				button: 0,
+				ctrlKey: dummyURI == 2 // Link may be real
+			});
 
 			var _this = this;
 			var loadVoidFunc = function() {
@@ -948,9 +954,11 @@ var rightLinks = {
 			2
 		)();
 	},
-	createMouseEvents: function(origEvt, item, evtTypes, button) {
+	createMouseEvents: function(origEvt, item, evtTypes, opts) {
+		if(typeof opts == "number")
+			opts = { button: opts };
 		var evts = evtTypes.map(function(evtType) {
-			return this.createMouseEvent(origEvt, item, evtType, button);
+			return this.createMouseEvent(origEvt, item, evtType, opts);
 		}, this);
 		var _this = this;
 		return function() {
@@ -961,15 +969,15 @@ var rightLinks = {
 			_this.enabled = true;
 		};
 	},
-	createMouseEvent: function(origEvt, item, evtType, button) {
+	createMouseEvent: function(origEvt, item, evtType, opts) {
 		item = item || origEvt.originalTarget;
 		var doc = item.ownerDocument;
 		var evt = doc.createEvent("MouseEvents");
 		evt.initMouseEvent( // https://developer.mozilla.org/en/DOM/event.initMouseEvent
 			evtType, true /* canBubble */, true /* cancelable */, doc.defaultView, 1,
 			origEvt.screenX, origEvt.screenY, origEvt.clientX, origEvt.clientY,
-			false, false, false, false,
-			button, null
+			opts.ctrlKey || false, opts.altKey || false, opts.shiftKey || false, opts.metaKey || false,
+			opts.button || 0, null
 		);
 		return evt;
 	},

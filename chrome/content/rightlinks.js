@@ -710,16 +710,18 @@ var rightLinks = {
 			var loadVoidFunc = function() {
 				_this.setLoadJSLinksPolicy();
 
-				// https://github.com/Infocatcher/Right_Links/issues/2
-				// Tabs becomes not clickable after "mousedown" imitation,
-				// so we try to catch "mousedown" before browser's listeners
-				var doc = a.ownerDocument;
-				var root = _this.dwu.getParentForNode(doc, true) || doc.defaultView;
-				root.addEventListener("mousedown", function fix(e) {
-					root.removeEventListener(e.type, fix, false);
-					e.preventDefault();
-					//e.stopPropagation();
-				}, false);
+				if(_this.pu.pref("workaroundForMousedownImitation")) {
+					// https://github.com/Infocatcher/Right_Links/issues/2
+					// Tabs becomes not clickable after "mousedown" imitation,
+					// so we try to catch "mousedown" before browser's listeners
+					var doc = a.ownerDocument;
+					var root = _this.dwu.getParentForNode(doc, true) || doc.defaultView;
+					root.addEventListener("mousedown", function fix(e) {
+						root.removeEventListener(e.type, fix, false);
+						e.preventDefault();
+						//e.stopPropagation();
+					}, false);
+				}
 				evts();
 
 				_this.restoreLoadJSLinksPolicy();

@@ -709,7 +709,19 @@ var rightLinks = {
 			var _this = this;
 			var loadVoidFunc = function() {
 				_this.setLoadJSLinksPolicy();
+
+				// https://github.com/Infocatcher/Right_Links/issues/2
+				// Tabs becomes not clickable after "mousedown" imitation,
+				// so we try to catch "mousedown" before browser's listeners
+				var doc = a.ownerDocument;
+				var root = _this.dwu.getParentForNode(doc, true) || doc.defaultView;
+				root.addEventListener("mousedown", function fix(e) {
+					root.removeEventListener(e.type, fix, false);
+					e.preventDefault();
+					//e.stopPropagation();
+				}, false);
 				evts();
+
 				_this.restoreLoadJSLinksPolicy();
 			};
 
@@ -787,6 +799,11 @@ var rightLinks = {
 			this.openURIInWindow(href);
 		else
 			this.openURIInTab(href);
+	},
+	get dwu() {
+		delete this.dwu;
+		return this.dwu = Components.classes["@mozilla.org/inspector/dom-utils;1"]
+			.getService(Components.interfaces.inIDOMUtils);
 	},
 	get isOldAddTab() {
 		delete this.isOldAddTab;

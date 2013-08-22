@@ -12,7 +12,7 @@
 		<em:creator>Infocatcher</em:creator>
 		<em:optionsURL>chrome://rightlinks/content/options.xul</em:optionsURL>
 		<em:optionsType>2</em:optionsType>
-		<em:updateURL>http://infocatcher.ucoz.net/ext/fx/right_links/update-dev.rdf</em:updateURL>
+		<em:updateURL>http://infocatcher.ucoz.net/ext/fx/right_links/update.rdf</em:updateURL>
 		<em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDLgtEbrhCdZetIAanFNvkT441WwBgXcg1Zzlo5s5
 		              j9VLByj/L6UXAVqSria1dejjkKfxVbRXvqalJ7mENRambKpZ4AfV3dBCKUDjME56CMaAK7+DxMqaM3
 		              KEDKXn8XfqL2qkFsgcVjqh6AfltKRcyLGkU9+YQ82EXo6xm47hywoQIDAQAB</em:updateKey>

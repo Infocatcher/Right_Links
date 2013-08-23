@@ -285,6 +285,8 @@ var rightLinks = {
 				|| !/(?:^|\s)speeddial-container(?:\s|$)/.test(it.parentNode.className)
 				|| this.pu.pref("enabledOnSpeedDialImages")
 			)
+			// InFormEnter https://addons.mozilla.org/addon/informenter/
+			&& (it.src || "").substr(0, 32) != "chrome://informenter/skin/marker"
 		)
 			return it;
 		return null;

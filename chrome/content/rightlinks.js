@@ -472,7 +472,7 @@ var rightLinks = {
 		this.origItem = e.originalTarget;
 		this.runned = false;
 		this.cancelled = false;
-		this.stopContextMenu = !!a;
+		this.stopContextMenu = a && !this.isLeft;
 		this.stopClick = false;
 		if(!a)
 			return;

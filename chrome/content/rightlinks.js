@@ -1071,15 +1071,18 @@ var rightLinks = {
 		var st = this.status;
 		var stVal = enabled ? "enabled" : "disabled";
 		st.setAttribute("rl_status", stVal);
-		var tt = this.getLocalized("title") + " " + this.getLocalized(stVal);
-		st.tooltipText = tt;
-		this.check(this.mi, enabled);
-		this.check(this.miApp, enabled);
+		this.setTimeout(function() {
+			this.check(this.mi, enabled);
+			this.check(this.miApp, enabled);
+			var tt = this.getLocalized("title") + " " + this.getLocalized(stVal);
+			st.tooltipText = tt;
+			if(tbb)
+				tbb.tooltipText = tt;
+		}, 50);
 		var tbb = this.tbb || this.paletteButton;
 		if(!tbb)
 			return;
 		tbb.setAttribute("rl_status", stVal);
-		tbb.tooltipText = tt;
 		// tbb.checked = ...; breaks button in palette!
 		this.check(tbb, enabled && this.pu.pref("ui.toolbarbuttonCheckedStyle"));
 	},
@@ -1094,14 +1097,16 @@ var rightLinks = {
 			node.removeAttribute("checked");
 	},
 	setUIVisibility: function() {
-		this.mi.hidden = !this.pu.pref("ui.showInToolsMenu");
-		var miApp = this.miApp;
-		if(miApp) {
-			var sepApp = this.miAppSep;
-			var hide = !this.pu.pref("ui.showInAppMenu");
-			miApp.hidden = hide;
-			sepApp.hidden = hide || !this.pu.pref("ui.showAppMenuSeparator");
-		}
+		this.setTimeout(function() {
+			this.mi.hidden = !this.pu.pref("ui.showInToolsMenu");
+			var miApp = this.miApp;
+			if(miApp) {
+				var sepApp = this.miAppSep;
+				var hide = !this.pu.pref("ui.showInAppMenu");
+				miApp.hidden = hide;
+				sepApp.hidden = hide || !this.pu.pref("ui.showAppMenuSeparator");
+			}
+		}, 50);
 		this.status.hidden = !this.pu.pref("ui.showInStatusbar");
 	},
 	notify: function(ttl, txt, enabledImg, fnc) {

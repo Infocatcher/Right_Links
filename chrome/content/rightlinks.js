@@ -993,13 +993,34 @@ var rightLinks = {
 	createMouseEvent: function(origEvt, item, evtType, opts) {
 		item = item || origEvt.originalTarget;
 		var doc = item.ownerDocument;
-		var evt = doc.createEvent("MouseEvents");
-		evt.initMouseEvent( // https://developer.mozilla.org/en/DOM/event.initMouseEvent
-			evtType, true /* canBubble */, true /* cancelable */, doc.defaultView, 1,
-			origEvt.screenX, origEvt.screenY, origEvt.clientX, origEvt.clientY,
-			opts.ctrlKey || false, opts.altKey || false, opts.shiftKey || false, opts.metaKey || false,
-			opts.button || 0, null
-		);
+		var win = doc.defaultView;
+		if(typeof win.MouseEvent == "function") { // Firefox 11+
+			var evt = new win.MouseEvent(evtType, {
+				bubbles: true,
+				cancelable: true,
+				view: win,
+				detail: 1,
+				screenX: origEvt.screenX,
+				screenY: origEvt.screenY,
+				clientX: origEvt.clientX,
+				clientY: origEvt.clientY,
+				ctrlKey:  opts.ctrlKey  || false,
+				altKey:   opts.altKey   || false,
+				shiftKey: opts.shiftKey || false,
+				metaKey:  opts.metaKey  || false,
+				button:   opts.button   || 0,
+				relatedTarget: null
+			});
+		}
+		else {
+			var evt = doc.createEvent("MouseEvents");
+			evt.initMouseEvent( // https://developer.mozilla.org/en/DOM/event.initMouseEvent
+				evtType, true /* canBubble */, true /* cancelable */, win, 1,
+				origEvt.screenX, origEvt.screenY, origEvt.clientX, origEvt.clientY,
+				opts.ctrlKey || false, opts.altKey || false, opts.shiftKey || false, opts.metaKey || false,
+				opts.button || 0, null
+			);
+		}
 		return evt;
 	},
 

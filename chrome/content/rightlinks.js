@@ -141,9 +141,11 @@ var rightLinks = {
 	},
 	get fxVersion() {
 		var ver = parseFloat(this.appInfo.version); // 3.0 for "3.0.10"
+		// https://developer.mozilla.org/en-US/docs/Mozilla/Gecko/Versions
 		if(this.isSeaMonkey) switch(ver) {
-			case 2:            ver = 3.5; break;
-			case 2.1: default: ver = 4;
+			case 2:   ver = 3.5; break;
+			case 2.1: ver = 4;   break;
+			default:  ver = parseFloat(this.appInfo.platformVersion);
 		}
 		delete this.fxVersion;
 		return this.fxVersion = ver;

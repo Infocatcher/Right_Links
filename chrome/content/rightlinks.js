@@ -197,7 +197,8 @@ var rightLinks = {
 		if(
 			it.namespaceURI == this.XULNS
 			&& this.inObject(it, "href") && (it.href || it.hasAttribute("href"))
-			&& (it.accessibleType || it.wrappedJSObject.accessibleType) == Components.interfaces.nsIAccessibleProvider.XULLink
+			//&& (it.accessibleType || it.wrappedJSObject.accessibleType) == Components.interfaces.nsIAccessibleProvider.XULLink
+			&& typeof it.open == "function" // Comes from chrome://global/content/bindings/text.xml#text-link binding
 		)
 			return it;
 

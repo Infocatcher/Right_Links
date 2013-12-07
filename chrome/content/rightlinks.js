@@ -198,7 +198,10 @@ var rightLinks = {
 			it.namespaceURI == this.XULNS
 			&& this.inObject(it, "href") && (it.href || it.hasAttribute("href"))
 			//&& (it.accessibleType || it.wrappedJSObject.accessibleType) == Components.interfaces.nsIAccessibleProvider.XULLink
-			&& typeof it.open == "function" // Comes from chrome://global/content/bindings/text.xml#text-link binding
+			&& (
+				typeof it.open == "function" // Comes from chrome://global/content/bindings/text.xml#text-link binding
+				|| it.wrappedJSObject && typeof it.wrappedJSObject.open == "function"
+			)
 		)
 			return it;
 

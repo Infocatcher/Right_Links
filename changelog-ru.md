@@ -5,6 +5,12 @@
 `x` – исправлено<br>
 `*` – улучшено<br>
 
+##### master/HEAD
+`x` Исправлен конфликт с расширением <a href="https://addons.mozilla.org/addon/informenter/">InFormEnter</a>: иконки после текстовых полей не работали (<a href="https://github.com/Infocatcher/Right_Links/issues/4">#4</a>).<br>
+`*` Немного улучшена производительность при запуске.<br>
+`x` Исправлено определение XUL-ссылок в Firefox 26+ (<a href="https://github.com/Infocatcher/Right_Links/issues/5">#5</a>).<br>
+`x` Исправлено определение ссылок в CSS инспекторе в Firefox 22+ (<a href="https://github.com/Infocatcher/Right_Links/issues/6">#6</a>).<br>
+
 ##### 0.3.8.2 (2013-08-22)
 `*` Расширение больше не упаковывается в <a href="https://developer.mozilla.org/en-US/docs/Extensions/Updating_extensions_for_Firefox_4#XPI_unpacking">дополнительный JAR-архив</a>.<br>
 `x` Исправлено: настоящие ссылки, выглядящие заглушками, могли открываться в текущей вкладке (<a href="https://github.com/Infocatcher/Right_Links/issues/1">#1</a>).<br>

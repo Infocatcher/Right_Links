@@ -375,8 +375,9 @@ var rightLinks = {
 	},
 	getWebConsoleURI: function(it) {
 		return it.namespaceURI == this.XULNS
-			&& /(?:^|\s)webconsole-location(?:\s|$)/.test(it.className)
-			&& /(?:^|\s)text-link(?:\s|$)/.test(it.className)
+			&& it.classList
+			&& it.classList.contains("webconsole-location")
+			&& it.classList.contains("text-link")
 			&& (it.parentNode.id || "").substr(0, 12) == "console-msg-"
 			&& this.uri(it.getAttribute("title"));
 	},

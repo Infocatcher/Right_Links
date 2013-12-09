@@ -347,16 +347,28 @@ var rightLinks = {
 		if(!this.pu.pref("enabledOnCSSEditorLinks"))
 			return null;
 		var docURI = it.ownerDocument.documentURI;
-		if(docURI == "chrome://browser/content/devtools/cssruleview.xul") { // Rules tab
-			return it.className == "ruleview-rule-source"
+		// Rules tab
+		if(
+			docURI == "chrome://browser/content/devtools/cssruleview.xul"
+			|| docURI == "chrome://browser/content/devtools/cssruleview.xhtml" // Firefox 22+
+		) {
+			if(it.localName == "label")
+				it = it.parentNode;
+			return it.classList
+				&& it.classList.contains("ruleview-rule-source")
 				&& this.getProperty(it, "parentNode", "_ruleEditor", "rule", "sheet", "href");
 		}
-		if(docURI == "chrome://browser/content/devtools/csshtmltree.xul") {
-			return it instanceof HTMLAnchorElement // Computed tab
+		// Computed tab
+		if(
+			docURI == "chrome://browser/content/devtools/csshtmltree.xul"
+			|| docURI == "chrome://browser/content/devtools/computedview.xhtml" // Firefox 22+
+		) {
+			return it instanceof HTMLAnchorElement
 				&& !it.href
 				&& !it.getAttribute("href")
-				&& it.className == "link"
-				&& it.parentNode.className == "rule-link"
+				&& it.classList
+				&& it.classList.contains("link")
+				&& it.parentNode.classList.contains("rule-link")
 				&& this.uri(it.title);
 		}
 		return null;

@@ -1081,13 +1081,19 @@ var rightLinks = {
 			popup.showPopup(anchor, -1, -1, "popup", "topleft", "topleft");
 		// Select first menuitem
 		// Unfortunately ordinal popup doesn't have nsIMenuBoxObject interface with activeChild field
-		var evt = document.createEvent("KeyboardEvent");
-		evt.initKeyEvent(
-			"keypress", true /*bubbles*/, true /*cancelable*/, window,
-			false /*ctrlKey*/, false /*altKey*/, false /*shiftKey*/, false /*metaKey*/,
-			evt.DOM_VK_DOWN /*keyCode*/, 0 /*charCode*/
-		);
-		popup.dispatchEvent(evt);
+		var keyCode = KeyboardEvent.DOM_VK_DOWN;
+		key("keydown",  keyCode);
+		key("keypress", keyCode);
+		key("keyup",    keyCode);
+		function key(type, code) {
+			var evt = document.createEvent("KeyboardEvent");
+			evt.initKeyEvent(
+				type, true /*bubbles*/, true /*cancelable*/, window,
+				false /*ctrlKey*/, false /*altKey*/, false /*shiftKey*/, false /*metaKey*/,
+				code /*keyCode*/, 0 /*charCode*/
+			);
+			popup.dispatchEvent(evt);
+		}
 	},
 	isElementVisible: function(elt) {
 		if(!elt)

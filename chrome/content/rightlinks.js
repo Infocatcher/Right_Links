@@ -243,7 +243,7 @@ var rightLinks = {
 		if(
 			(
 				this.hasParent(it, "goPopup")
-				|| itln == "treechildren" && (it.parentNode.id || "").toLowerCase().indexOf("history") != -1 // Sidebar
+				|| itln == "treechildren" && this.isHistoryTree(it.parentNode)
 			)
 			&& this.getBookmarkURI(it, e)
 		)
@@ -264,7 +264,7 @@ var rightLinks = {
 					&& (itln == "toolbarbutton" || itln == "menuitem")
 				)
 				|| itln == "menuitem" && it.hasAttribute("siteURI")
-				|| itln == "treechildren" && (it.parentNode.id || "").toLowerCase().indexOf("bookmark") != -1 // Sidebar
+				|| itln == "treechildren" && this.isBookmarkTree(it.parentNode)
 			)
 			&& !this.hasParent(it, "goPopup")
 			&& this.getBookmarkURI(it, e)
@@ -303,6 +303,12 @@ var rightLinks = {
 			if(it.id == pId)
 				return true;
 		return false;
+	},
+	isBookmarkTree: function(tree) {
+		return (tree.id || "").toLowerCase().indexOf("bookmark") != -1; // Sidebar
+	},
+	isHistoryTree: function(tree) {
+		return (tree.id || "").toLowerCase().indexOf("history") != -1; // Sidebar
 	},
 	getBookmarkURI:	function(it, e, getPlacesURIs) {
 		var ln = it.localName;

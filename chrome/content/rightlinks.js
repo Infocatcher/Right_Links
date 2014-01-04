@@ -1013,7 +1013,10 @@ var rightLinks = {
 		item = item || origEvt.originalTarget;
 		var doc = item.ownerDocument;
 		var win = doc.defaultView;
-		if(typeof win.MouseEvent == "function") { // Firefox 11+
+		if(
+			typeof win.MouseEvent == "function" // Firefox 11+
+			&& ("" + win.MouseEvent).charAt(0) != "[" // Trick for Firefox <= 2.0
+		) {
 			var evt = new win.MouseEvent(evtType, {
 				bubbles: true,
 				cancelable: true,

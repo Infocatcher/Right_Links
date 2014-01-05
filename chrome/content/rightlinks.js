@@ -342,8 +342,12 @@ var rightLinks = {
 		tbo.getCellAt(e.clientX, e.clientY, row, column, part);
 		if(row.value == -1)
 			return "";
-		var node = tree.view.nodeForTreeIndex(row.value);
-		if(!PlacesUtils.nodeIsURI(node))
+		try {
+			var node = tree.view.nodeForTreeIndex(row.value);
+		}
+		catch(e) {
+		}
+		if(!node || !PlacesUtils.nodeIsURI(node))
 			return "";
 		return node[prop];
 	},

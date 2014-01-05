@@ -337,6 +337,7 @@ var rightLinks = {
 
 		// Based on code of Places' Tooltips ( https://addons.mozilla.org/firefox/addon/7314 )
 		var row = {}, column = {}, part = {};
+		tree = tree.wrappedJSObject || tree; // For page in tab, Firefox <= 3.6
 		var tbo = tree.treeBoxObject;
 		tbo.getCellAt(e.clientX, e.clientY, row, column, part);
 		if(row.value == -1)

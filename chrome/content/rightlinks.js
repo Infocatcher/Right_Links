@@ -305,10 +305,18 @@ var rightLinks = {
 		return false;
 	},
 	isBookmarkTree: function(tree) {
-		return (tree.id || "").toLowerCase().indexOf("bookmark") != -1; // Sidebar
+		return this.isPlacesTree(tree)
+			&& /[:&]folder=/.test(tree.getAttribute("place"));
 	},
 	isHistoryTree: function(tree) {
-		return (tree.id || "").toLowerCase().indexOf("history") != -1; // Sidebar
+		if(!this.isPlacesTree(tree))
+			return false;
+		var place = tree.getAttribute("place");
+		return !/[:&]folder=/.test(place) // Exclude bookmarks
+			&& !/[:&]transition=7(?:&|$)/.test(place); // Exclude downloads
+	},
+	isPlacesTree: function(tree) {
+		return tree.getAttribute("type") == "places";
 	},
 	getBookmarkURI:	function(it, e, getPlacesURIs) {
 		var ln = it.localName;

@@ -248,6 +248,11 @@ var rightLinks = {
 			&& this.getBookmarkURI(it, e)
 		)
 			return it;
+		if(
+			it.hasAttribute("targetURI")
+			&& this.hasParent(it, "PanelUI-history")
+		)
+			return it;
 		return null;
 	},
 	getBookmarkItem: function(it, e) {
@@ -406,12 +411,22 @@ var rightLinks = {
 		return this.getLinkURI(a)
 			|| a.src || a.getAttribute("src")
 			|| a instanceof HTMLCanvasElement && a.toDataURL()
+			|| a.getAttribute("targetURI")
 			|| this.getBookmarkURI(a, e, "uri");
 	},
-	closeMenus: function(it) {
-		it = it || this.item;
-		if(it && typeof it == "object")
-			closeMenus(it); // chrome://browser/content/utilityOverlay.js
+	closeMenus: function(node) {
+		node = node || this.item;
+		if(!node || typeof node != "object")
+			return;
+		// Based on function closeMenus from chrome://browser/content/utilityOverlay.js
+		for(; node && "localName" in node; node = node.parentNode) {
+			var ln = node.localName;
+			if(
+				node.namespaceURI == this.XULNS
+				&& (ln == "menupopup" || ln == "popup" || ln == "panel")
+			)
+				node.hidePopup();
+		}
 	},
 	stopEvent: function(e) {
 		e.preventDefault();

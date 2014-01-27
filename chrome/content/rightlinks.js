@@ -1153,12 +1153,14 @@ var rightLinks = {
 
 		var st = this.status;
 		var stVal = enabled ? "enabled" : "disabled";
-		st.setAttribute("rl_status", stVal);
+		if(st)
+			st.setAttribute("rl_status", stVal);
 		this.setTimeout(function() {
 			this.check(this.mi, enabled);
 			this.check(this.miApp, enabled);
 			var tt = this.getLocalized("title") + " " + this.getLocalized(stVal);
-			st.tooltipText = tt;
+			if(st)
+				st.tooltipText = tt;
 			if(tbb)
 				tbb.tooltipText = tt;
 		}, 50);
@@ -1190,7 +1192,9 @@ var rightLinks = {
 				sepApp.hidden = hide || !this.pu.pref("ui.showAppMenuSeparator");
 			}
 		}, 50);
-		this.status.hidden = !this.pu.pref("ui.showInStatusbar");
+		var st = this.status;
+		if(st)
+			st.hidden = !this.pu.pref("ui.showInStatusbar");
 	},
 	notify: function(ttl, txt, enabledImg, fnc) {
 		var dur = this.pu.pref("notifyOpenTime");

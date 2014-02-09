@@ -6,6 +6,7 @@
 `*` – improved<br>
 
 ##### master/HEAD
+##### 0.3.8.3 (2014-02-09)
 `x` Fixed conflict with <a href="https://addons.mozilla.org/addon/informenter/">InFormEnter</a> extension: icons after text fields isn't clickable (<a href="https://github.com/Infocatcher/Right_Links/issues/4">#4</a>).<br>
 `*` Slightly improved startup performance.<br>
 `x` Fixed detection of XUL links in Firefox 26+ (<a href="https://github.com/Infocatcher/Right_Links/issues/5">#5</a>).<br>

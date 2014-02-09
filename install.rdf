@@ -7,7 +7,7 @@
 		<em:id>{B5F5E8D3-AE31-49A1-AC42-78B7B1CC5CDC}</em:id>
 		<em:type>2</em:type>
 		<em:name>Right Links</em:name>
-		<em:version>0.3.8.2</em:version>
+		<em:version>0.3.8.3</em:version>
 		<em:description>Right-click for open links in new tabs (for touchpads etc.)</em:description>
 		<em:creator>Infocatcher</em:creator>
 		<em:optionsURL>chrome://rightlinks/content/options.xul</em:optionsURL>

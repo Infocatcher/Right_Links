@@ -268,7 +268,7 @@ var rightLinks = {
 					/(?:^|\s)bookmark-item(?:\s|$)/.test(it.className)
 					&& (itln == "toolbarbutton" || itln == "menuitem")
 				)
-				|| itln == "menuitem" && it.hasAttribute("siteURI")
+				|| itln == "menuitem" && (it.hasAttribute("siteURI") || it.hasAttribute("targetURI"))
 				|| itln == "treechildren" && this.isBookmarkTree(it.parentNode)
 			)
 			&& !this.hasParent(it, "goPopup")
@@ -331,6 +331,7 @@ var rightLinks = {
 				|| it._placesNode && it._placesNode.uri // Firefox 3.7a5pre+
 				|| it.node && it.node.uri
 				|| it.getAttribute("siteURI")
+				|| it.getAttribute("targetURI")
 				|| "";
 		return !getPlacesURIs && /^place:/.test(uri) ? "" : uri;
 	},

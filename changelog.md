@@ -11,6 +11,7 @@
 `x` Fixed detection of XUL links in Firefox 26+ (<a href="https://github.com/Infocatcher/Right_Links/issues/5">#5</a>).<br>
 `x` Fixed detection of links from CSS Inspector in Firefox 22+ (<a href="https://github.com/Infocatcher/Right_Links/issues/6">#6</a>).<br>
 `+` Added support for history menu inside Australis menu-button.<br>
+`x` Fixed detection of “Open …” menu items in RSS bookmarks in Firefox 4+.<br>
 
 ##### 0.3.8.2 (2013-08-22)
 `*` No longer use <a href="https://developer.mozilla.org/en-US/docs/Extensions/Updating_extensions_for_Firefox_4#XPI_unpacking">internal JAR archive</a>.<br>

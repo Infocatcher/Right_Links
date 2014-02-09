@@ -1151,10 +1151,15 @@ var rightLinks = {
 			this.setClickHandlers(enabled);
 		}
 
-		var st = this.status;
 		var stVal = enabled ? "enabled" : "disabled";
+		var st = this.status;
 		if(st)
 			st.setAttribute("rl_status", stVal);
+		var tbb = this.tbb || this.paletteButton;
+		if(tbb) {
+			tbb.setAttribute("rl_status", stVal);
+			this.check(tbb, enabled && this.pu.pref("ui.toolbarbuttonCheckedStyle"));
+		}
 		this.setTimeout(function() {
 			this.check(this.mi, enabled);
 			this.check(this.miApp, enabled);
@@ -1164,16 +1169,11 @@ var rightLinks = {
 			if(tbb)
 				tbb.tooltipText = tt;
 		}, 50);
-		var tbb = this.tbb || this.paletteButton;
-		if(!tbb)
-			return;
-		tbb.setAttribute("rl_status", stVal);
-		// tbb.checked = ...; breaks button in palette!
-		this.check(tbb, enabled && this.pu.pref("ui.toolbarbuttonCheckedStyle"));
 	},
 	check: function(node, checked) {
 		if(!node)
 			return;
+		// tbb.checked = ...; breaks toolbar button in palette!
 		if("checked" in node)
 			node.checked = checked;
 		else if(checked)

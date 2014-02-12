@@ -11,7 +11,7 @@
 `*` Slightly improved startup performance.<br>
 `x` Fixed detection of XUL links in Firefox 26+ (<a href="https://github.com/Infocatcher/Right_Links/issues/5">#5</a>).<br>
 `x` Fixed detection of links from CSS Inspector in Firefox 22+ (<a href="https://github.com/Infocatcher/Right_Links/issues/6">#6</a>).<br>
-`x` Corectly select first menu item, if options menu was opened from keyboard (Alt+F2 by default) in Firefox 25+.<br>
+`x` Correctly select first menu item, if options menu was opened from keyboard (Alt+F2 by default) in Firefox 25+.<br>
 `+` Added support for any tree with bookmarks/history items (<a href="https://github.com/Infocatcher/Right_Links/issues/7">#7</a>).<br>
 `+` Added support for history menu inside Australis menu-button.<br>
 `x` Fixed detection of “Open …” menu items in RSS bookmarks in Firefox 4+.<br>

@@ -559,6 +559,11 @@ var rightLinks = {
 				if(!a.ownerDocument || !a.ownerDocument.location) // Page already unloaded
 					return;
 				if(this.isLeft) {
+					var newHref = this.getHref(a, e);
+					if(newHref && newHref != href) {
+						//this._log("Delayed action, link changed:\n" + href + "\n=> " + newHref);
+						href = newHref;
+					}
 					this.loadLink(e, a, href);
 					this.stopClick = true;
 				}

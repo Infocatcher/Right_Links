@@ -6,6 +6,8 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`x` Fixed: long left-click opens not actual link, if it was changed (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>
+
 ##### 0.3.8.3 (2014-02-09)
 `x` Fixed conflict with <a href="https://addons.mozilla.org/addon/informenter/">InFormEnter</a> extension: icons after text fields isn't clickable (<a href="https://github.com/Infocatcher/Right_Links/issues/4">#4</a>).<br>
 `*` Slightly improved startup performance.<br>

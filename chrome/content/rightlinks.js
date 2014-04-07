@@ -269,7 +269,10 @@ var rightLinks = {
 					&& (itln == "toolbarbutton" || itln == "menuitem")
 				)
 				|| itln == "menuitem" && (it.hasAttribute("siteURI") || it.hasAttribute("targetURI"))
-				|| itln == "treechildren" && this.isBookmarkTree(it.parentNode)
+				|| itln == "treechildren" && (
+					this.isBookmarkTree(it.parentNode)
+					|| this.isFeedSidebar(it)
+				)
 			)
 			&& !this.hasParent(it, "goPopup")
 			&& this.getBookmarkURI(it, e)
@@ -338,8 +341,9 @@ var rightLinks = {
 	getTreeInfo: function(treechildren, e, prop) { // "uri" or "title"
 		if(!("PlacesUtils" in window)) // For Firefox 3.0+
 			return "";
-		var tree = (treechildren || this.item).parentNode
+		treechildren = treechildren || this.item;
 		e = e || this.event;
+		var tree = treechildren.parentNode;
 
 		// Based on code of Places' Tooltips ( https://addons.mozilla.org/firefox/addon/7314 )
 		var row = {}, column = {}, part = {};
@@ -348,6 +352,8 @@ var rightLinks = {
 		tbo.getCellAt(e.clientX, e.clientY, row, column, part);
 		if(row.value == -1)
 			return "";
+		if(this.isFeedSidebar(treechildren))
+			return this.getFeedSidebarURI(tree, row.value);
 		try {
 			var node = tree.view.nodeForTreeIndex(row.value);
 		}
@@ -356,6 +362,27 @@ var rightLinks = {
 		if(!node || !PlacesUtils.nodeIsURI(node))
 			return "";
 		return node[prop];
+	},
+	isFeedSidebar: function(treechildren) {
+		return treechildren.id == "feedbar_tree_container"; // Feed Sidebar
+	},
+	getFeedSidebarURI: function(tree, treeIndx) {
+		var emulateClick = "javascript:void 0";
+		try {
+			// Based on code from resource://feedbar-modules/treeview.js, Feed Sidebar 8.0.3,
+			// see FEEDBAR.onTreeClick()
+			// Note: full_preview.html?idx=... link doesn't work without additional code
+			if(tree.view.isContainer(treeIndx))
+				return "";
+			if(this.pu.getPref("extensions.feedbar.showFullPreview") || !window.navigator.onLine)
+				//return "chrome://feedbar/content/full_preview.html?idx=" + treeIndx;
+				return emulateClick;
+			return FEEDBAR.getCellLink(treeIndx);
+		}
+		catch(e) {
+			Components.utils.reportError(e);
+		}
+		return emulateClick; // Better fallback?
 	},
 	getLinkURI: function(it) {
 		const ns = "http://www.w3.org/1999/xlink";
@@ -761,10 +788,11 @@ var rightLinks = {
 			return;
 		}
 		var dummyURI = !voidURI && this.isDummyURI(a, href, e);
+		var isTree = a.localName == "treechildren";
 		if(voidURI || dummyURI) {
 			var evts = this.createMouseEvents(e, a, ["mousedown", "mouseup", "click"], {
-				button: 0,
-				ctrlKey: dummyURI == 2 // Link may be real
+				button: isTree ? 1 : 0,
+				ctrlKey: isTree ? false : dummyURI == 2 // Link may be real
 			});
 
 			var _this = this;

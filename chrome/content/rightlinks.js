@@ -10,6 +10,7 @@ var rightLinks = {
 	item: null,
 	origItem: null,
 	itemType: null,
+	itemData: null,
 	event: null,
 	delayedActionTimer: 0,
 	_hasMoveHandlers: false,
@@ -374,6 +375,12 @@ var rightLinks = {
 			// Note: full_preview.html?idx=... link doesn't work without additional code
 			if(tree.view.isContainer(treeIndx))
 				return "";
+			this.itemData = {
+				treeIndx: treeIndx,
+				onBeforeLoad: function() {
+					FEEDBAR.setCellRead(treeIndx, true);
+				}
+			};
 			if(this.pu.getPref("extensions.feedbar.showFullPreview") || !window.navigator.onLine)
 				//return "chrome://feedbar/content/full_preview.html?idx=" + treeIndx;
 				return emulateClick;
@@ -628,7 +635,7 @@ var rightLinks = {
 	},
 	cleanup: function() {
 		this._cleanupTimer = 0;
-		this.item = this.origItem = this.event = null;
+		this.item = this.origItem = this.itemData = this.event = null;
 	},
 	clickHandler: function(e) {
 		if(!this.isEnabled(e))
@@ -886,13 +893,22 @@ var rightLinks = {
 				return;
 			}
 		}
-		this.urlSecurityCheck(a.ownerDocument, href);
+		this.beforeLoad(a, href);
 		if(loadInCurTab)
 			gBrowser.loadURI(href, this.getReferer());
 		else if(this.pu.pref("loadInWindow" + this.leftPref))
 			this.openURIInWindow(href);
 		else
 			this.openURIInTab(href);
+	},
+	beforeLoad: function(a, href) {
+		this.urlSecurityCheck(a.ownerDocument, href);
+		if(this.itemData && this.itemData.onBeforeLoad) try {
+			this.itemData.onBeforeLoad();
+		}
+		catch(e) {
+			Components.utils.reportError(e);
+		}
 	},
 	get dwu() {
 		delete this.dwu;

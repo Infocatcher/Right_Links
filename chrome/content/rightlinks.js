@@ -535,10 +535,8 @@ var rightLinks = {
 		if(!this.isEnabled(e))
 			return;
 
-		if(this._cleanupTimer) {
-			clearTimeout(this._cleanupTimer);
-			this._cleanupTimer = 0;
-		}
+		this._cleanupTimer && clearTimeout(this._cleanupTimer);
+		this.cleanup();
 
 		this.isLeft = e.button == 0;
 		this.leftPref = this.isLeft ? ".left" : "";
@@ -626,10 +624,11 @@ var rightLinks = {
 			}
 		}
 
-		this._cleanupTimer = this.setTimeout(function() {
-			this._cleanupTimer = 0;
-			this.item = this.origItem = this.event = null;
-		}, 500);
+		this._cleanupTimer = this.setTimeout(this.cleanup, 500);
+	},
+	cleanup: function() {
+		this._cleanupTimer = 0;
+		this.item = this.origItem = this.event = null;
 	},
 	clickHandler: function(e) {
 		if(!this.isEnabled(e))

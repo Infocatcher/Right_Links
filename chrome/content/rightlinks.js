@@ -828,6 +828,7 @@ var rightLinks = {
 			return;
 		}
 
+		var loadInCurTab = false;
 		var flp = this.pu.pref("filesLinksPolicy");
 		if(flp > 0) {
 			var rePref = "filesLinksMask";
@@ -836,7 +837,7 @@ var rightLinks = {
 				var _re = new RegExp(re, "i");
 				if(_re.test(href)) {
 					if(flp == 1)
-						gBrowser.loadURI(href, this.getReferer());
+						loadInCurTab = true;
 					else if(flp == 2) {
 						// Bug? We stop "dragstart", but menu doesn't work
 						if(this.isLeft)
@@ -857,7 +858,8 @@ var rightLinks = {
 								a.removeAttribute("style");
 						}, 150);
 					}
-					return;
+					if(!loadInCurTab)
+						return;
 				}
 			}
 			catch(e) {
@@ -886,7 +888,9 @@ var rightLinks = {
 			}
 		}
 		this.urlSecurityCheck(a.ownerDocument, href);
-		if(this.pu.pref("loadInWindow" + this.leftPref))
+		if(loadInCurTab)
+			gBrowser.loadURI(href, this.getReferer());
+		else if(this.pu.pref("loadInWindow" + this.leftPref))
 			this.openURIInWindow(href);
 		else
 			this.openURIInTab(href);

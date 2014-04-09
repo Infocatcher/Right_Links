@@ -26,6 +26,25 @@ var rightLinks = {
 		this.setStatus();
 		this.setUIVisibility();
 		this.registerHotkeys();
+
+		setTimeout(function(_this) {
+			// Fix position of item in App menu from Classic Theme Restorer
+			var mi = _this.miApp;
+			if(mi) {
+				var popup = mi.parentNode;
+				if(popup.id == "menu_newPreferencesmenuPopup") { // Classic Theme Restorer
+					var insPos = popup.getElementsByAttribute("id", "menu_preferences")[0];
+					if(
+						insPos
+						&& insPos.parentNode == popup
+						&& insPos != document.getElementById("menu_preferences")
+					) {
+						popup.insertBefore(mi, insPos.nextSibling);
+						popup.insertBefore(_this.miAppSep, mi);
+					}
+				}
+			}
+		}, 50, this);
 	},
 	destroy: function() {
 		window.removeEventListener("unload", this, false);

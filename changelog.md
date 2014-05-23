@@ -8,7 +8,6 @@
 ##### master/HEAD
 `x` Fixed: long left-click opens not actual link, if it was changed (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>
 `+` Added support for <a href="https://addons.mozilla.org/addon/feed-sidebar/">Feed Sidebar</a> extension (<a href="https://github.com/Infocatcher/Right_Links/issues/12">#12</a>).<br>
-`+` Added support for App button from <a href="https://addons.mozilla.org/addon/classicthemerestorer/">Classic Theme Restorer</a> extension in Firefox 29+ (Australis).<br>
 
 ##### 0.3.8.3 (2014-02-09)
 `x` Fixed conflict with <a href="https://addons.mozilla.org/addon/informenter/">InFormEnter</a> extension: icons after text fields isn't clickable (<a href="https://github.com/Infocatcher/Right_Links/issues/4">#4</a>).<br>

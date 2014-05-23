@@ -1324,6 +1324,11 @@ var rightLinks = {
 			this.e("ui.closeMenu").hidden = this.fxVersion < 3; // Attribute "closemenu" doesn't work
 			this.e("ui.showInAppMenu").hidden = !this.miApp; // Only in Firefox 4+
 		}
+		setTimeout(function(_this) {
+			// Not accessible in Firefox 29+ (but can be restored on-the-fly!)
+			var sb = document.getElementById("status-bar");
+			_this.e("ui.showInStatusbar").hidden = !sb || sb.parentNode.hasAttribute("toolbar-delegate");
+		}, 0, this);
 
 		var miCheckedStyle = this.e("ui.toolbarbuttonCheckedStyle");
 		miCheckedStyle.hidden = miCheckedStyle.nextSibling.hidden = !this.isElementVisible(this.tbb);

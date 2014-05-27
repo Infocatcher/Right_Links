@@ -557,6 +557,7 @@ var rightLinks = {
 		return true;
 	},
 
+	mousedownPos: { __proto__: null },
 	mousedownHandler: function(e) {
 		if(!this.isEnabled(e))
 			return;
@@ -601,6 +602,9 @@ var rightLinks = {
 
 		this.event = e;
 		this.saveXY(e);
+		var mdPos = this.mousedownPos;
+		mdPos.screenX = e.screenX;
+		mdPos.screenY = e.screenY;
 
 		var cmt = this.pu.pref(this.isLeft ? "longLeftClickTimeout" : "showContextMenuTimeout");
 		if(cmt > 0) {
@@ -647,6 +651,19 @@ var rightLinks = {
 					this.stopEvent(e);
 				else
 					this.stopSingleEvent(e);
+			}
+			var trg = e.originalTarget;
+			if(
+				this.item
+				&& trg != this.origItem
+				// Workaround for Multi Links https://addons.mozilla.org/addon/multi-links/
+				&& trg.id == "multilinks-selection-container"
+				&& this.item.localName.toLowerCase() == "a" // Multi Links supports only <a> links
+				// If mouse was moved, Multi Links will open that link itself
+				&& this.mousedownPos.screenX == e.screenX
+				&& this.mousedownPos.screenY == e.screenY
+			) {
+				this.clickHandler(this.event);
 			}
 		}
 

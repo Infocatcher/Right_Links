@@ -635,7 +635,6 @@ var rightLinks = {
 			return;
 		// Case: mousedown -> schedule delayed action -> press Shift -> mouseup
 		// We should perform cleanup in this case!
-		this.setMoveHandlers(false);
 		this.cancelDelayedAction();
 		if(!this.isEnabled(e))
 			this.stopContextMenu = this.stopClick = false;
@@ -658,14 +657,17 @@ var rightLinks = {
 				&& trg != this.origItem
 				// Workaround for Multi Links https://addons.mozilla.org/addon/multi-links/
 				&& trg.id == "multilinks-selection-container"
+				&& "MultiLinks_Wrapper" in window
 				&& this.item.localName.toLowerCase() == "a" // Multi Links supports only <a> links
 				// If mouse was moved, Multi Links will open that link itself
 				&& this.mousedownPos.screenX == e.screenX
 				&& this.mousedownPos.screenY == e.screenY
+				&& (!this.mousemoveParams || !this.mousemoveParams.dist)
 			) {
 				this.clickHandler(this.event);
 			}
 		}
+		this.setMoveHandlers(false);
 
 		this._cleanupTimer = this.setTimeout(this.cleanup, 500);
 	},

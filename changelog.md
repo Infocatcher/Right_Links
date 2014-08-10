@@ -6,6 +6,7 @@
 `*` – improved<br>
 
 ##### master/HEAD
+##### 0.3.8.4 (2014-08-10)
 `x` Fixed: long left-click opens not actual link, if it was changed (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>
 `+` Added support for <a href="https://addons.mozilla.org/addon/feed-sidebar/">Feed Sidebar</a> extension (<a href="https://github.com/Infocatcher/Right_Links/issues/12">#12</a>).<br>
 `*` Hide “Show in Status Bar” checkbox in Firefox 29+, if status bar isn't restored by some other extension.<br>

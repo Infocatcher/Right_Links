@@ -6,6 +6,7 @@
 `*` – улучшено<br>
 
 ##### master/HEAD
+##### 0.3.8.4 (2014-08-10)
 `x` Исправлено: долгий клик левой кнопкой мыши открывал старую ссылку, если ссылка менялась (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>
 `+` Добавлена поддержка расширения <a href="https://addons.mozilla.org/addon/feed-sidebar/">Feed Sidebar</a> (<a href="https://github.com/Infocatcher/Right_Links/issues/12">#12</a>).<br>
 `*` Галочка «Показывать в строке состояния» теперь скрыта в Firefox 29+, если строка состояния не восстановлена другим расширением.<br>

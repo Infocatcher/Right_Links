@@ -320,7 +320,7 @@ var rightLinks = {
 				|| this.pu.pref("enabledOnSpeedDialImages")
 			)
 			// InFormEnter https://addons.mozilla.org/addon/informenter/
-			&& (it.src || "").substr(0, 32) != "chrome://informenter/skin/marker"
+			&& !this.hasPrefix(it.src || "", "chrome://informenter/skin/marker")
 		)
 			return it;
 		return null;
@@ -456,7 +456,7 @@ var rightLinks = {
 			&& it.classList
 			&& it.classList.contains("webconsole-location")
 			&& it.classList.contains("text-link")
-			&& (it.parentNode.id || "").substr(0, 12) == "console-msg-"
+			&& this.hasPrefix(it.parentNode.id || "", "console-msg-")
 			&& this.uri(it.getAttribute("title"));
 	},
 	getHref: function(a, e) {

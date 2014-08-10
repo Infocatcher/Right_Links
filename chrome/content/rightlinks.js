@@ -538,7 +538,12 @@ var rightLinks = {
 		return p in o || o.wrappedJSObject && p in o.wrappedJSObject;
 	},
 	hasPrefix: function(str, prefix) {
-		return str.substr(0, prefix.length) == prefix;
+		var f = this.hasPrefix = "startsWith" in String
+			? String.startsWith
+			: function(str, prefix) {
+				return str.substr(0, prefix.length) == prefix;
+			};
+		return f.apply(this, arguments);
 	},
 	setTimeout: function(func, delay, context) {
 		return setTimeout(function(func, context) {

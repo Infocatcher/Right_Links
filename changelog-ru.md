@@ -6,6 +6,8 @@
 `*` – улучшено<br>
 
 ##### master/HEAD
+`+` Добавлена немецкая локаль (de), спасибо <a href="https://github.com/milupo">milupo</a>.<br>
+
 ##### 0.3.8.4 (2014-08-10)
 `x` Исправлено: долгий клик левой кнопкой мыши открывал старую ссылку, если ссылка менялась (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>
 `+` Добавлена поддержка расширения <a href="https://addons.mozilla.org/addon/feed-sidebar/">Feed Sidebar</a> (<a href="https://github.com/Infocatcher/Right_Links/issues/12">#12</a>).<br>

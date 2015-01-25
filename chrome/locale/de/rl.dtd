@@ -1,0 +1,35 @@
+<!-- Item in Tools and App menu -->
+<!ENTITY rl.menuitemLabel "Right Links">
+<!-- Toolbar button -->
+<!ENTITY rl.tbuttonLabel "Right Links">
+
+<!-- Settings pop-up -->
+<!ENTITY rl.enabled "Aktiviert">
+<!ENTITY rl.loadInBackground "Verweise im Hintergrund laden">
+<!ENTITY rl.loadJavaScriptLinksInBackground "JavaScropt-Verweise im Hintergrund laden">
+<!ENTITY rl.sendReferer "Referrer senden">
+<!ENTITY rl.enabledOnImages "Klicks auf Grafiken anwenden">
+<!ENTITY rl.enabledOnBookmarks "Klicks auf Lesezeichen anwenden">
+<!ENTITY rl.enabledOnHistoryItems "Klicks auf Chronikeinträge anwenden">
+<!ENTITY rl.closePopups "Menüs nach Klick schließen">
+
+<!ENTITY rl.longLeftClick "Langer Linksklick">
+
+<!ENTITY rl.optionsMenu "Einstellungen">
+<!ENTITY rl.enableRight "Rechtsklick aktivieren">
+<!ENTITY rl.enableLeft "Langen Linksklick aktivieren">
+<!ENTITY rl.loadJavaScriptLinks "JavaScript-Verweise (javascript: …) laden">
+<!ENTITY rl.notifyJavaScriptLinks "JavaScript-Verweise (javascript: …) melden">
+<!ENTITY rl.loadVoidLinksWithHandlers "“Leere” Verweise mit Klickhandlern laden">
+<!ENTITY rl.notifyVoidLinksWithHandlers "“Leere” Verweise mit Klickhandlern melden">
+
+<!ENTITY rl.appearance "Ansicht">
+<!ENTITY rl.toolbarbuttonCheckedStyle "Stil “gedrückter” Schaltflächen">
+<!ENTITY rl.showInToolsMenu "Im Menü Extras zeigen">
+<!ENTITY rl.showInAppMenu "Im Anwendungsmenü zeigen">
+<!ENTITY rl.showInStatusbar "In der Statusleiste zeigen">
+<!ENTITY rl.closeMenu "Dieses Menü durch Linksklick schließen">
+<!ENTITY rl.closeMenuRightClick "Dieses Menü durch Rechtsklick schließen">
+
+<!-- Options button in Gecko 7.0 and higher -->
+<!ENTITY rl.options "Einstellungen…">

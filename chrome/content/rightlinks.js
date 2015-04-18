@@ -311,7 +311,7 @@ var rightLinks = {
 		if(
 			(
 				(itln == "img" || itln == "image") && it.hasAttribute("src")
-				|| it instanceof HTMLCanvasElement
+				|| (it instanceof HTMLCanvasElement && this.pu.pref("enabledOnCanvasImages"))
 			)
 			&& !this.isChromeWin(it.ownerDocument.defaultView) // Not for interface...
 			&& ( // Speed Dial has own settings for right clicks

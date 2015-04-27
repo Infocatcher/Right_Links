@@ -7,6 +7,7 @@
 
 ##### master/HEAD
 `+` Added German locale (de), thanks to <a href="https://github.com/milupo">milupo</a>.<br>
+`+` Added ability to ignore image-like <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> nodes (<em>extensions.rightlinks.enabledOnCanvasImages</em> preference, e.g. to disable in case of performance problems).<br>
 
 ##### 0.3.8.4 (2014-08-10)
 `x` Fixed: long left-click opens not actual link, if it was changed (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>

@@ -7,6 +7,7 @@
 
 ##### master/HEAD
 `+` Добавлена немецкая локаль (de), спасибо <a href="https://github.com/milupo">milupo</a>.<br>
+`+` Добавлена возможность игнорировать <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> изображения (настройка <em>extensions.rightlinks.enabledOnCanvasImages</em>, например, для отключения в случае проблем с производительностью).<br>
 
 ##### 0.3.8.4 (2014-08-10)
 `x` Исправлено: долгий клик левой кнопкой мыши открывал старую ссылку, если ссылка менялась (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>

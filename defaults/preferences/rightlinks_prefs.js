@@ -19,6 +19,7 @@ pref("extensions.rightlinks.disallowMousemoveDist", 14);
 pref("extensions.rightlinks.stopMousedownEvent", false); // Only for right-click now
 pref("extensions.rightlinks.stopMouseupEvent", true); // Only for left-click now
 pref("extensions.rightlinks.fakeMouseup", true); // Dispatch fake event to stop mouse gestures
+pref("extensions.rightlinks.fakeMouseup.content", true); // Allow dispatch fake event in content document
 pref("extensions.rightlinks.workaroundForMousedownImitation", true);
 pref("extensions.rightlinks.dontUseTabsInPopupWindows", true);
 

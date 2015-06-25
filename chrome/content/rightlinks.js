@@ -649,8 +649,13 @@ var rightLinks = {
 			}, 5);
 			this.saveXY(e);
 			if(this.isLeft && this.stopClick && this.pu.pref("stopMouseupEvent")) {
-				if(this.pu.pref("fakeMouseup"))
-					this.createMouseEvents(e, gBrowser.selectedBrowser.parentNode, ["mouseup"], 0)();
+				if(this.pu.pref("fakeMouseup")) {
+					var fakeTarget = !this.isChromeWin(e.view)
+						&& this.pu.pref("fakeMouseup.content")
+						? e.view.document || e.view
+						: gBrowser.selectedBrowser.parentNode;
+					this.createMouseEvents(e, fakeTarget, ["mouseup"], 0)();
+				}
 				if(this.isChromeWin(e.view.top))
 					this.stopEvent(e);
 				else
@@ -1141,7 +1146,7 @@ var rightLinks = {
 	},
 	createMouseEvent: function(origEvt, item, evtType, opts) {
 		item = item || origEvt.originalTarget;
-		var doc = item.ownerDocument;
+		var doc = item.ownerDocument || item.document || item;
 		var win = doc.defaultView;
 		if(
 			typeof win.MouseEvent == "function" // Firefox 11+

@@ -27,6 +27,8 @@ pref("extensions.rightlinks.loadInBackground", true);
 pref("extensions.rightlinks.loadInBackground.left", false);
 pref("extensions.rightlinks.loadJavaScriptLinksInBackground", false);
 pref("extensions.rightlinks.loadJavaScriptLinksInBackground.left", false);
+pref("extensions.rightlinks.loadBookmarksInBackground", true);
+pref("extensions.rightlinks.loadBookmarksInBackground.left", false);
 pref("extensions.rightlinks.loadJavaScriptLinks", true);
 pref("extensions.rightlinks.loadVoidLinksWithHandlers", true);
 

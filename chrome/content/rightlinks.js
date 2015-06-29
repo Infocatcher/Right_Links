@@ -1002,7 +1002,11 @@ var rightLinks = {
 				relatedToCurrent: relatedToCurrent
 			});
 		}
-		if(!this.pu.pref("loadInBackground" + this.leftPref))
+
+		var inBgPref = this.itemType == "bookmark" || this.itemType == "historyItem"
+			? "loadBookmarksInBackground"
+			: "loadInBackground";
+		if(!this.pu.pref(inBgPref + this.leftPref))
 			win.gBrowser.selectedTab = tab;
 
 		if(openAsChild && "tabkit" in win)

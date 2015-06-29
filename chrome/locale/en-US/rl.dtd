@@ -6,6 +6,7 @@
 <!-- Settings pop-up -->
 <!ENTITY rl.enabled "Enabled">
 <!ENTITY rl.loadInBackground "Load links in background">
+<!ENTITY rl.loadBookmarksInBackground "Load bookmarks in background">
 <!ENTITY rl.loadJavaScriptLinksInBackground "Load JavaScript-links in background">
 <!ENTITY rl.sendReferer "Send referer">
 <!ENTITY rl.enabledOnImages "Handle clicks on images">

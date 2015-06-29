@@ -58,6 +58,7 @@
 			<menuitem type="checkbox" rl_pref="enabled" default="true" label="&rl.enabled;" />
 			<menuseparator />
 			<menuitem type="checkbox" rl_pref="loadInBackground" label="&rl.loadInBackground;" />
+			<menuitem type="checkbox" rl_pref="loadBookmarksInBackground" label="&rl.loadBookmarksInBackground;" />
 			<menuitem type="checkbox" rl_pref="loadJavaScriptLinksInBackground" label="&rl.loadJavaScriptLinksInBackground;" />
 			<menuseparator />
 			<menuitem type="checkbox" rl_pref="sendReferer" label="&rl.sendReferer;" />
@@ -71,6 +72,7 @@
 			<menu id="rightLinks-settings-longLeftClickMenu" label="&rl.longLeftClick;">
 				<menupopup>
 					<menuitem type="checkbox" rl_pref="loadInBackground.left" label="&rl.loadInBackground;" />
+					<menuitem type="checkbox" rl_pref="loadBookmarksInBackground.left" label="&rl.loadBookmarksInBackground;" />
 					<menuitem type="checkbox" rl_pref="loadJavaScriptLinksInBackground.left" label="&rl.loadJavaScriptLinksInBackground;" />
 					<menuseparator />
 					<menuitem type="checkbox" rl_pref="closePopups.left" label="&rl.closePopups;" />

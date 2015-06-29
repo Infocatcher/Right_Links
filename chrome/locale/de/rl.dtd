@@ -6,6 +6,7 @@
 <!-- Settings pop-up -->
 <!ENTITY rl.enabled "Aktiviert">
 <!ENTITY rl.loadInBackground "Verweise im Hintergrund laden">
+<!ENTITY rl.loadBookmarksInBackground "Load bookmarks in background">
 <!ENTITY rl.loadJavaScriptLinksInBackground "JavaScropt-Verweise im Hintergrund laden">
 <!ENTITY rl.sendReferer "Referrer senden">
 <!ENTITY rl.enabledOnImages "Klicks auf Grafiken anwenden">

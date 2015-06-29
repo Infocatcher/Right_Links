@@ -6,6 +6,7 @@
 <!-- Settings pop-up -->
 <!ENTITY rl.enabled "Включено">
 <!ENTITY rl.loadInBackground "Открывать ссылки в фоне">
+<!ENTITY rl.loadBookmarksInBackground "Открывать закладки в фоне">
 <!ENTITY rl.loadJavaScriptLinksInBackground "Открывать JavaScript-ссылки в фоне">
 <!ENTITY rl.sendReferer "Отправлять referer">
 <!ENTITY rl.enabledOnImages "Обрабатывать клики по изображениям">

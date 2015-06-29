@@ -1343,11 +1343,13 @@ var rightLinks = {
 
 		var noBg = !this.enabledRight || this.pu.pref("loadInWindow");
 		this.e("loadInBackground").setAttribute("disabled", noBg);
+		this.e("loadBookmarksInBackground").setAttribute("disabled", noBg);
 		this.e("loadJavaScriptLinksInBackground").setAttribute("disabled", noBg);
 		this.e("closePopups").setAttribute("disabled", !this.enabledRight || noClosePopups);
 
 		var noBgLeft = !this.enabledLeft || this.pu.pref("loadInWindow.left");
 		this.e("loadInBackground.left").setAttribute("disabled", noBgLeft);
+		this.e("loadBookmarksInBackground.left").setAttribute("disabled", noBgLeft);
 		this.e("loadJavaScriptLinksInBackground.left").setAttribute("disabled", noBgLeft);
 		this.e("closePopups.left").setAttribute("disabled", !this.enabledLeft || noClosePopups);
 		document.getElementById("rightLinks-settings-longLeftClickMenu").setAttribute("disabled", !this.enabledLeft);

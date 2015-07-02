@@ -9,6 +9,7 @@ var rightLinks = {
 
 	item: null,
 	origItem: null,
+	handledItem: null, // API for another extensions to detect that item was handled by Right Links
 	itemType: null,
 	itemData: null,
 	event: null,
@@ -684,7 +685,7 @@ var rightLinks = {
 	},
 	cleanup: function() {
 		this._cleanupTimer = 0;
-		this.item = this.origItem = this.itemData = this.event = null;
+		this.item = this.origItem = this.handledItem = this.itemData = this.event = null;
 	},
 	clickHandler: function(e) {
 		if(!this.isEnabled(e))
@@ -800,6 +801,7 @@ var rightLinks = {
 	},
 
 	loadLink: function(e, a, href) {
+		this.handledItem = e.originalTarget;
 		if(
 			(this.itemType == "bookmark" || this.itemType == "historyItem")
 			&& this.pu.pref("closePopups" + this.leftPref)

@@ -945,9 +945,10 @@ var rightLinks = {
 			}
 		}
 		this.beforeLoad(a, href);
-		if(loadInCurTab)
+		var loadIn = this.pu.pref("loadIn" + this.leftPref);
+		if(loadInCurTab || loadIn == 2)
 			gBrowser.loadURI(href, this.getReferer());
-		else if(this.pu.pref("loadInWindow" + this.leftPref))
+		else if(loadIn == 1)
 			this.openURIInWindow(href);
 		else
 			this.openURIInTab(href);
@@ -1076,12 +1077,12 @@ var rightLinks = {
 			return;
 		}
 		var origs = this._origPrefs = { __proto__: null };
-		var inWin = this.pu.pref("loadInWindow" + this.leftPref);
+		var loadIn = this.pu.pref("loadIn" + this.leftPref);
 		var prefs = {
-			"browser.tabs.loadDivertedInBackground": inWin
+			"browser.tabs.loadDivertedInBackground": loadIn > 0
 				? null
 				: this.pu.pref("loadJavaScriptLinksInBackground" + this.leftPref),
-			"browser.link.open_newwindow": inWin ? 2 : 3,
+			"browser.link.open_newwindow": loadIn == 2 ? 1 : loadIn == 1 ? 2 : 3,
 			// http://kb.mozillazine.org/Network.http.sendRefererHeader
 			// 0 - none
 			// 1 - for docs
@@ -1344,13 +1345,13 @@ var rightLinks = {
 		var noClosePopups = this.e("enabledOnBookmarks").getAttribute("checked") != "true"
 			&& this.e("enabledOnHistoryItems").getAttribute("checked") != "true";
 
-		var noBg = !this.enabledRight || this.pu.pref("loadInWindow");
+		var noBg = !this.enabledRight || this.pu.pref("loadIn") > 0;
 		this.e("loadInBackground").setAttribute("disabled", noBg);
 		this.e("loadBookmarksInBackground").setAttribute("disabled", noBg);
 		this.e("loadJavaScriptLinksInBackground").setAttribute("disabled", noBg);
 		this.e("closePopups").setAttribute("disabled", !this.enabledRight || noClosePopups);
 
-		var noBgLeft = !this.enabledLeft || this.pu.pref("loadInWindow.left");
+		var noBgLeft = !this.enabledLeft || this.pu.pref("loadIn.left") > 0;
 		this.e("loadInBackground.left").setAttribute("disabled", noBgLeft);
 		this.e("loadBookmarksInBackground.left").setAttribute("disabled", noBgLeft);
 		this.e("loadJavaScriptLinksInBackground.left").setAttribute("disabled", noBgLeft);

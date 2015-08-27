@@ -32,8 +32,11 @@ pref("extensions.rightlinks.loadBookmarksInBackground.left", false);
 pref("extensions.rightlinks.loadJavaScriptLinks", true);
 pref("extensions.rightlinks.loadVoidLinksWithHandlers", true);
 
-pref("extensions.rightlinks.loadInWindow", false);
-pref("extensions.rightlinks.loadInWindow.left", false);
+pref("extensions.rightlinks.loadIn", 0);
+pref("extensions.rightlinks.loadIn.left", 0);
+// 0 - in new tab
+// 1 - in new window
+// 2 - in current tab
 
 pref("extensions.rightlinks.notifyJavaScriptLinks", true);
 pref("extensions.rightlinks.notifyVoidLinksWithHandlers", true);

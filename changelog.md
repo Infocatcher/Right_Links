@@ -8,6 +8,10 @@
 ##### master/HEAD
 `+` Added German locale (de), thanks to <a href="https://github.com/milupo">milupo</a>.<br>
 `+` Added ability to ignore image-like <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> nodes (<em>extensions.rightlinks.enabledOnCanvasImages</em> preference, e.g. to disable in case of performance problems).<br>
+`*` Long left-click: dispatch fake “mouseup” event in content document for better compatibility with page scripts (<em>extensions.rightlinks.fakeMouseup.content</em> preference).<br>
+`+` Added separate preferences to load bookmarks in background (<em>extensions.rightlinks.loadBookmarksInBackground</em> and <em>extensions.rightlinks.loadBookmarksInBackground.left</em>).<br>
+`+` Added `rightLinks.handledItem` API for another extensions.<br>
+`+` Added hidden preferences to load link in current tab (<em>extensions.rightlinks.loadIn</em> and <em>extensions.rightlinks.loadIn.left</em>, <a href="https://github.com/Infocatcher/Right_Links/issues/20">#20</a>).<br>
 
 ##### 0.3.8.4 (2014-08-10)
 `x` Fixed: long left-click opens not actual link, if it was changed (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>

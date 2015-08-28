@@ -59,6 +59,9 @@ var rightLinksPrefUtils = {
 		if(v < 2) // Added: 2009-12-12
 			this.pref("closePopups", _pref(this.prefNS + "hideBookmarksPopup", true));
 		if(v < 3) { // Added: 2015-08-27
+			this.pref("loadBookmarksInBackground",      this.pref("loadInBackground"));
+			this.pref("loadBookmarksInBackground.left", this.pref("loadInBackground.left"));
+
 			if(_pref(this.prefNS + "loadInWindow.left"))
 				this.pref("loadIn.left", 1);
 			if(_pref(this.prefNS + "loadInWindow"))

@@ -172,6 +172,15 @@ var rightLinks = {
 		return this.fxVersion = ver;
 	},
 	getItem: function(e) {
+		/*
+		var {detect} = Components.utils.import("chrome://rightlinks/content/detect.jsm", {});
+		var it = detect.getItem(e);
+		if(it) {
+			this.itemType = detect.itemType;
+			return it;
+		}
+		return null;
+		*/
 		var it = e.originalTarget;
 		if(!it.localName) // it === document
 			return null;

@@ -131,7 +131,7 @@ var rightLinks = {
 		item = item || this.item;
 		uri = uri || this.getHref(item, evt || this.event);
 		var doc = item.ownerDocument;
-		var loc = doc.location.href.replace(/#.*$/, "");
+		var loc = doc.documentURI.replace(/#.*$/, "");
 		if(!this.hasPrefix(uri, loc))
 			return false;
 		var _uri = uri.substr(loc.length);
@@ -194,6 +194,10 @@ var rightLinks = {
 		return this.fxVersion = ver;
 	},
 	getItem: function(e) {
+		if("_rightLinksItem" in e) {
+			this.itemType = e._rightLinksType;
+			return e._rightLinksItem;
+		}
 		/*
 		var {detect} = Components.utils.import("chrome://rightlinks/content/detect.jsm", {});
 		var it = detect.getItem(e);
@@ -494,6 +498,8 @@ var rightLinks = {
 	getHref: function(a, e) {
 		a = a || this.item;
 		e = e || this.event;
+		if("_rightLinksURL" in a)
+			return a._rightLinksURL;
 		return this.getLinkURI(a)
 			|| a.src || a.getAttribute("src")
 			|| a instanceof HTMLCanvasElement && a.toDataURL()

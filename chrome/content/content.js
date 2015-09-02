@@ -49,6 +49,15 @@ var remoteFrameHandler = {
 			view: {
 				top: null
 			},
+			_rightLinksItem: {
+				localName: it.localName,
+				ownerDocument: {
+					documentURI: it.ownerDocument.documentURI,
+					location: { href: it.ownerDocument.documentURI },
+					nodePrincipal: it.ownerDocument.nodePrincipal //~ todo: test
+				},
+				_rightLinksURL: h
+			},
 			_rightLinksStop: false,
 			_rightLinksURL: h,
 			_rightLinksType: detect.itemType

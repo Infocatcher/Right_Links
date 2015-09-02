@@ -28,8 +28,10 @@ var rightLinks = {
 		this.setUIVisibility();
 		this.registerHotkeys();
 
-		messageManager.addMessageListener("RightLinks:Event", this);
-		messageManager.loadFrameScript("chrome://rightlinks/content/content.js", true);
+		if(this.isMultiProcess) {
+			messageManager.addMessageListener("RightLinks:Event", this);
+			messageManager.loadFrameScript("chrome://rightlinks/content/content.js", true);
+		}
 
 		setTimeout(function(_this) {
 			// Fix position of item in App menu from Classic Theme Restorer
@@ -54,8 +56,10 @@ var rightLinks = {
 		window.removeEventListener("unload", this, false);
 		if(this.enabled)
 			this.setClickHandlers(false);
-		messageManager.removeMessageListener("RightLinks:Event", this);
-		messageManager.removeDelayedFrameScript("chrome://rightlinks/content/content.js");
+		if(this.isMultiProcess) {
+			messageManager.removeMessageListener("RightLinks:Event", this);
+			messageManager.removeDelayedFrameScript("chrome://rightlinks/content/content.js");
+		}
 		this.pu.destroy();
 	},
 	setClickHandlers: function(enabled) {
@@ -116,6 +120,10 @@ var rightLinks = {
 		return this.dragStartEvent = "ondragstart" in window
 			? "dragstart"
 			: "draggesture";
+	},
+	get isMultiProcess() {
+		delete this.isMultiProcess;
+		return this.isMultiProcess = "gMultiProcessBrowser" in window && gMultiProcessBrowser;
 	},
 
 	isVoidURI: function(uri) {

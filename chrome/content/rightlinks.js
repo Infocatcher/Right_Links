@@ -28,6 +28,9 @@ var rightLinks = {
 		this.setUIVisibility();
 		this.registerHotkeys();
 
+		messageManager.addMessageListener("RightLinks:Event", this);
+		messageManager.loadFrameScript("chrome://rightlinks/content/content.js", true);
+
 		setTimeout(function(_this) {
 			// Fix position of item in App menu from Classic Theme Restorer
 			var mi = _this.miApp;
@@ -51,6 +54,8 @@ var rightLinks = {
 		window.removeEventListener("unload", this, false);
 		if(this.enabled)
 			this.setClickHandlers(false);
+		messageManager.removeMessageListener("RightLinks:Event", this);
+		messageManager.removeDelayedFrameScript("chrome://rightlinks/content/content.js");
 		this.pu.destroy();
 	},
 	setClickHandlers: function(enabled) {
@@ -76,6 +81,23 @@ var rightLinks = {
 			case "DOMMouseScroll": // Legacy
 			case "wheel":        this.cancel();
 		}
+	},
+	receiveMessage: function(msg) {
+		if(msg.name != "RightLinks:Event")
+			return false;
+		var event = msg.data;
+		Services.console.logStringMessage("[Right Links]: receiveMessage(): " + event.type);
+		var stopEvent = function() {
+			event._rightLinksStop = true;
+		};
+		var fakeEvent = {
+			__proto__: event,
+			preventDefault:           stopEvent,
+			stopPropagation:          stopEvent,
+			stopImmediatePropagation: stopEvent
+		};
+		this[event.type + "Handler"](fakeEvent);
+		return event._rightLinksStop;
 	},
 	setListeners: function(evtTypes, add) {
 		var act = add ? addEventListener : removeEventListener;

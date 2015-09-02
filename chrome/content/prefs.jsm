@@ -127,3 +127,5 @@ var prefs = {
 		Services.prefs.savePrefFile(null);
 	}
 };
+
+prefs.init();

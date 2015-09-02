@@ -90,7 +90,6 @@ var rightLinks = {
 		if(msg.name != "RightLinks:Event")
 			return false;
 		var event = msg.data;
-		Services.console.logStringMessage("[Right Links]: receiveMessage(): " + event.type);
 		var stopEvent = function() {
 			event._rightLinksStop = true;
 		};

@@ -7,7 +7,6 @@ this.__defineGetter__("detect", function() {
 
 var remoteFrameHandler = {
 	init: function() {
-		Services.console.logStringMessage("[Right Links]: remoteFrameHandler.init()");
 		addEventListener("mousedown", this, true);
 		addEventListener("mouseup", this, true);
 		addEventListener("click", this, true);
@@ -20,7 +19,6 @@ var remoteFrameHandler = {
 		removeEventListener("unload", this, true);
 	},
 	handleEvent: function(e) {
-		Services.console.logStringMessage("[Right Links]: handleEvent() " + e.type);
 		switch(e.type) {
 			case "mousedown":
 			case "mouseup":
@@ -35,7 +33,6 @@ var remoteFrameHandler = {
 	handleMouseEvent: function(e) {
 		var it = detect.getItem(e);
 		var h = it && detect.getHref(it, e);
-		Services.console.logStringMessage("[Right Links]: getItem() " + it);
 		if(!h)
 			return;
 		var trg = e.originalTarget;
@@ -72,7 +69,6 @@ var remoteFrameHandler = {
 			e.preventDefault();
 			e.stopPropagation();
 			"stopImmediatePropagation" in e && e.stopImmediatePropagation();
-			Services.console.logStringMessage("[Right Links]: sendSyncMessage() => e.preventDefault()");
 		}
 	}
 };

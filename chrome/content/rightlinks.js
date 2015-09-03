@@ -28,11 +28,6 @@ var rightLinks = {
 		this.setUIVisibility();
 		this.registerHotkeys();
 
-		if(this.isMultiProcess) {
-			messageManager.addMessageListener("RightLinks:Event", this);
-			messageManager.loadFrameScript("chrome://rightlinks/content/content.js", true);
-		}
-
 		setTimeout(function(_this) {
 			// Fix position of item in App menu from Classic Theme Restorer
 			var mi = _this.miApp;
@@ -55,18 +50,37 @@ var rightLinks = {
 	destroy: function() {
 		window.removeEventListener("unload", this, false);
 		if(this.enabled)
-			this.setClickHandlers(false);
-		if(this.isMultiProcess) {
-			messageManager.removeMessageListener("RightLinks:Event", this);
-			messageManager.removeDelayedFrameScript("chrome://rightlinks/content/content.js");
-		}
+			this.setClickHandlers(false, true);
 		this.pu.destroy();
 	},
-	setClickHandlers: function(enabled) {
+	setClickHandlers: function(enabled, force) {
 		this.setListeners(["mousedown", "mouseup", "click", "contextmenu", "popupshowing"], enabled);
+		this.setFrameScript(enabled, force);
 		if(!enabled) {
 			this.cancelDelayedAction();
 			this.setMoveHandlers(false);
+		}
+	},
+	_frameScriptLoaded: false,
+	setFrameScript: function(enabled, force) {
+		if(!this.isMultiProcess)
+			return;
+		var mm = messageManager;
+		mm.broadcastAsyncMessage("RightLinks:SetState", {
+			enabled: enabled
+		});
+		if(enabled) {
+			mm.addMessageListener("RightLinks:Event", this);
+			if(!this._frameScriptLoaded) {
+				this._frameScriptLoaded = true;
+				mm.loadFrameScript("chrome://rightlinks/content/content.js", true);
+			}
+		}
+		else {
+			mm.removeMessageListener("RightLinks:Event", this);
+			// See https://bugzilla.mozilla.org/show_bug.cgi?id=1051238
+			// We can't unload frame script, so load only once and remove on shutdown
+			force && mm.removeDelayedFrameScript("chrome://rightlinks/content/content.js");
 		}
 	},
 	handleEvent: function(e) {

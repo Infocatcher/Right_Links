@@ -6,17 +6,19 @@ this.__defineGetter__("detect", function() {
 });
 
 var remoteFrameHandler = {
-	init: function() {
+	init: function(force) {
 		addEventListener("mousedown", this, true);
 		addEventListener("mouseup", this, true);
 		addEventListener("click", this, true);
 		addEventListener("unload", this, true);
+		force && addMessageListener("RightLinks:SetState", this);
 	},
-	destroy: function() {
+	destroy: function(force) {
 		removeEventListener("mousedown", this, true);
 		removeEventListener("mouseup", this, true);
 		removeEventListener("click", this, true);
 		removeEventListener("unload", this, true);
+		force && removeMessageListener("RightLinks:SetState", this);
 	},
 	handleEvent: function(e) {
 		switch(e.type) {
@@ -27,8 +29,14 @@ var remoteFrameHandler = {
 			break;
 			case "unload":
 				if(content && content.location != "about:blank")
-					this.destroy();
+					this.destroy(true);
 		}
+	},
+	receiveMessage: function(msg) {
+		if(msg.data.enabled)
+			this.init();
+		else
+			this.destroy();
 	},
 	handleMouseEvent: function(e) {
 		var it = detect.getItem(e);
@@ -72,4 +80,4 @@ var remoteFrameHandler = {
 		}
 	}
 };
-remoteFrameHandler.init();
+remoteFrameHandler.init(true);

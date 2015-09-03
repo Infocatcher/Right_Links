@@ -76,7 +76,26 @@ var prefs = {
 		var shortName = pName.substr(this.ns.length);
 		var val = this.getPref(pName);
 		this._cache[shortName] = val;
-		//~ todo: notify all windows
+
+		var observers = this._observers;
+		for(var id in observers) {
+			var observer = observers[id];
+			observer.fn.call(observer.context, shortName, val);
+		}
+	},
+
+	_observers: { __proto__: null },
+	_observerId: -1,
+	addObserver: function(fn, context) {
+		var id = ++this._observerId;
+		this._observers[id] = {
+			fn: fn,
+			context: context
+		};
+		return id;
+	},
+	removeObserver: function(id) {
+		delete this._observers[id];
 	},
 
 	_cache: { __proto__: null },

@@ -66,7 +66,8 @@ var rightLinks = {
 		if(!this.isMultiProcess)
 			return;
 		var mm = messageManager;
-		mm.broadcastAsyncMessage("RightLinks:SetState", {
+		mm.broadcastAsyncMessage("RightLinks:Action", {
+			action: "SetState",
 			enabled: enabled
 		});
 		if(enabled) {

@@ -11,14 +11,14 @@ var remoteFrameHandler = {
 		addEventListener("mouseup", this, true);
 		addEventListener("click", this, true);
 		addEventListener("unload", this, true);
-		force && addMessageListener("RightLinks:SetState", this);
+		force && addMessageListener("RightLinks:Action", this);
 	},
 	destroy: function(force) {
 		removeEventListener("mousedown", this, true);
 		removeEventListener("mouseup", this, true);
 		removeEventListener("click", this, true);
 		removeEventListener("unload", this, true);
-		force && removeMessageListener("RightLinks:SetState", this);
+		force && removeMessageListener("RightLinks:Action", this);
 	},
 	handleEvent: function(e) {
 		switch(e.type) {
@@ -33,10 +33,13 @@ var remoteFrameHandler = {
 		}
 	},
 	receiveMessage: function(msg) {
-		if(msg.data.enabled)
-			this.init();
-		else
-			this.destroy();
+		switch(msg.data.action) {
+			case "SetState":
+				if(msg.data.enabled)
+					this.init();
+				else
+					this.destroy();
+		}
 	},
 	handleMouseEvent: function(e) {
 		var it = detect.getItem(e);

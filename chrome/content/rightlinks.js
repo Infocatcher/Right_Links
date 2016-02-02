@@ -139,6 +139,9 @@ var rightLinks = {
 		delete this.isMultiProcess;
 		return this.isMultiProcess = "gMultiProcessBrowser" in window && gMultiProcessBrowser;
 	},
+	get fromRemoteFrame() {
+		return this.isMultiProcess && this.event && "_rightLinksItem" in this.event;
+	},
 
 	isVoidURI: function(uri) {
 		uri = (uri || "").replace(/(?:\s|%20)+/g, " ");
@@ -917,6 +920,7 @@ var rightLinks = {
 			});
 
 			var _this = this;
+			var fromRemoteFrame = this.fromRemoteFrame;
 			var loadVoidFunc = function() {
 				_this.setLoadJSLinksPolicy();
 
@@ -924,8 +928,13 @@ var rightLinks = {
 					// https://github.com/Infocatcher/Right_Links/issues/2
 					// Tabs becomes not clickable after "mousedown" imitation,
 					// so we try to catch "mousedown" before browser's listeners
-					var doc = a.ownerDocument;
-					var root = _this.dwu.getParentForNode(doc, true) || doc.defaultView;
+					var root;
+					if(fromRemoteFrame)
+						root = gBrowser.selectedBrowser;
+					else {
+						var doc = a.ownerDocument;
+						root = _this.dwu.getParentForNode(doc, true) || doc.defaultView;
+					}
 					root.addEventListener("mousedown", function fix(e) {
 						root.removeEventListener(e.type, fix, false);
 						e.preventDefault();
@@ -1204,7 +1213,7 @@ var rightLinks = {
 	createMouseEvents: function(origEvt, item, evtTypes, opts) {
 		if(typeof opts == "number")
 			opts = { button: opts };
-		if(this.isMultiProcess && this.event && "_rightLinksItem" in this.event)
+		if(this.fromRemoteFrame)
 			return this.createRemoteMouseEvents(evtTypes, opts);
 		var evts = evtTypes.map(function(evtType) {
 			return this.createMouseEvent(origEvt, item, evtType, opts);

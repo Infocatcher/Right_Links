@@ -8,6 +8,7 @@ this.__defineGetter__("prefs", function() {
 });
 
 var detect = {
+	event: null,
 	item: null,
 	origItem: null,
 	itemData: null,
@@ -17,7 +18,8 @@ var detect = {
 	getItem: function(e) {
 		var it = this._getItem(e);
 		if(!it)
-			return null;
+			return this.event = this.item = this.origItem = null;
+		this.event = e;
 		this.item = it;
 		this.origItem = e.originalTarget;
 		return it;

@@ -39,6 +39,9 @@ var remoteFrameHandler = {
 					this.init();
 				else
 					this.destroy();
+			break;
+			case "DispatchMouseEvents":
+				this.dispatchMouseEvents(msg.data.types, msg.data.options);
 		}
 	},
 	handleMouseEvent: function(e) {
@@ -81,6 +84,31 @@ var remoteFrameHandler = {
 			e.stopPropagation();
 			"stopImmediatePropagation" in e && e.stopImmediatePropagation();
 		}
+	},
+	dispatchMouseEvents: function(evtTypes, opts) {
+		var item = detect.origItem;
+		var origEvt = detect.event;
+		var doc = item.ownerDocument || item.document || item;
+		var win = doc.defaultView;
+		evtTypes.forEach(function(evtType) {
+			var evt = new win.MouseEvent(evtType, {
+				bubbles: true,
+				cancelable: true,
+				view: win,
+				detail: 1,
+				screenX: origEvt.screenX,
+				screenY: origEvt.screenY,
+				clientX: origEvt.clientX,
+				clientY: origEvt.clientY,
+				ctrlKey:  opts.ctrlKey  || false,
+				altKey:   opts.altKey   || false,
+				shiftKey: opts.shiftKey || false,
+				metaKey:  opts.metaKey  || false,
+				button:   opts.button   || 0,
+				relatedTarget: null
+			});
+			item.dispatchEvent(evt);
+		});
 	}
 };
 remoteFrameHandler.init(true);

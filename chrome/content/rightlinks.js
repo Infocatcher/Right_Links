@@ -1204,6 +1204,8 @@ var rightLinks = {
 	createMouseEvents: function(origEvt, item, evtTypes, opts) {
 		if(typeof opts == "number")
 			opts = { button: opts };
+		if(this.isMultiProcess && this.event && "_rightLinksItem" in this.event)
+			return this.createRemoteMouseEvents(evtTypes, opts);
 		var evts = evtTypes.map(function(evtType) {
 			return this.createMouseEvent(origEvt, item, evtType, opts);
 		}, this);
@@ -1251,6 +1253,16 @@ var rightLinks = {
 			);
 		}
 		return evt;
+	},
+	createRemoteMouseEvents: function(evtTypes, opts) {
+		return function() {
+			var mm = gBrowser.selectedBrowser.messageManager;
+			mm.sendAsyncMessage("RightLinks:Action", {
+				action: "DispatchMouseEvents",
+				types: evtTypes,
+				options: opts
+			});
+		};
 	},
 
 	get strings() {

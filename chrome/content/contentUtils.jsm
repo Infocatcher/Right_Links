@@ -72,5 +72,9 @@ var contentUtils = {
 			});
 			item.dispatchEvent(evt);
 		});
+	},
+	loadURI: function(uri) {
+		var item = detect.origItem;
+		item.ownerDocument.location.href = uri;
 	}
 };

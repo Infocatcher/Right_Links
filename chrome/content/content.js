@@ -41,6 +41,9 @@ var remoteFrameHandler = {
 			break;
 			case "DispatchMouseEvents":
 				contentUtils.dispatchMouseEvents(msg.data.types, msg.data.options);
+			break;
+			case "LoadURI":
+				contentUtils.loadURI(msg.data.URI);
 		}
 	}
 };

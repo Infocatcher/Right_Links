@@ -1135,8 +1135,18 @@ var rightLinks = {
 		var href = this.getHref(a);
 		if(this.itemType == "bookmark" || this.itemType == "historyItem")
 			gBrowser.loadURI(href); // bookmarklets
-		else
-			a.ownerDocument.location.href = href; // frames?
+		else {
+			if("_rightLinksURL" in a) {
+				var mm = gBrowser.selectedBrowser.messageManager;
+				mm.sendAsyncMessage("RightLinks:Action", {
+					action: "LoadURI",
+					URI: href
+				});
+			}
+			else {
+				a.ownerDocument.location.href = href; // frames?
+			}
+		}
 
 		this.restoreLoadJSLinksPolicy();
 		this.setTimeout(function() { // Timeout for Firefox 3.0+

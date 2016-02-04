@@ -5,9 +5,16 @@ this.__defineGetter__("detect", function() {
 	Components.utils.import("chrome://rightlinks/content/detect.jsm");
 	return detect;
 });
+this.__defineGetter__("prefs", function() {
+	delete this.prefs;
+	Components.utils.import("chrome://rightlinks/content/prefs.jsm");
+	return prefs;
+});
 
 var contentUtils = {
 	handleMouseEvent: function(sendSyncMessage, e) {
+		if(!this.enabledFor(e.button))
+			return;
 		var it = detect.getItem(e);
 		var h = it && detect.getHref(it, e);
 		if(!h)
@@ -47,6 +54,10 @@ var contentUtils = {
 			e.stopPropagation();
 			"stopImmediatePropagation" in e && e.stopImmediatePropagation();
 		}
+	},
+	enabledFor: function(btn) {
+		return btn == 0 && prefs.get("enabled.left")
+			|| btn == 2 && prefs.get("enabled.right");
 	},
 	dispatchMouseEvents: function(evtTypes, opts) {
 		var item = detect.origItem;

@@ -81,7 +81,10 @@ var rightLinks = {
 			mm.removeMessageListener("RightLinks:Event", this);
 			// See https://bugzilla.mozilla.org/show_bug.cgi?id=1051238
 			// We can't unload frame script, so load only once and remove on shutdown
-			force && mm.removeDelayedFrameScript("chrome://rightlinks/content/content.js");
+			if(force && this._frameScriptLoaded) {
+				this._frameScriptLoaded = false;
+				mm.removeDelayedFrameScript("chrome://rightlinks/content/content.js");
+			}
 		}
 	},
 	handleEvent: function(e) {

@@ -1,6 +1,5 @@
 var EXPORTED_SYMBOLS = ["detect"];
 
-Components.utils.import("resource://gre/modules/Services.jsm");
 this.__defineGetter__("prefs", function() {
 	delete this.prefs;
 	Components.utils.import("chrome://rightlinks/content/prefs.jsm");

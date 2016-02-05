@@ -2,13 +2,11 @@ var EXPORTED_SYMBOLS = ["contentUtils"];
 
 this.__defineGetter__("detect", function() {
 	delete this.detect;
-	Components.utils.import("chrome://rightlinks/content/detect.jsm");
-	return detect;
+	return Components.utils.import("chrome://rightlinks/content/detect.jsm").detect;
 });
 this.__defineGetter__("prefs", function() {
 	delete this.prefs;
-	Components.utils.import("chrome://rightlinks/content/prefs.jsm");
-	return prefs;
+	return Components.utils.import("chrome://rightlinks/content/prefs.jsm").prefs;
 });
 
 var contentUtils = {

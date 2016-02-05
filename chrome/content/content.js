@@ -1,7 +1,6 @@
 this.__defineGetter__("contentUtils", function() {
 	delete this.contentUtils;
-	Components.utils.import("chrome://rightlinks/content/contentUtils.jsm");
-	return contentUtils;
+	return Components.utils.import("chrome://rightlinks/content/contentUtils.jsm").contentUtils;
 });
 
 var remoteFrameHandler = {

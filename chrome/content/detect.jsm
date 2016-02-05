@@ -2,8 +2,7 @@ var EXPORTED_SYMBOLS = ["detect"];
 
 this.__defineGetter__("prefs", function() {
 	delete this.prefs;
-	Components.utils.import("chrome://rightlinks/content/prefs.jsm");
-	return prefs;
+	return Components.utils.import("chrome://rightlinks/content/prefs.jsm").prefs;
 });
 
 var detect = {

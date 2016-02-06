@@ -148,7 +148,7 @@ var rightLinks = {
 		return /^javascript: *(?:|\/\/|void *(?: +0|\( *0 *\))) *;? *$/i.test(uri);
 	},
 	isJSURI: function(uri) {
-		return typeof uri == "string" && /^javascript:/i.test(uri);
+		return /^javascript:/i.test(uri);
 	},
 	isDummyURI: function(item, uri, evt) {
 		//if(this.itemType != "link")

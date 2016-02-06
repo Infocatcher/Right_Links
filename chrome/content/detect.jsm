@@ -328,6 +328,28 @@ var detect = {
 			|| this.getBookmarkURI(a, e, "uri");
 	},
 
+	isDummyURI: function(item, uri, evt) {
+		//if(this.itemType != "link")
+		//	return false;
+		item = item || this.item;
+		uri = uri || this.getHref(item, evt || this.event);
+		var doc = item.ownerDocument;
+		var loc = doc.documentURI.replace(/#.*$/, "");
+		if(!this.hasPrefix(uri, loc))
+			return false;
+		var _uri = uri.substr(loc.length);
+		if(_uri == "" && item.getAttribute && item.hasAttribute("href") && !item.getAttribute("href")) // <a href="">
+			return true;
+		if(_uri.charAt(0) != "#")
+			return false;
+		var anchor = _uri.substr(1);
+		if(!anchor) // <a href="#">
+			return true;
+		if(anchor.charAt(0) == "!") // site.com/#!... links on JavaScript-based sites like http://twitter.com/
+			return false;
+		return !doc.getElementById(anchor) && !doc.getElementsByName(anchor).length && 2;
+	},
+
 	isPrimitive: function(v) {
 		if(v === null || v === undefined)
 			return true;

@@ -18,6 +18,7 @@ var contentUtils = {
 		if(!h)
 			return;
 		var trg = e.originalTarget;
+		var isDummy = detect.isDummyURI(it, h, e);
 		var clonedEvent = {
 			originalTarget: {
 				localName: trg.localName,
@@ -35,7 +36,8 @@ var contentUtils = {
 					location: { href: it.ownerDocument.documentURI },
 					nodePrincipal: it.ownerDocument.nodePrincipal //~ todo: test
 				},
-				_rightLinksURL: h
+				_rightLinksURL: h,
+				_rightLinksIsDummy: isDummy
 			},
 			_rightLinksStop: false,
 			_rightLinksURL: h,

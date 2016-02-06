@@ -151,6 +151,10 @@ var rightLinks = {
 		return /^javascript:/i.test(uri);
 	},
 	isDummyURI: function(item, uri, evt) {
+		if("_rightLinksIsDummy" in item)
+			return item._rightLinksIsDummy;
+		//return detect.isDummyURI(item, uri, evt);
+
 		//if(this.itemType != "link")
 		//	return false;
 		item = item || this.item;

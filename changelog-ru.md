@@ -12,6 +12,7 @@
 `+` Добавлены раздельные настройки для открытия закладок в фоне (<em>extensions.rightlinks.loadBookmarksInBackground</em> и <em>extensions.rightlinks.loadBookmarksInBackground.left</em>).<br>
 `+` Добавлен `rightLinks.handledItem` API для других расширений.<br>
 `+` Добавлены скрытые настройки для открытия ссылок в текущей вкладке (<em>extensions.rightlinks.loadIn</em> и <em>extensions.rightlinks.loadIn.left</em>, <a href="https://github.com/Infocatcher/Right_Links/issues/20">#20</a>).<br>
+`x` Некоторые исправления для мультипроцессного режима (Electrolysis aka e10s) (<a href="https://github.com/Infocatcher/Right_Links/issues/17">#17</a>, <a href="https://github.com/Infocatcher/Right_Links/issues/21">#21</a>).<br>
 
 ##### 0.3.8.4 (2014-08-10)
 `x` Исправлено: долгий клик левой кнопкой мыши открывал старую ссылку, если ссылка менялась (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>

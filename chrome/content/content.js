@@ -9,14 +9,14 @@ var remoteFrameHandler = {
 		addEventListener("mousedown", this, true);
 		addEventListener("mouseup", this, true);
 		addEventListener("click", this, true);
-		addEventListener("unload", this, true);
+		addEventListener("unload", this, false);
 		force && addMessageListener("RightLinks:Action", this);
 	},
 	destroy: function(force) {
 		removeEventListener("mousedown", this, true);
 		removeEventListener("mouseup", this, true);
 		removeEventListener("click", this, true);
-		removeEventListener("unload", this, true);
+		removeEventListener("unload", this, false);
 		force && removeMessageListener("RightLinks:Action", this);
 	},
 	handleEvent: function(e) {

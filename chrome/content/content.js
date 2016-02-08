@@ -3,6 +3,7 @@ this.__defineGetter__("contentUtils", function() {
 	return Components.utils.import("chrome://rightlinks/content/contentUtils.jsm").contentUtils;
 });
 
+var global = this;
 var remoteFrameHandler = {
 	init: function(force) {
 		addEventListener("mousedown", this, true);
@@ -26,7 +27,7 @@ var remoteFrameHandler = {
 				contentUtils.handleMouseEvent(sendSyncMessage, e);
 			break;
 			case "unload":
-				if(content && content.location != "about:blank")
+				if(e.target == global)
 					this.destroy(true);
 		}
 	},

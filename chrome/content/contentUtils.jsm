@@ -11,7 +11,7 @@ this.__defineGetter__("prefs", function() {
 
 var contentUtils = {
 	handleMouseEvent: function(sendSyncMessage, e) {
-		if(!this.enabledFor(e.button))
+		if(!this.enabledFor(e))
 			return;
 		var it = detect.getItem(e);
 		var h = it && detect.getHref(it, e);
@@ -55,7 +55,10 @@ var contentUtils = {
 			"stopImmediatePropagation" in e && e.stopImmediatePropagation();
 		}
 	},
-	enabledFor: function(btn) {
+	enabledFor: function(e) {
+		if(e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
+			return false;
+		var btn = e.button;
 		return btn == 0 && prefs.get("enabled.left")
 			|| btn == 2 && prefs.get("enabled.right");
 	},

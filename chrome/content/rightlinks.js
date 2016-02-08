@@ -563,7 +563,7 @@ var rightLinks = {
 			e.type,
 			function stopEvent(e) {
 				root.removeEventListener(e.type, stopEvent, true);
-				if(_this.isEnabled(e))
+				if(_this.enabledFor(e))
 					_this.stopEvent(e);
 			},
 			true
@@ -624,20 +624,17 @@ var rightLinks = {
 			: node1 == node2;
 	},
 
-	isEnabled: function(e) {
-		if(!this.enabled)
+	enabledFor: function(e) {
+		if(!this.enabled || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
 			return false;
-		var b = e.button;
-		if(b == 0 && !this.enabledLeft || b == 2 && !this.enabledRight)
-			return false;
-		if(b == 1 || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
-			return false;
-		return true;
+		var btn = e.button;
+		return btn == 0 && this.enabledLeft
+			|| btn == 2 && this.enabledRight;
 	},
 
 	mousedownPos: { __proto__: null },
 	mousedownHandler: function(e) {
-		if(!this.isEnabled(e))
+		if(!this.enabledFor(e))
 			return;
 
 		this._cleanupTimer && clearTimeout(this._cleanupTimer);
@@ -714,7 +711,7 @@ var rightLinks = {
 		// Case: mousedown -> schedule delayed action -> press Shift -> mouseup
 		// We should perform cleanup in this case!
 		this.cancelDelayedAction();
-		if(!this.isEnabled(e))
+		if(!this.enabledFor(e))
 			this.stopContextMenu = this.stopClick = false;
 		else {
 			this.setTimeout(function() {
@@ -759,7 +756,7 @@ var rightLinks = {
 		this.item = this.origItem = this.handledItem = this.itemData = this.event = null;
 	},
 	clickHandler: function(e) {
-		if(!this.isEnabled(e))
+		if(!this.enabledFor(e))
 			return;
 		if(this.isLeft) {
 			this.cancelDelayedAction();

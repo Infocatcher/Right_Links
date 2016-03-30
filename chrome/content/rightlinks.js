@@ -618,11 +618,6 @@ var rightLinks = {
 			func.call(context);
 		}, delay || 0, func, context || this);
 	},
-	isSameNodes: function(node1, node2) {
-		return node1 && node2 && "_rightLinksURL" in node1 && "_rightLinksURL" in node2
-			? uneval(node1) == uneval(node2)
-			: node1 == node2;
-	},
 
 	enabledFor: function(e) {
 		if(!this.enabled || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
@@ -780,7 +775,7 @@ var rightLinks = {
 			return;
 
 		var a = this.getItem(e);
-		if(!a || !this.isSameNodes(a, this.item))
+		if(!a || ("_rightLinksItemChanged" in a ? a._rightLinksItemChanged : a != this.item))
 			return;
 		var href = this.getHref(a, e);
 		if(!href)

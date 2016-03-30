@@ -13,10 +13,12 @@ var contentUtils = {
 	handleMouseEvent: function(sendSyncMessage, e) {
 		if(!this.enabledFor(e))
 			return;
+		var prev = detect.item;
 		var it = detect.getItem(e);
 		var h = it && detect.getHref(it, e);
 		if(!h)
 			return;
+		var changed = e.type == "mousedown" ? undefined : it != prev;
 		var trg = e.originalTarget;
 		var isDummy = detect.isDummyURI(it, h, e);
 		var clonedEvent = {
@@ -37,7 +39,8 @@ var contentUtils = {
 					nodePrincipal: it.ownerDocument.nodePrincipal //~ todo: test
 				},
 				_rightLinksURL: h,
-				_rightLinksIsDummy: isDummy
+				_rightLinksIsDummy: isDummy,
+				_rightLinksItemChanged: changed
 			},
 			_rightLinksStop: false,
 			_rightLinksURL: h,

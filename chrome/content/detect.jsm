@@ -314,6 +314,12 @@ var detect = {
 		return null;
 	},
 	getWebConsoleURI: function(it) {
+		if(
+			it.hasAttribute("data-reactid")
+			&& it.ownerDocument.documentURI == "chrome://devtools/content/webconsole/webconsole.xul"
+			&& it.parentNode.classList.contains("frame-link-source")
+		) // Firefox 48+
+			return it.parentNode.parentNode.getAttribute("data-url");
 		return it.namespaceURI == this.XULNS
 			&& it.classList
 			&& it.classList.contains("webconsole-location")

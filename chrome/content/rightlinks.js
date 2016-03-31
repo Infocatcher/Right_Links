@@ -494,17 +494,21 @@ var rightLinks = {
 		if(
 			docURI == "chrome://browser/content/devtools/cssruleview.xul"
 			|| docURI == "chrome://browser/content/devtools/cssruleview.xhtml" // Firefox 22+
+			|| docURI == "chrome://devtools/content/inspector/inspector.xul" // Firefox 48+
 		) {
 			if(it.localName == "label")
 				it = it.parentNode;
-			return it.classList
+			var uri = it.classList
 				&& it.classList.contains("ruleview-rule-source")
 				&& this.getProperty(it, "parentNode", "_ruleEditor", "rule", "sheet", "href");
+			if(uri)
+				return uri;
 		}
 		// Computed tab
 		if(
 			docURI == "chrome://browser/content/devtools/csshtmltree.xul"
 			|| docURI == "chrome://browser/content/devtools/computedview.xhtml" // Firefox 22+
+			|| docURI == "chrome://devtools/content/inspector/inspector.xul" // Firefox 48+
 		) {
 			return it instanceof HTMLAnchorElement
 				&& !it.href

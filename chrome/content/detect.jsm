@@ -359,6 +359,9 @@ var detect = {
 			return false;
 		return !doc.getElementById(anchor) && !doc.getElementsByName(anchor).length && 2;
 	},
+	uri: function(uri) {
+		return /^[\w-]+:\S*$/.test(uri) && uri;
+	},
 
 	isPrimitive: function(v) {
 		if(v === null || v === undefined)

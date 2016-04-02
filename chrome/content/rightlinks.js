@@ -227,15 +227,15 @@ var rightLinks = {
 			this.itemType = e._rightLinksType;
 			return e._rightLinksItem;
 		}
-		/*
-		var {detect} = Components.utils.import("chrome://rightlinks/content/detect.jsm", {});
-		var it = detect.getItem(e);
-		if(it) {
-			this.itemType = detect.itemType;
-			return it;
+		if(this.pu.pref("test.useModules") && this.fxVersion >= 4) {
+			var detect = Components.utils["import"]("chrome://rightlinks/content/detect.jsm", {}).detect;
+			var it = detect.getItem(e);
+			if(it) {
+				this.itemType = detect.itemType;
+				return it;
+			}
+			return null;
 		}
-		return null;
-		*/
 		var it = e.originalTarget;
 		if(!it.localName) // it === document
 			return null;

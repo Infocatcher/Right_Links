@@ -61,4 +61,6 @@ pref("extensions.rightlinks.ui.toolbarbuttonCheckedStyle", true);
 pref("extensions.rightlinks.ui.closeMenu", false);
 pref("extensions.rightlinks.ui.closeMenuRightClick", false);
 
+pref("extensions.rightlinks.test.useModules", false);
+
 pref("extensions.rightlinks.prefsVersion", 0);

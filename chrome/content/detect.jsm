@@ -156,7 +156,8 @@ var detect = {
 	getImg: function(it) {
 		if(!it || !it.localName)
 			return null;
-		var window = it.ownerDocument.defaultView;
+		var document = it.ownerDocument;
+		var window = document.defaultView;
 		var itln = it.localName.toLowerCase();
 		if(itln == "_moz_generated_content_before") { // Alt-text
 			it = it.parentNode;
@@ -167,9 +168,9 @@ var detect = {
 				(itln == "img" || itln == "image") && it.hasAttribute("src")
 				|| (it instanceof window.HTMLCanvasElement && prefs.get("enabledOnCanvasImages"))
 			)
-			&& !this.isChromeWin(it.ownerDocument.defaultView) // Not for interface...
+			&& !this.isChromeWin(window) // Not for interface...
 			&& ( // Speed Dial has own settings for right clicks
-				it.ownerDocument.documentURI != "chrome://speeddial/content/speeddial.xul"
+				document.documentURI != "chrome://speeddial/content/speeddial.xul"
 				|| !/(?:^|\s)speeddial-container(?:\s|$)/.test(it.parentNode.className)
 				|| prefs.get("enabledOnSpeedDialImages")
 			)
@@ -281,8 +282,9 @@ var detect = {
 	getCSSEditorURI: function(it) {
 		if(!prefs.get("enabledOnCSSEditorLinks"))
 			return null;
-		var window = it.ownerDocument.defaultView;
-		var docURI = it.ownerDocument.documentURI;
+		var document = it.ownerDocument;
+		var window = document.defaultView;
+		var docURI = document.documentURI;
 		// Rules tab
 		if(
 			docURI == "chrome://browser/content/devtools/cssruleview.xul"

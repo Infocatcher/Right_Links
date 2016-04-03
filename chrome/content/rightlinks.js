@@ -311,7 +311,7 @@ var rightLinks = {
 				)
 				&& (
 					it.hasAttribute("href")
-					|| this.getProperty(it, "repObject", "href") // Firebug
+					|| this.getFirebugURI(it)
 				)
 				|| it.nodeType == eltNode && it.hasAttributeNS("http://www.w3.org/1999/xlink", "href")
 			)
@@ -482,9 +482,25 @@ var rightLinks = {
 			// Looks like wrapper error with chrome://global/content/bindings/text.xml#text-link binding
 			// on "content" pages (e.g. chrome://global/content/console.xul)
 			: it.href || it.getAttribute("href")
-				|| this.getProperty(it, "repObject", "href") // Firebug
+				|| this.getFirebugURI(it)
 				|| this.getCSSEditorURI(it)
 				|| this.getWebConsoleURI(it);
+	},
+	getFirebugURI: function(it) {
+		var uri = this.getProperty(it, "repObject", "href");
+		if(uri)
+			return uri;
+		try {
+			if("Firebug" in window) {
+				var repObject = Firebug.getRepObject(it);
+				if(repObject)
+					return repObject.href || "";
+			}
+		}
+		catch(e) {
+			Components.utils.reportError(e);
+		}
+		return "";
 	},
 	getCSSEditorURI: function(it) {
 		if(!this.pu.pref("enabledOnCSSEditorLinks"))

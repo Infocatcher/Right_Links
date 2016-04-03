@@ -1,5 +1,6 @@
 var EXPORTED_SYMBOLS = ["detect"];
 
+Components.utils.import("resource://gre/modules/Services.jsm");
 this.__defineGetter__("prefs", function() {
 	delete this.prefs;
 	return Components.utils.import("chrome://rightlinks/content/prefs.jsm").prefs;
@@ -83,6 +84,7 @@ var detect = {
 
 		const docNode = window.Node.DOCUMENT_NODE; // 9
 		const eltNode = window.Node.ELEMENT_NODE; // 1
+
 		for(it = it; it && it.nodeType != docNode; it = it.parentNode) {
 			// https://bugzilla.mozilla.org/show_bug.cgi?id=266932
 			// https://bug266932.bugzilla.mozilla.org/attachment.cgi?id=206815
@@ -99,7 +101,7 @@ var detect = {
 				)
 				&& (
 					it.hasAttribute("href")
-					|| this.getProperty(it, "repObject", "href") // Firebug
+					|| this.getFirebugURI(it)
 				)
 				|| it.nodeType == eltNode && it.hasAttributeNS("http://www.w3.org/1999/xlink", "href")
 			)
@@ -275,9 +277,26 @@ var detect = {
 			// Looks like wrapper error with chrome://global/content/bindings/text.xml#text-link binding
 			// on "content" pages (e.g. chrome://global/content/console.xul)
 			: it.href || it.getAttribute("href")
-				|| this.getProperty(it, "repObject", "href") // Firebug
+				|| this.getFirebugURI(it)
 				|| this.getCSSEditorURI(it)
 				|| this.getWebConsoleURI(it);
+	},
+	getFirebugURI: function(it) {
+		var uri = this.getProperty(it, "repObject", "href");
+		if(uri)
+			return uri;
+		try {
+			var w = Services.wm.getMostRecentWindow("navigator:browser");
+			if(w && "Firebug" in w) {
+				var repObject = w.Firebug.getRepObject(it);
+				if(repObject)
+					return repObject.href || "";
+			}
+		}
+		catch(e) {
+			Components.utils.reportError(e);
+		}
+		return "";
 	},
 	getCSSEditorURI: function(it) {
 		if(!prefs.get("enabledOnCSSEditorLinks"))

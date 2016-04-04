@@ -351,6 +351,8 @@ var detect = {
 	getHref: function(a, e) {
 		a = a || this.item;
 		e = e || this.event;
+		if("_rightLinksURL" in a)
+			return a._rightLinksURL;
 		var window = a.ownerDocument.defaultView;
 		return this.getLinkURI(a)
 			|| a.src || a.getAttribute("src")

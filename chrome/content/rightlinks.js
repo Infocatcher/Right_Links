@@ -222,13 +222,18 @@ var rightLinks = {
 		delete this.fxVersion;
 		return this.fxVersion = ver;
 	},
+	get detect() {
+		delete this.detect;
+		return this.detect = this.pu.pref("test.useModules") && this.fxVersion >= 4
+			&& Components.utils["import"]("chrome://rightlinks/content/detect.jsm", {}).detect;
+	},
 	getItem: function(e) {
 		if("_rightLinksItem" in e) {
 			this.itemType = e._rightLinksType;
 			return e._rightLinksItem;
 		}
-		if(this.pu.pref("test.useModules") && this.fxVersion >= 4) {
-			var detect = Components.utils["import"]("chrome://rightlinks/content/detect.jsm", {}).detect;
+		var detect = this.detect;
+		if(detect) {
 			var it = detect.getItem(e);
 			if(it) {
 				this.itemType = detect.itemType;
@@ -551,6 +556,9 @@ var rightLinks = {
 			&& this.uri(it.getAttribute("title"));
 	},
 	getHref: function(a, e) {
+		var detect = this.detect;
+		if(detect)
+			return detect.getHref(a, e);
 		a = a || this.item;
 		e = e || this.event;
 		if("_rightLinksURL" in a)

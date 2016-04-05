@@ -1,6 +1,5 @@
 var EXPORTED_SYMBOLS = ["detect"];
 
-Components.utils.import("resource://gre/modules/Services.jsm");
 this.__defineGetter__("prefs", function() {
 	delete this.prefs;
 	return Components.utils.import("chrome://rightlinks/content/prefs.jsm").prefs;
@@ -286,7 +285,7 @@ var detect = {
 		if(uri)
 			return uri;
 		try {
-			var w = Services.wm.getMostRecentWindow("navigator:browser");
+			var w = this.getRootWindow(it.ownerDocument.defaultView);
 			if(w && "Firebug" in w) {
 				var repObject = w.Firebug.getRepObject(it);
 				if(repObject)
@@ -297,6 +296,20 @@ var detect = {
 			Components.utils.reportError(e);
 		}
 		return "";
+	},
+	getRootWindow: function(contentWindow) {
+		try {
+			return contentWindow.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+				.getInterface(Components.interfaces.nsIWebNavigation)
+				.QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+				.rootTreeItem
+				.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+				.getInterface(Components.interfaces.nsIDOMWindow);
+		}
+		catch(e) {
+			Components.utils.reportError(e);
+		}
+		return null;
 	},
 	getCSSEditorURI: function(it) {
 		if(!prefs.get("enabledOnCSSEditorLinks"))

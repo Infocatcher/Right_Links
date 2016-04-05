@@ -496,7 +496,7 @@ var rightLinks = {
 		if(uri)
 			return uri;
 		try {
-			if("Firebug" in window) {
+			if("Firebug" in window && "getRepObject" in Firebug) {
 				var repObject = Firebug.getRepObject(it);
 				if(repObject)
 					return repObject.href || "";

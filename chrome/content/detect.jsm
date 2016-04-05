@@ -286,7 +286,7 @@ var detect = {
 			return uri;
 		try {
 			var w = this.getRootWindow(it.ownerDocument.defaultView);
-			if(w && "Firebug" in w) {
+			if(w && "Firebug" in w && "getRepObject" in w.Firebug) {
 				var repObject = w.Firebug.getRepObject(it);
 				if(repObject)
 					return repObject.href || "";

@@ -58,7 +58,7 @@ var contentUtils = {
 		if(ret && ret[0]) {
 			e.preventDefault();
 			e.stopPropagation();
-			"stopImmediatePropagation" in e && e.stopImmediatePropagation();
+			e.stopImmediatePropagation && e.stopImmediatePropagation();
 		}
 	},
 	enabledFor: function(e) {

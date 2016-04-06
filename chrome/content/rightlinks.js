@@ -586,7 +586,7 @@ var rightLinks = {
 	stopEvent: function(e) {
 		e.preventDefault();
 		e.stopPropagation();
-		"stopImmediatePropagation" in e && e.stopImmediatePropagation();
+		e.stopImmediatePropagation && e.stopImmediatePropagation();
 	},
 	stopSingleEvent: function(e) {
 		// Prevent page handlers, but don't stop Mouse Gestures

@@ -21,12 +21,14 @@ var contentUtils = {
 		var changed = e.type == "mousedown" ? undefined : it != prev;
 		var trg = e.originalTarget;
 		var isDummy = detect.isDummyURI(it, h, e);
+		var itDoc = it.ownerDocument;
 		var clonedEvent = {
 			originalTarget: {
 				localName: trg.localName,
 				ownerDocument: {
 					documentURI: trg.ownerDocument.documentURI
-				}
+				},
+				_rightLinksIsFake: true
 			},
 			view: {
 				top: null
@@ -34,17 +36,18 @@ var contentUtils = {
 			_rightLinksItem: {
 				localName: it.localName,
 				ownerDocument: {
-					documentURI: it.ownerDocument.documentURI,
-					location: { href: it.ownerDocument.documentURI },
-					nodePrincipal: it.ownerDocument.nodePrincipal //~ todo: test
+					documentURI: itDoc.documentURI,
+					location: {
+						href: itDoc.documentURI
+					},
+					nodePrincipal: itDoc.nodePrincipal //~ todo: test
 				},
 				_rightLinksURL: h,
 				_rightLinksIsDummy: isDummy,
 				_rightLinksItemChanged: changed
 			},
-			_rightLinksStop: false,
-			_rightLinksURL: h,
-			_rightLinksType: detect.itemType
+			_rightLinksType: detect.itemType,
+			_rightLinksStop: false
 		};
 		for(var p in e) {
 			var v = e[p];

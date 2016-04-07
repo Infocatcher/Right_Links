@@ -62,7 +62,7 @@ var contentUtils = {
 		}
 	},
 	enabledFor: function(e) {
-		if(e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
+		if("_rightLinksIgnore" in e || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
 			return false;
 		var btn = e.button;
 		return btn == 0 && prefs.get("enabled.left")
@@ -90,6 +90,7 @@ var contentUtils = {
 				button:   opts.button   || 0,
 				relatedTarget: null
 			});
+			evt._rightLinksIgnore = true;
 			item.dispatchEvent(evt);
 		});
 	},

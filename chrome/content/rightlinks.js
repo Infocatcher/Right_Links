@@ -953,12 +953,13 @@ var rightLinks = {
 			var loadVoidFunc = function() {
 				_this.setLoadJSLinksPolicy();
 
+				var isRemote = "_rightLinksURL" in a;
 				if(_this.pu.pref("workaroundForMousedownImitation")) {
 					// https://github.com/Infocatcher/Right_Links/issues/2
 					// Tabs becomes not clickable after "mousedown" imitation,
 					// so we try to catch "mousedown" before browser's listeners
 					var root;
-					if("_rightLinksURL" in a)
+					if(isRemote)
 						root = gBrowser.selectedBrowser;
 					else {
 						var doc = a.ownerDocument;
@@ -972,7 +973,7 @@ var rightLinks = {
 				}
 				evts();
 
-				_this.restoreLoadJSLinksPolicy();
+				_this.restoreLoadJSLinksPolicy(isRemote);
 			};
 
 			var loadVoid = this.pu.pref("loadVoidLinksWithHandlers");
@@ -1215,17 +1216,18 @@ var rightLinks = {
 			}
 		}
 	},
-	restoreLoadJSLinksPolicy: function() {
+	restoreLoadJSLinksPolicy: function(isRemote) {
 		if(!("_origPrefs" in this))
 			return;
 		var prefs = this._origPrefs;
+		var delay = isRemote ? 70 : 25;
 		clearTimeout(this._restorePrefsTimer);
 		this._restorePrefsTimer = this.setTimeout(function() {
 			// For Firefox 3.0+, timeout should be > 0 for Firefox 11.0+
 			for(var p in prefs)
 				this.pu.setPref(p, prefs[p]);
 			delete this._origPrefs;
-		}, 25);
+		}, delay);
 	},
 	get sendReferer() {
 		return (this.itemType == "link" || this.itemType == "img") && this.pu.pref("sendReferer");

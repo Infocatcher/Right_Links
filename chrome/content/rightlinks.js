@@ -660,10 +660,15 @@ var rightLinks = {
 		return btn == 0 && this.enabledLeft
 			|| btn == 2 && this.enabledRight;
 	},
+	fromRemote: function(e) {
+		var trg = e.originalTarget;
+		return trg instanceof XULElement
+			&& trg.localName == "browser" && trg.getAttribute("remote") == "true";
+	},
 
 	mousedownPos: { __proto__: null },
 	mousedownHandler: function(e) {
-		if(!this.enabledFor(e))
+		if(!this.enabledFor(e) || this.fromRemote(e))
 			return;
 
 		this._cleanupTimer && clearTimeout(this._cleanupTimer);
@@ -735,7 +740,7 @@ var rightLinks = {
 		this.setMoveHandlers(e);
 	},
 	mouseupHandler: function(e) {
-		if(!this.enabled)
+		if(!this.enabled || this.fromRemote(e))
 			return;
 		// Case: mousedown -> schedule delayed action -> press Shift -> mouseup
 		// We should perform cleanup in this case!
@@ -785,7 +790,7 @@ var rightLinks = {
 		this.item = this.origItem = this.handledItem = this.itemData = this.event = null;
 	},
 	clickHandler: function(e) {
-		if(!this.enabledFor(e))
+		if(!this.enabledFor(e) || this.fromRemote(e))
 			return;
 		if(this.isLeft) {
 			this.cancelDelayedAction();

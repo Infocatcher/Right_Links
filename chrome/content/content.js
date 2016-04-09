@@ -6,6 +6,8 @@ this.__defineGetter__("contentUtils", function() {
 var global = this;
 var remoteFrameHandler = {
 	init: function(force) {
+		if(!this.isRemote(content))
+			return;
 		addEventListener("mousedown", this, true);
 		addEventListener("mouseup", this, true);
 		addEventListener("click", this, true);
@@ -18,6 +20,22 @@ var remoteFrameHandler = {
 		removeEventListener("click", this, true);
 		removeEventListener("unload", this, false);
 		force && removeMessageListener("RightLinks:Action", this);
+	},
+	isRemote: function(content) {
+		try {
+			var window = content.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+				.getInterface(Components.interfaces.nsIWebNavigation)
+				.QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+				.rootTreeItem
+				.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+				.getInterface(Components.interfaces.nsIDOMWindow);
+			if(window instanceof Components.interfaces.nsIDOMChromeWindow && "rightLinks" in window)
+				return false;
+		}
+		catch(e) {
+			Components.utils.reportError(e);
+		}
+		return true;
 	},
 	handleEvent: function(e) {
 		switch(e.type) {

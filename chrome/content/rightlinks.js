@@ -17,8 +17,6 @@ var rightLinks = {
 	_hasMoveHandlers: false,
 	_cleanupTimer: 0,
 
-	XULNS: "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul",
-
 	init: function() {
 		window.removeEventListener("load", this, false);
 		window.addEventListener("unload", this, false);
@@ -285,7 +283,7 @@ var rightLinks = {
 		if(!it || !it.localName)
 			return null;
 		if(
-			it.namespaceURI == this.XULNS
+			this.isXULElement(it)
 			&& this.inObject(it, "href") && (it.href || it.hasAttribute("href"))
 			//&& (it.accessibleType || it.wrappedJSObject.accessibleType) == Components.interfaces.nsIAccessibleProvider.XULLink
 			&& (
@@ -325,9 +323,7 @@ var rightLinks = {
 		return null;
 	},
 	getHistoryItem: function(it, e) {
-		if(!it || !it.localName)
-			return null;
-		if(it.namespaceURI != this.XULNS)
+		if(!it || !it.localName || !this.isXULElement(it))
 			return null;
 		var itln = it.localName.toLowerCase();
 		if(
@@ -346,9 +342,7 @@ var rightLinks = {
 		return null;
 	},
 	getBookmarkItem: function(it, e) {
-		if(!it || !it.localName)
-			return null;
-		if(it.namespaceURI != this.XULNS)
+		if(!it || !it.localName || !this.isXULElement(it))
 			return null;
 		var itln = it.localName.toLowerCase();
 		if(
@@ -548,7 +542,7 @@ var rightLinks = {
 			&& it.parentNode.classList.contains("frame-link-source")
 		) // Firefox 48+
 			return it.parentNode.parentNode.getAttribute("data-url");
-		return it.namespaceURI == this.XULNS
+		return this.isXULElement(it)
 			&& it.classList
 			&& it.classList.contains("webconsole-location")
 			&& it.classList.contains("text-link")
@@ -576,10 +570,7 @@ var rightLinks = {
 		// Based on function closeMenus from chrome://browser/content/utilityOverlay.js
 		for(; node && "localName" in node; node = node.parentNode) {
 			var ln = node.localName;
-			if(
-				node.namespaceURI == this.XULNS
-				&& (ln == "menupopup" || ln == "popup" || ln == "panel")
-			)
+			if(this.isXULElement(node) && (ln == "menupopup" || ln == "popup" || ln == "panel"))
 				node.hidePopup();
 		}
 	},
@@ -628,6 +619,9 @@ var rightLinks = {
 	},
 	isChromeWin: function(win) {
 		return win instanceof Components.interfaces.nsIDOMChromeWindow;
+	},
+	isXULElement: function(node) {
+		return node instanceof Components.interfaces.nsIDOMXULElement;
 	},
 	inObject: function(o, p) {
 		// this._log("inObject", "wrappedJSObject" in o, o.wrappedJSObject);

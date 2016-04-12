@@ -11,7 +11,6 @@ var detect = {
 	origItem: null,
 	itemData: null,
 	itemType: null,
-	XULNS: "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul",
 
 	getItem: function(e) {
 		var it = this._getItem(e);
@@ -68,7 +67,7 @@ var detect = {
 			return null;
 		var window = it.ownerDocument.defaultView;
 		if(
-			it.namespaceURI == this.XULNS
+			this.isXULElement(it)
 			&& this.inObject(it, "href") && (it.href || it.hasAttribute("href"))
 			//&& (it.accessibleType || it.wrappedJSObject.accessibleType) == Components.interfaces.nsIAccessibleProvider.XULLink
 			&& (
@@ -109,9 +108,7 @@ var detect = {
 		return null;
 	},
 	getHistoryItem: function(it, e) {
-		if(!it || !it.localName)
-			return null;
-		if(it.namespaceURI != this.XULNS)
+		if(!it || !it.localName || !this.isXULElement(it))
 			return null;
 		var itln = it.localName.toLowerCase();
 		if(
@@ -130,9 +127,7 @@ var detect = {
 		return null;
 	},
 	getBookmarkItem: function(it, e) {
-		if(!it || !it.localName)
-			return null;
-		if(it.namespaceURI != this.XULNS)
+		if(!it || !it.localName || !this.isXULElement(it))
 			return null;
 		var itln = it.localName.toLowerCase();
 		if(
@@ -354,7 +349,7 @@ var detect = {
 			&& it.parentNode.classList.contains("frame-link-source")
 		) // Firefox 48+
 			return it.parentNode.parentNode.getAttribute("data-url");
-		return it.namespaceURI == this.XULNS
+		return this.isXULElement(it)
 			&& it.classList
 			&& it.classList.contains("webconsole-location")
 			&& it.classList.contains("text-link")
@@ -424,6 +419,9 @@ var detect = {
 	},
 	isChromeWin: function(win) {
 		return win instanceof Components.interfaces.nsIDOMChromeWindow;
+	},
+	isXULElement: function(node) {
+		return node instanceof Components.interfaces.nsIDOMXULElement;
 	},
 	inObject: function(o, p) {
 		// this._log("inObject", "wrappedJSObject" in o, o.wrappedJSObject);

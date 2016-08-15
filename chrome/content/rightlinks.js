@@ -72,7 +72,9 @@ var rightLinks = {
 			mm.addMessageListener("RightLinks:Event", this);
 			if(!this._frameScriptLoaded) {
 				this._frameScriptLoaded = true;
-				mm.loadFrameScript("chrome://rightlinks/content/content.js", true);
+				setTimeout(function() {
+					mm.loadFrameScript("chrome://rightlinks/content/content.js", true);
+				}, 0);
 			}
 		}
 		else {

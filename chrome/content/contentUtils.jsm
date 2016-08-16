@@ -25,6 +25,7 @@ var contentUtils = {
 		var clonedEvent = {
 			originalTarget: {
 				localName: trg.localName,
+				id: trg.id,
 				ownerDocument: {
 					documentURI: trg.ownerDocument.documentURI
 				},
@@ -35,6 +36,7 @@ var contentUtils = {
 			},
 			_rightLinksItem: {
 				localName: it.localName,
+				id: it.id,
 				ownerDocument: {
 					documentURI: itDoc.documentURI,
 					location: {

@@ -165,7 +165,7 @@ var detect = {
 				|| (
 					it instanceof window.HTMLCanvasElement
 					&& prefs.get("enabledOnCanvasImages")
-					&& Math.max(it.width, it.height) < prefs.get("enabledOnCanvasImages.sizeLimit")
+					&& Math.max(it.width, it.height) < (prefs.get("enabledOnCanvasImages.sizeLimit") || Infinity)
 				)
 			)
 			&& !this.isChromeWin(window) // Not for interface...

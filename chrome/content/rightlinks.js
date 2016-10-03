@@ -380,7 +380,7 @@ var rightLinks = {
 				|| (
 					it instanceof HTMLCanvasElement
 					&& this.pu.pref("enabledOnCanvasImages")
-					&& Math.max(it.width, it.height) < this.pu.pref("enabledOnCanvasImages.sizeLimit")
+					&& Math.max(it.width, it.height) < (this.pu.pref("enabledOnCanvasImages.sizeLimit") || Infinity)
 				)
 			)
 			&& !this.isChromeWin(it.ownerDocument.defaultView) // Not for interface...

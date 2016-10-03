@@ -7,7 +7,7 @@
 
 ##### master/HEAD
 `+` Added German locale (de), thanks to <a href="https://github.com/milupo">milupo</a>.<br>
-`+` Added ability to ignore image-like <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> nodes (<em>extensions.rightlinks.enabledOnCanvasImages</em> preference, e.g. to disable in case of performance problems).<br>
+`+` Added ability to ignore image-like <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> nodes (<em>extensions.rightlinks.enabledOnCanvasImages</em> and <em>extensions.rightlinks.enabledOnCanvasImages.sizeLimit</em> preferences, e.g. to disable in case of performance problems).<br>
 `*` Long left-click: dispatch fake “mouseup” event in content document for better compatibility with page scripts (<em>extensions.rightlinks.fakeMouseup.content</em> preference).<br>
 `+` Added separate preferences to load bookmarks in background (<em>extensions.rightlinks.loadBookmarksInBackground</em> and <em>extensions.rightlinks.loadBookmarksInBackground.left</em>).<br>
 `+` Added `rightLinks.handledItem` API for another extensions.<br>

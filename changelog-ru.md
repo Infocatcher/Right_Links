@@ -7,7 +7,7 @@
 
 ##### master/HEAD
 `+` Добавлена немецкая локаль (de), спасибо <a href="https://github.com/milupo">milupo</a>.<br>
-`+` Добавлена возможность игнорировать <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> изображения (настройка <em>extensions.rightlinks.enabledOnCanvasImages</em>, например, для отключения в случае проблем с производительностью).<br>
+`+` Добавлена возможность игнорировать <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> изображения (настройки <em>extensions.rightlinks.enabledOnCanvasImages</em> и <em>extensions.rightlinks.enabledOnCanvasImages.sizeLimit</em>, например, для отключения в случае проблем с производительностью).<br>
 `*` Долгий клик левой кнопкой мыши: добавлена отправка поддельного события “mouseup” в документ вкладки для лучшей совместимости со скриптами страниц (настройка <em>extensions.rightlinks.fakeMouseup.content</em>).<br>
 `+` Добавлены раздельные настройки для открытия закладок в фоне (<em>extensions.rightlinks.loadBookmarksInBackground</em> и <em>extensions.rightlinks.loadBookmarksInBackground.left</em>).<br>
 `+` Добавлен `rightLinks.handledItem` API для других расширений.<br>

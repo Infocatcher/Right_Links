@@ -162,7 +162,11 @@ var detect = {
 		if(
 			(
 				(itln == "img" || itln == "image") && it.hasAttribute("src")
-				|| (it instanceof window.HTMLCanvasElement && prefs.get("enabledOnCanvasImages"))
+				|| (
+					it instanceof window.HTMLCanvasElement
+					&& prefs.get("enabledOnCanvasImages")
+					&& Math.max(it.width, it.height) < prefs.get("enabledOnCanvasImages.sizeLimit")
+				)
 			)
 			&& !this.isChromeWin(window) // Not for interface...
 			&& ( // Speed Dial has own settings for right clicks

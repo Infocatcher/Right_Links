@@ -7,6 +7,7 @@ pref("extensions.rightlinks.enabled.left", true);
 pref("extensions.rightlinks.enabledOnImages", true);
 pref("extensions.rightlinks.enabledOnSingleImages", false);
 pref("extensions.rightlinks.enabledOnCanvasImages", true);
+pref("extensions.rightlinks.enabledOnCanvasImages.sizeLimit", 800);
 pref("extensions.rightlinks.enabledOnSpeedDialImages", false);
 pref("extensions.rightlinks.enabledOnBookmarks", true);
 pref("extensions.rightlinks.enabledOnHistoryItems", true);

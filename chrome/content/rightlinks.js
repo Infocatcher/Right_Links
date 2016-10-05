@@ -565,7 +565,8 @@ var rightLinks = {
 			return a._rightLinksURL;
 		return this.getLinkURI(a)
 			|| a.src || a.getAttribute("src")
-			|| a instanceof HTMLCanvasElement && a.toDataURL()
+			//|| a instanceof HTMLCanvasElement && a.toDataURL()
+			|| a instanceof HTMLCanvasElement && "data:,"
 			|| a.getAttribute("targetURI")
 			|| this.getBookmarkURI(a, e, "uri");
 	},
@@ -903,6 +904,32 @@ var rightLinks = {
 	},
 
 	loadLink: function(e, a, href) {
+		var _this = this;
+		function done(h) {
+			_this._loadLink(e, a, h || href);
+		}
+		if(a._rightLinksIsCanvas || false) {
+			//~ todo
+		}
+		else if(a instanceof HTMLCanvasElement) {
+			if(
+				"toBlob" in a
+				&& "URL" in window
+				&& "createObjectURL" in URL
+			) {
+				a.toBlob(function(blob) {
+					done(URL.createObjectURL(blob));
+				});
+			}
+			else {
+				done(a.toDataURL());
+			}
+		}
+		else {
+			done();
+		}
+	},
+	_loadLink: function(e, a, href) {
 		this.handledItem = e.originalTarget;
 		if(
 			(this.itemType == "bookmark" || this.itemType == "historyItem")
@@ -1062,7 +1089,9 @@ var rightLinks = {
 			this.openURIInTab(href);
 	},
 	beforeLoad: function(a, href) {
-		this.urlSecurityCheck(a.ownerDocument, href);
+		var bypass = (a._rightLinksIsCanvas || a instanceof HTMLCanvasElement)
+			&& href.substr(0, 5) == "blob:";
+		!bypass && this.urlSecurityCheck(a.ownerDocument, href);
 		if(this.itemData && this.itemData.onBeforeLoad) try {
 			this.itemData.onBeforeLoad();
 		}

@@ -46,6 +46,7 @@ var contentUtils = {
 				},
 				_rightLinksURL: h,
 				_rightLinksIsDummy: isDummy,
+				_rightLinksIsCanvas: it instanceof itDoc.defaultView.HTMLCanvasElement,
 				_rightLinksItemChanged: changed
 			},
 			_rightLinksType: detect.itemType,

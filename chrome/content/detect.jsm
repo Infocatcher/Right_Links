@@ -368,7 +368,8 @@ var detect = {
 		var window = a.ownerDocument.defaultView;
 		return this.getLinkURI(a)
 			|| a.src || a.getAttribute("src")
-			|| a instanceof window.HTMLCanvasElement && a.toDataURL()
+			//|| a instanceof window.HTMLCanvasElement && a.toDataURL()
+			|| a instanceof window.HTMLCanvasElement && "data:,"
 			|| a.getAttribute("targetURI")
 			|| this.getBookmarkURI(a, e, "uri");
 	},

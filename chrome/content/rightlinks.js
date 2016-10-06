@@ -905,11 +905,22 @@ var rightLinks = {
 
 	loadLink: function(e, a, href) {
 		var _this = this;
+		var item = this.item; // May be cleared or changed after async handling
 		function done(h) {
+			var curItem = _this.item;
+			_this.item = item;
 			_this._loadLink(e, a, h || href);
+			_this.item = curItem;
 		}
 		if(a._rightLinksIsCanvas || false) {
-			//~ todo
+			var mm = gBrowser.selectedBrowser.messageManager;
+			mm.addMessageListener("RightLinks:CanvasURL", function receiveMessage(msg) {
+				mm.removeMessageListener("RightLinks:CanvasURL", receiveMessage);
+				done(msg.data.url);
+			});
+			mm.sendAsyncMessage("RightLinks:Action", {
+				action: "GetCanvasURL"
+			});
 		}
 		else if(a instanceof HTMLCanvasElement) {
 			if(

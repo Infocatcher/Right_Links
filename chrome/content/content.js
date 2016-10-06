@@ -57,6 +57,9 @@ var remoteFrameHandler = {
 				else
 					this.destroy();
 			break;
+			case "GetCanvasURL":
+				contentUtils.getCanvasURL(content, sendAsyncMessage);
+			break;
 			case "DispatchMouseEvents":
 				contentUtils.dispatchMouseEvents(msg.data.types, msg.data.options);
 			break;

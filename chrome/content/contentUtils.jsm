@@ -71,6 +71,12 @@ var contentUtils = {
 		return btn == 0 && prefs.get("enabled.left")
 			|| btn == 2 && prefs.get("enabled.right");
 	},
+	getCanvasURL: function(content, sendAsyncMessage) {
+		detect.item.toBlob(function(blob) {
+			var url = content.URL.createObjectURL(blob);
+			sendAsyncMessage("RightLinks:CanvasURL", { url: url });
+		});
+	},
 	dispatchMouseEvents: function(evtTypes, opts) {
 		var item = detect.origItem;
 		var origEvt = detect.event;

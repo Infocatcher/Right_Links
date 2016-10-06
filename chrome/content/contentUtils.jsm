@@ -72,7 +72,12 @@ var contentUtils = {
 			|| btn == 2 && prefs.get("enabled.right");
 	},
 	getCanvasURL: function(content, sendAsyncMessage) {
-		detect.item.toBlob(function(blob) {
+		var canvas = detect.item;
+		if(!(canvas instanceof content.HTMLCanvasElement)) {
+			sendAsyncMessage("RightLinks:CanvasURL", { url: "" });
+			return;
+		}
+		canvas.toBlob(function(blob) {
 			var url = content.URL.createObjectURL(blob);
 			sendAsyncMessage("RightLinks:CanvasURL", { url: url });
 		});

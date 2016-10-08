@@ -565,8 +565,8 @@ var rightLinks = {
 			return a._rightLinksURL;
 		return this.getLinkURI(a)
 			|| a.src || a.getAttribute("src")
-			//|| a instanceof HTMLCanvasElement && a.toDataURL()
-			|| a instanceof HTMLCanvasElement && "data:,"
+			|| a instanceof HTMLCanvasElement
+				&& (this.pu.pref("enabledOnCanvasImages.useBlob") ? "data:," : a.toDataURL())
 			|| a.getAttribute("targetURI")
 			|| this.getBookmarkURI(a, e, "uri");
 	},
@@ -912,7 +912,10 @@ var rightLinks = {
 			_this._loadLink(e, a, h || href);
 			_this.item = curItem;
 		}
-		if(a._rightLinksIsCanvas || false) {
+		if(href != "data:,") { // !this.pu.pref("enabledOnCanvasImages.useBlob")
+			done();
+		}
+		else if(a._rightLinksIsCanvas || false) {
 			var mm = gBrowser.selectedBrowser.messageManager;
 			mm.addMessageListener("RightLinks:CanvasURL", function receiveMessage(msg) {
 				mm.removeMessageListener("RightLinks:CanvasURL", receiveMessage);

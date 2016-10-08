@@ -1381,9 +1381,9 @@ var rightLinks = {
 			var dontAsk = { value: false };
 			this.ps.alertCheck(
 				window,
-				"Right Links",
-				"Turn off Right Links?",
-				"Turn off and don't ask again",
+				this.getLocalized("name"),
+				this.getLocalized("turnOff"),
+				this.getLocalized("turnOffAndDontAsk"),
 				dontAsk
 			);
 			if(!dontAsk.value)

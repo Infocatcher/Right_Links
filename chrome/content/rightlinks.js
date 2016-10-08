@@ -1070,16 +1070,14 @@ var rightLinks = {
 			}
 			catch(e) {
 				Components.utils.reportError(e);
-				Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-					.getService(Components.interfaces.nsIPromptService)
-					.alert(
-						window,
-						this.getLocalized("errorTitle"),
-						this.getLocalized("regExpError")
-							.replace("%r", re)
-							.replace("%p", this.pu.prefNS + rePref)
-							.replace("%e", e)
-					);
+				this.ps.alert(
+					window,
+					this.getLocalized("errorTitle"),
+					this.getLocalized("regExpError")
+						.replace("%r", re)
+						.replace("%p", this.pu.prefNS + rePref)
+						.replace("%e", e)
+				);
 			}
 		}
 
@@ -1372,8 +1370,27 @@ var rightLinks = {
 	},
 
 	// GUI:
+	get ps() {
+		delete this.ps;
+		return this.ps = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+			.getService(Components.interfaces.nsIPromptService);
+	},
 	toggleStatus: function(notify) {
 		var enabled = !this.enabled;
+		if(!enabled && notify && this.pu.pref("enabled.confirmHotkey")) {
+			var dontAsk = { value: false };
+			this.ps.alertCheck(
+				window,
+				"Right Links",
+				"Turn off Right Links?",
+				"Turn off and don't ask again",
+				dontAsk
+			);
+			if(!dontAsk.value)
+				return;
+			this.pu.pref("enabled.confirmHotkey", false);
+			notify = false;
+		}
 		this.pu.pref("enabled", enabled);
 		if(enabled && !this.enabledRight && !this.enabledLeft)
 			this.pu.pref("enabled.right", true);

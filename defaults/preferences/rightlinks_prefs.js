@@ -2,6 +2,7 @@
 pref("extensions.{B5F5E8D3-AE31-49A1-AC42-78B7B1CC5CDC}.description", "chrome://rightlinks/locale/rl.properties");
 
 pref("extensions.rightlinks.enabled", true);
+pref("extensions.rightlinks.enabled.confirmHotkey", true);
 pref("extensions.rightlinks.enabled.right", true);
 pref("extensions.rightlinks.enabled.left", true);
 pref("extensions.rightlinks.enabledOnImages", true);

@@ -912,10 +912,8 @@ var rightLinks = {
 			_this._loadLink(e, a, h || href);
 			_this.item = curItem;
 		}
-		if(href != "data:,") { // !this.pu.pref("enabledOnCanvasImages.useBlob")
-			done();
-		}
-		else if(a._rightLinksIsCanvas || false) {
+		var checkCanvas = href == "data:,"; // && this.pu.pref("enabledOnCanvasImages.useBlob")
+		if(checkCanvas && (a._rightLinksIsCanvas || false)) {
 			var mm = gBrowser.selectedBrowser.messageManager;
 			mm.addMessageListener("RightLinks:CanvasURL", function receiveMessage(msg) {
 				mm.removeMessageListener("RightLinks:CanvasURL", receiveMessage);
@@ -925,7 +923,7 @@ var rightLinks = {
 				action: "GetCanvasURL"
 			});
 		}
-		else if(a instanceof HTMLCanvasElement) {
+		else if(checkCanvas && a instanceof HTMLCanvasElement) {
 			if(
 				"toBlob" in a
 				&& "URL" in window

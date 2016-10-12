@@ -16,6 +16,7 @@ RightLinksContent.prototype = {
 		this.fg.addEventListener("mousedown", this, true);
 		this.fg.addEventListener("mouseup", this, true);
 		this.fg.addEventListener("click", this, true);
+		this.fg.addEventListener("contextmenu", this, true);
 		this.fg.addEventListener("unload", this, false);
 		force && this.fg.addMessageListener("RightLinks:Action", this);
 	},
@@ -23,6 +24,7 @@ RightLinksContent.prototype = {
 		this.fg.removeEventListener("mousedown", this, true);
 		this.fg.removeEventListener("mouseup", this, true);
 		this.fg.removeEventListener("click", this, true);
+		this.fg.removeEventListener("contextmenu", this, true);
 		this.fg.removeEventListener("unload", this, false);
 		force && this.fg.removeMessageListener("RightLinks:Action", this);
 	},
@@ -48,6 +50,9 @@ RightLinksContent.prototype = {
 			case "mouseup":
 			case "click":
 				contentUtils.handleMouseEvent(this.fg.sendSyncMessage, e);
+			break;
+			case "contextmenu":
+				contentUtils.handleContextEvent(e);
 			break;
 			case "unload":
 				if(e.target == this.fg)

@@ -10,6 +10,7 @@ this.__defineGetter__("prefs", function() {
 });
 
 var contentUtils = {
+	_lastMouseDown: 0,
 	handleMouseEvent: function(sendSyncMessage, e) {
 		if(!this.enabledFor(e))
 			return;
@@ -18,7 +19,10 @@ var contentUtils = {
 		var h = it && detect.getHref(it, e);
 		if(!h)
 			return;
-		var changed = e.type == "mousedown" ? undefined : it != prev;
+		var isMD = e.type == "mousedown";
+		var changed = isMD ? undefined : it != prev;
+		if(isMD)
+			this._lastMouseDown = Date.now();
 		var trg = e.originalTarget;
 		var isDummy = detect.isDummyURI(it, h, e);
 		var itDoc = it.ownerDocument;
@@ -58,11 +62,16 @@ var contentUtils = {
 				clonedEvent[p] = v;
 		}
 		var ret = sendSyncMessage("RightLinks:Event", clonedEvent);
-		if(ret && ret[0]) {
-			e.preventDefault();
-			e.stopPropagation();
-			e.stopImmediatePropagation && e.stopImmediatePropagation();
-		}
+		if(ret && ret[0])
+			this.stopEvent(e);
+	},
+	handleContextEvent: function(e) {
+		if(
+			detect.item
+			&& detect.origItem == e.originalTarget
+			&& Date.now() - this._lastMouseDown < prefs.get("showContextMenuTimeout")
+		)
+			this.stopEvent(e);
 	},
 	enabledFor: function(e) {
 		if("_rightLinksIgnore" in e || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
@@ -70,6 +79,11 @@ var contentUtils = {
 		var btn = e.button;
 		return btn == 0 && prefs.get("enabled.left")
 			|| btn == 2 && prefs.get("enabled.right");
+	},
+	stopEvent: function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		e.stopImmediatePropagation && e.stopImmediatePropagation();
 	},
 	getCanvasURL: function(content, sendAsyncMessage) {
 		var canvas = detect.item;

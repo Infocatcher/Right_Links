@@ -1264,7 +1264,7 @@ var rightLinks = {
 		if(!("_origPrefs" in this))
 			return;
 		var prefs = this._origPrefs;
-		var delay = isRemote ? 70 : 25;
+		var delay = isRemote ? 85 : 25;
 		clearTimeout(this._restorePrefsTimer);
 		this._restorePrefsTimer = this.setTimeout(function() {
 			// For Firefox 3.0+, timeout should be > 0 for Firefox 11.0+

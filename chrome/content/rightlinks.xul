@@ -17,17 +17,11 @@
 			key="rightLinks-key-toggleStatus" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();"
 			label="&rl.menuitemLabel;" />
 	</menupopup>
-	<menupopup id="appmenu_customizeMenu"> <!-- Firefox 4+ -->
+	<menupopup id="appmenu_customizeMenu"> <!-- Firefox 4 -->
 		<menuitem id="rightLinks-toggleStatus-mi-app" insertafter="appmenu_preferences" type="checkbox"
 			key="rightLinks-key-toggleStatus" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();"
 			label="&rl.menuitemLabel;" />
 		<menuseparator id="rightLinks-toggleStatus-mi-app-separator" insertafter="appmenu_preferences" />
-	</menupopup>
-	<menupopup id="menu_newPreferencesmenuPopup"> <!-- Firefox 29+ with Classic Theme Restorer extension -->
-		<menuitem id="rightLinks-toggleStatus-mi-app" insertafter="menu_preferences" type="checkbox"
-			key="rightLinks-key-toggleStatus" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();"
-			label="&rl.menuitemLabel;" />
-		<menuseparator id="rightLinks-toggleStatus-mi-app-separator" insertafter="menu_preferences" />
 	</menupopup>
 	<statusbar id="status-bar">
 		<statusbarpanel id="rightLinks-toggleStatus-status" class="statusbarpanel-iconic" insertafter="page-report-button"
@@ -85,8 +79,7 @@
 					<menuseparator />
 					<menuitem type="checkbox" rl_pref="loadJavaScriptLinks" label="&rl.loadJavaScriptLinks;" />
 					<menuitem type="checkbox" rl_pref="notifyJavaScriptLinks" label="&rl.notifyJavaScriptLinks;" />
-					<menuseparator />
-					<menuitem type="checkbox" rl_pref="loadVoidLinksWithHandlers" label="&rl.loadVoidLinksWithHandlers;" />
+					<menuseparator />					<menuitem type="checkbox" rl_pref="loadVoidLinksWithHandlers" label="&rl.loadVoidLinksWithHandlers;" />
 					<menuitem type="checkbox" rl_pref="notifyVoidLinksWithHandlers" label="&rl.notifyVoidLinksWithHandlers;" />
 				</menupopup>
 			</menu>

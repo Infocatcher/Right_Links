@@ -11,6 +11,7 @@ var detect = {
 	origItem: null,
 	itemData: null,
 	itemType: null,
+	handledItem: null,
 
 	getItem: function(e) {
 		var it = this._getItem(e);

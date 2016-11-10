@@ -75,6 +75,9 @@ RightLinksContent.prototype = {
 			break;
 			case "LoadURI":
 				contentUtils.loadURI(msg.data.URI);
+			break;
+			case "SaveHandledItem":
+				contentUtils.saveHandledItem();
 		}
 	}
 };

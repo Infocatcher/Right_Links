@@ -125,5 +125,8 @@ var contentUtils = {
 	loadURI: function(uri) {
 		var item = detect.origItem;
 		item.ownerDocument.location.href = uri;
-	}
+	},
+	saveHandledItem: function() {
+		detect.handledItem = detect.origItem;
+	},
 };

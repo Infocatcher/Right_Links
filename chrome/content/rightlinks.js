@@ -924,6 +924,12 @@ var rightLinks = {
 	},
 	_loadLink: function(e, a, href) {
 		this.handledItem = e.originalTarget;
+		if("_rightLinksURL" in a) {
+			var mm = gBrowser.selectedBrowser.messageManager;
+			mm.sendAsyncMessage("RightLinks:Action", {
+				action: "SaveHandledItem"
+			});
+		}
 		if(
 			(this.itemType == "bookmark" || this.itemType == "historyItem")
 			&& this.pu.pref("closePopups" + this.leftPref)

@@ -11,8 +11,6 @@ function RightLinksContent(frameGlobal) {
 }
 RightLinksContent.prototype = {
 	init: function(force) {
-		if(!this.isRemote(this.fg.content))
-			return;
 		this.fg.addEventListener("mousedown", this, true);
 		this.fg.addEventListener("mouseup", this, true);
 		this.fg.addEventListener("click", this, true);
@@ -27,22 +25,6 @@ RightLinksContent.prototype = {
 		this.fg.removeEventListener("contextmenu", this, true);
 		this.fg.removeEventListener("unload", this, false);
 		force && this.fg.removeMessageListener("RightLinks:Action", this);
-	},
-	isRemote: function(content) {
-		try {
-			var window = content.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-				.getInterface(Components.interfaces.nsIWebNavigation)
-				.QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-				.rootTreeItem
-				.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-				.getInterface(Components.interfaces.nsIDOMWindow);
-			if(window instanceof Components.interfaces.nsIDOMChromeWindow && "rightLinks" in window)
-				return false;
-		}
-		catch(e) {
-			Components.utils.reportError(e);
-		}
-		return true;
 	},
 	handleEvent: function(e) {
 		switch(e.type) {

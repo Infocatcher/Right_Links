@@ -1205,7 +1205,7 @@ var rightLinks = {
 				});
 			}
 			else {
-				a.ownerDocument.location.href = href; // frames?
+				a.ownerDocument.location = href; // frames?
 			}
 		}
 

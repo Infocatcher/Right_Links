@@ -622,8 +622,8 @@ var rightLinks = {
 		return p in o || o.wrappedJSObject && p in o.wrappedJSObject;
 	},
 	hasPrefix: function(str, prefix) {
-		var f = this.hasPrefix = "startsWith" in String
-			? String.startsWith
+		var f = this.hasPrefix = "startsWith" in String.prototype
+			? String.prototype.startsWith.call.bind(String.prototype.startsWith)
 			: function(str, prefix) {
 				return str.substr(0, prefix.length) == prefix;
 			};

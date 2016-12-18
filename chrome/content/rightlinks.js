@@ -1508,7 +1508,7 @@ var rightLinks = {
 
 		// Read preferences
 		var closeMenu = this.pu.pref("ui.closeMenu") ? "auto" : "none";
-		Array.forEach(
+		Array.prototype.forEach.call(
 			popup.getElementsByAttribute("rl_pref", "*"),
 			function(mi) {
 				mi.setAttribute("closemenu", closeMenu);

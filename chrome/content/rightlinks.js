@@ -40,32 +40,28 @@ var rightLinks = {
 			this.setMoveHandlers(false);
 		}
 	},
-	_frameScriptLoaded: false,
+	_frameScriptWasLoaded: false,
 	setFrameScript: function(enabled, force) {
 		if(!this.isMultiProcess)
 			return;
 		var mm = messageManager;
-		this._frameScriptLoaded && mm.broadcastAsyncMessage("RightLinks:Action", {
+		this._frameScriptWasLoaded && mm.broadcastAsyncMessage("RightLinks:Action", {
 			action: "SetState",
 			enabled: enabled
 		});
 		if(enabled) {
 			mm.addMessageListener("RightLinks:Event", this);
-			if(!this._frameScriptLoaded) {
-				this._frameScriptLoaded = true;
-				setTimeout(function() {
-					mm.loadFrameScript("chrome://rightlinks/content/content.js", true);
-				}, 0);
-			}
+			this._frameScriptWasLoaded = true;
+			setTimeout(function() {
+				mm.loadFrameScript("chrome://rightlinks/content/content.js", true);
+			}, 0);
 		}
 		else {
 			mm.removeMessageListener("RightLinks:Event", this);
 			// See https://bugzilla.mozilla.org/show_bug.cgi?id=1051238
-			// We can't unload frame script, so load only once and remove on shutdown
-			if(force && this._frameScriptLoaded) {
-				this._frameScriptLoaded = false;
+			// Frame script can't be unloaded, only to not load into new tabs
+			if(this._frameScriptWasLoaded)
 				mm.removeDelayedFrameScript("chrome://rightlinks/content/content.js");
-			}
 		}
 	},
 	handleEvent: function(e) {

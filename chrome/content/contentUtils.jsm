@@ -128,5 +128,5 @@ var contentUtils = {
 	},
 	saveHandledItem: function() {
 		detect.handledItem = detect.origItem;
-	},
+	}
 };

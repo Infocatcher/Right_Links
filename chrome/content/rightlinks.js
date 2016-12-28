@@ -29,19 +29,19 @@ var rightLinks = {
 	destroy: function() {
 		window.removeEventListener("unload", this, false);
 		if(this.enabled)
-			this.setClickHandlers(false, true);
+			this.setClickHandlers(false);
 		this.pu.destroy();
 	},
-	setClickHandlers: function(enabled, force) {
+	setClickHandlers: function(enabled) {
 		this.setListeners(["mousedown", "mouseup", "click", "contextmenu", "popupshowing"], enabled);
-		this.setFrameScript(enabled, force);
+		this.setFrameScript(enabled);
 		if(!enabled) {
 			this.cancelDelayedAction();
 			this.setMoveHandlers(false);
 		}
 	},
 	_frameScriptWasLoaded: false,
-	setFrameScript: function(enabled, force) {
+	setFrameScript: function(enabled) {
 		if(!this.isMultiProcess)
 			return;
 		var mm = messageManager;

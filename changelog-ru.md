@@ -6,6 +6,7 @@
 `*` – улучшено<br>
 
 ##### master/HEAD
+##### 0.4.0 (2017-01-30)
 `+` Добавлена немецкая локаль (de), спасибо <a href="https://github.com/milupo">milupo</a> (<a href="https://github.com/Infocatcher/Right_Links/issues/18">#18</a>).<br>
 `+` Добавлена возможность игнорировать <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> изображения (настройки <em>extensions.rightlinks.enabledOnCanvasImages</em> и <em>extensions.rightlinks.enabledOnCanvasImages.sizeLimit</em>, например, для отключения в случае проблем с производительностью).<br>
 `*` Долгий клик левой кнопкой мыши: добавлена отправка поддельного события “mouseup” в документ вкладки для лучшей совместимости со скриптами страниц (настройка <em>extensions.rightlinks.fakeMouseup.content</em>).<br>

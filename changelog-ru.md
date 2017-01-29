@@ -13,6 +13,7 @@
 `+` Добавлен `rightLinks.handledItem` API для других расширений.<br>
 `+` Добавлены скрытые настройки для открытия ссылок в текущей вкладке (<em>extensions.rightlinks.loadIn</em> и <em>extensions.rightlinks.loadIn.left</em>, <a href="https://github.com/Infocatcher/Right_Links/issues/20">#20</a>).<br>
 `x` Добавлена поддержка мультипроцессного режима (Electrolysis aka e10s) (<a href="https://github.com/Infocatcher/Right_Links/issues/17">#17</a>, <a href="https://github.com/Infocatcher/Right_Links/issues/21">#21</a>).<br>
+`x` Исправлена совместимость с будущими версиями Firefox: прекращено использование Array generics вида `Array.forEach()` и String generics вида `String.startsWith()` (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222547">bug 1222547</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222552">bug 1222552</a>).<br>
 
 ##### 0.3.8.4 (2014-08-10)
 `x` Исправлено: долгий клик левой кнопкой мыши открывал старую ссылку, если ссылка менялась (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>

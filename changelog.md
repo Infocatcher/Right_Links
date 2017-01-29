@@ -13,6 +13,7 @@
 `+` Added `rightLinks.handledItem` API for another extensions.<br>
 `+` Added hidden preferences to load link in current tab (<em>extensions.rightlinks.loadIn</em> and <em>extensions.rightlinks.loadIn.left</em>, <a href="https://github.com/Infocatcher/Right_Links/issues/20">#20</a>).<br>
 `x` Added support for multi-process mode (Electrolysis aka e10s) (<a href="https://github.com/Infocatcher/Right_Links/issues/17">#17</a>, <a href="https://github.com/Infocatcher/Right_Links/issues/21">#21</a>).<br>
+`x` Fixed compatibility with future Firefox versions: don't use Array generics like `Array.forEach()` and String generics like `String.startsWith()` (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222547">bug 1222547</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222552">bug 1222552</a>).<br>
 
 ##### 0.3.8.4 (2014-08-10)
 `x` Fixed: long left-click opens not actual link, if it was changed (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>

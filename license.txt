@@ -14,7 +14,7 @@
  * The Original Code is Right Links.
  * The Initial Developer of the Original Code is Infocatcher.
  *
- * Portions created by the Initial Developer are Copyright (C) 2007-2016
+ * Portions created by the Initial Developer are Copyright (C) 2007-2017
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):

@@ -12,6 +12,8 @@
 `+` Добавлены раздельные настройки для открытия закладок в фоне (<em>extensions.rightlinks.loadBookmarksInBackground</em> и <em>extensions.rightlinks.loadBookmarksInBackground.left</em>).<br>
 `+` Добавлен `rightLinks.handledItem` API для других расширений.<br>
 `+` Добавлены скрытые настройки для открытия ссылок в текущей вкладке (<em>extensions.rightlinks.loadIn</em> и <em>extensions.rightlinks.loadIn.left</em>, <a href="https://github.com/Infocatcher/Right_Links/issues/20">#20</a>).<br>
+`*` Теперь используется более быстрый `canvas.toBlob()` вместо `canvas.toDataURL()` для <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> (настройка <em>extensions.rightlinks.enabledOnCanvasImages.useBlob</em>) (<a href="https://github.com/Infocatcher/Right_Links/issues/25">#25</a>).<br>
+`+` Добавлен запрос подтверждения при первом отключении клавишей F2 (<em>extensions.rightlinks.enabled.confirmHotkey</em> preference) (<a href="https://github.com/Infocatcher/Right_Links/issues/26">#26</a>).<br>
 `x` Добавлена поддержка мультипроцессного режима (Electrolysis aka e10s) (<a href="https://github.com/Infocatcher/Right_Links/issues/17">#17</a>, <a href="https://github.com/Infocatcher/Right_Links/issues/21">#21</a>).<br>
 `x` Исправлена совместимость с будущими версиями Firefox: прекращено использование Array generics вида `Array.forEach()` и String generics вида `String.startsWith()` (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222547">bug 1222547</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222552">bug 1222552</a>).<br>
 

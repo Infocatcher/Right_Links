@@ -12,6 +12,8 @@
 `+` Added separate preferences to load bookmarks in background (<em>extensions.rightlinks.loadBookmarksInBackground</em> and <em>extensions.rightlinks.loadBookmarksInBackground.left</em>).<br>
 `+` Added `rightLinks.handledItem` API for another extensions.<br>
 `+` Added hidden preferences to load link in current tab (<em>extensions.rightlinks.loadIn</em> and <em>extensions.rightlinks.loadIn.left</em>, <a href="https://github.com/Infocatcher/Right_Links/issues/20">#20</a>).<br>
+`*` Now used faster `canvas.toBlob()` instead of `canvas.toDataURL()` for <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> (<em>extensions.rightlinks.enabledOnCanvasImages.useBlob</em> preference) (<a href="https://github.com/Infocatcher/Right_Links/issues/25">#25</a>).<br>
+`+` Added confirmation for first disabling using F2 hotkey (<em>extensions.rightlinks.enabled.confirmHotkey</em> preference) (<a href="https://github.com/Infocatcher/Right_Links/issues/26">#26</a>).<br>
 `x` Added support for multi-process mode (Electrolysis aka e10s) (<a href="https://github.com/Infocatcher/Right_Links/issues/17">#17</a>, <a href="https://github.com/Infocatcher/Right_Links/issues/21">#21</a>).<br>
 `x` Fixed compatibility with future Firefox versions: don't use Array generics like `Array.forEach()` and String generics like `String.startsWith()` (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222547">bug 1222547</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222552">bug 1222552</a>).<br>
 

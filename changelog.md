@@ -12,7 +12,7 @@
 `+` Added separate preferences to load bookmarks in background (<em>extensions.rightlinks.loadBookmarksInBackground</em> and <em>extensions.rightlinks.loadBookmarksInBackground.left</em>).<br>
 `+` Added `rightLinks.handledItem` API for another extensions.<br>
 `+` Added hidden preferences to load link in current tab (<em>extensions.rightlinks.loadIn</em> and <em>extensions.rightlinks.loadIn.left</em>, <a href="https://github.com/Infocatcher/Right_Links/issues/20">#20</a>).<br>
-`x` Some compatibility fixes for multi-process mode (Electrolysis aka e10s) (<a href="https://github.com/Infocatcher/Right_Links/issues/17">#17</a>, <a href="https://github.com/Infocatcher/Right_Links/issues/21">#21</a>).<br>
+`x` Added support for multi-process mode (Electrolysis aka e10s) (<a href="https://github.com/Infocatcher/Right_Links/issues/17">#17</a>, <a href="https://github.com/Infocatcher/Right_Links/issues/21">#21</a>).<br>
 
 ##### 0.3.8.4 (2014-08-10)
 `x` Fixed: long left-click opens not actual link, if it was changed (<a href="https://github.com/Infocatcher/Right_Links/issues/9">#9</a>).<br>

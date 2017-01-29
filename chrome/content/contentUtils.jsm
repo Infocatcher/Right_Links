@@ -70,6 +70,7 @@ var contentUtils = {
 			detect.item
 			&& detect.origItem == e.originalTarget
 			&& Date.now() - this._lastMouseDown < prefs.get("showContextMenuTimeout")
+			&& prefs.get("enabled.right")
 		)
 			this.stopEvent(e);
 	},

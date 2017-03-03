@@ -734,9 +734,11 @@ var rightLinks = {
 				if(this.pu.pref("fakeMouseup")) {
 					var fakeTarget = !this.isChromeWin(e.view)
 						&& this.pu.pref("fakeMouseup.content")
-						? e.view.document || e.view
+						? "_rightLinksItem" in e
+							? { _rightLinksIsFake: true }
+							: e.view.document || e.view
 						: gBrowser.selectedBrowser.parentNode;
-					this.createMouseEvents(e, fakeTarget, ["mouseup"], 0)();
+					this.createMouseEvents(e, fakeTarget, ["mouseup"], { button: 0, isFake: true })();
 				}
 				if(this.isChromeWin(e.view.top))
 					this.stopEvent(e);
@@ -1281,7 +1283,12 @@ var rightLinks = {
 	createMouseEvents: function(origEvt, item, evtTypes, opts) {
 		if(typeof opts == "number")
 			opts = { button: opts };
-		if(this.isMultiProcess && this.event && "_rightLinksItem" in this.event)
+		if(
+			this.isMultiProcess
+			&& this.event
+			&& "_rightLinksItem" in this.event
+			&& "_rightLinksIsFake" in item
+		)
 			return this.createRemoteMouseEvents(evtTypes, opts);
 		var evts = evtTypes.map(function(evtType) {
 			return this.createMouseEvent(origEvt, item, evtType, opts);

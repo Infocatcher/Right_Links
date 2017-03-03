@@ -102,6 +102,7 @@ var contentUtils = {
 		var origEvt = detect.event;
 		var doc = item.ownerDocument || item.document || item;
 		var win = doc.defaultView;
+		var trg = opts.isFake ? win : item;
 		evtTypes.forEach(function(evtType) {
 			var evt = new win.MouseEvent(evtType, {
 				bubbles: true,
@@ -120,7 +121,7 @@ var contentUtils = {
 				relatedTarget: null
 			});
 			evt._rightLinksIgnore = true;
-			item.dispatchEvent(evt);
+			trg.dispatchEvent(evt);
 		});
 	},
 	loadURI: function(uri) {

@@ -726,9 +726,10 @@ var rightLinks = {
 		if(!this.enabledFor(e))
 			this.stopContextMenu = this.stopClick = false;
 		else {
+			var delay = "_rightLinksItem" in e ? 80 : 5;
 			this.setTimeout(function() {
 				this.stopContextMenu = this.stopClick = false;
-			}, 5);
+			}, delay);
 			this.saveXY(e);
 			if(this.isLeft && this.stopClick && this.pu.pref("stopMouseupEvent")) {
 				if(this.pu.pref("fakeMouseup")) {

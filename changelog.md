@@ -6,6 +6,9 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`x` Fixed fake “mouseup” event in multi-process mode (<em>extensions.rightlinks.fakeMouseup</em> = true).<br>
+`x` Corrected long left-click in multi-process mode: increased waiting time to stop click event.<br>
+
 ##### 0.4.0 (2017-01-30)
 `+` Added German locale (de), thanks to <a href="https://github.com/milupo">milupo</a> (<a href="https://github.com/Infocatcher/Right_Links/issues/18">#18</a>).<br>
 `+` Added ability to ignore image-like <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">canvas</a> nodes (<em>extensions.rightlinks.enabledOnCanvasImages</em> and <em>extensions.rightlinks.enabledOnCanvasImages.sizeLimit</em> preferences, e.g. to disable in case of performance problems).<br>

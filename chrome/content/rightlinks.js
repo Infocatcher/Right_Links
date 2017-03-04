@@ -567,16 +567,18 @@ var rightLinks = {
 		// Prevent page handlers, but don't stop Mouse Gestures
 		var top = e.view.top;
 		var root = top === content ? gBrowser.selectedBrowser : top;
+		var type = e.type;
 		var _this = this;
-		root.addEventListener(
-			e.type,
-			function stopEvent(e) {
-				root.removeEventListener(e.type, stopEvent, true);
-				if(_this.enabledFor(e))
-					_this.stopEvent(e);
-			},
-			true
-		);
+		var stopEvent;
+		root.addEventListener(type, stopEvent = function(e) {
+			root.removeEventListener(type, stopEvent, true);
+			clearTimeout(failsafeTimer);
+			if(_this.enabledFor(e))
+				_this.stopEvent(e);
+		}, true);
+		var failsafeTimer = setTimeout(function() {
+			root.removeEventListener(type, stopEvent, true);
+		}, 80);
 	},
 	isPrimitive: function(v) {
 		if(v === null || v === undefined)

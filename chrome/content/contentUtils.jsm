@@ -48,6 +48,7 @@ var contentUtils = {
 					},
 					nodePrincipal: itDoc.nodePrincipal //~ todo: test
 				},
+				_rightLinksIsFake: true,
 				_rightLinksURL: h,
 				_rightLinksIsDummy: isDummy,
 				_rightLinksIsCanvas: it instanceof itDoc.defaultView.HTMLCanvasElement,

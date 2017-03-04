@@ -682,6 +682,8 @@ var rightLinks = {
 		if(this._stopMousedown) {
 			this.stopSingleEvent(e);
 			setTimeout(function() {
+				if("_rightLinksURL" in a) //~ todo: handle in e10s mode
+					return;
 				if(document.commandDispatcher.focusedElement != a)
 					a.focus();
 			}, 0);

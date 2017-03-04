@@ -684,7 +684,7 @@ var rightLinks = {
 		if(this._stopMousedown) {
 			this.stopSingleEvent(e);
 			setTimeout(function() {
-				if("_rightLinksURL" in a) //~ todo: handle in e10s mode
+				if("_rightLinksIsFake" in a) //~ todo: handle in e10s mode
 					return;
 				if(document.commandDispatcher.focusedElement != a)
 					a.focus();
@@ -927,7 +927,7 @@ var rightLinks = {
 	},
 	_loadLink: function(e, a, href) {
 		this.handledItem = e.originalTarget;
-		if("_rightLinksURL" in a) {
+		if("_rightLinksIsFake" in a) {
 			var mm = gBrowser.selectedBrowser.messageManager;
 			mm.sendAsyncMessage("RightLinks:Action", {
 				action: "SaveHandledItem"
@@ -987,7 +987,7 @@ var rightLinks = {
 			var loadVoidFunc = function() {
 				_this.setLoadJSLinksPolicy();
 
-				var isRemote = "_rightLinksURL" in a;
+				var isRemote = "_rightLinksIsFake" in a;
 				if(_this.pu.pref("workaroundForMousedownImitation")) {
 					// https://github.com/Infocatcher/Right_Links/issues/2
 					// Tabs becomes not clickable after "mousedown" imitation,
@@ -1200,7 +1200,7 @@ var rightLinks = {
 		if(this.itemType == "bookmark" || this.itemType == "historyItem")
 			gBrowser.loadURI(href); // bookmarklets
 		else {
-			if("_rightLinksURL" in a) {
+			if("_rightLinksIsFake" in a) {
 				var mm = gBrowser.selectedBrowser.messageManager;
 				mm.sendAsyncMessage("RightLinks:Action", {
 					action: "LoadURI",

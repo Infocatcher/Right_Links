@@ -578,7 +578,7 @@ var rightLinks = {
 		}, true);
 		var failsafeTimer = setTimeout(function() {
 			root.removeEventListener(type, stopEvent, true);
-		}, 80);
+		}, 130);
 	},
 	isPrimitive: function(v) {
 		if(v === null || v === undefined)
@@ -730,7 +730,7 @@ var rightLinks = {
 		if(!this.enabledFor(e))
 			this.stopContextMenu = this.stopClick = false;
 		else {
-			var delay = "_rightLinksItem" in e ? 80 : 5;
+			var delay = "_rightLinksItem" in e ? 130 : 5;
 			this.setTimeout(function() {
 				this.stopContextMenu = this.stopClick = false;
 			}, delay);

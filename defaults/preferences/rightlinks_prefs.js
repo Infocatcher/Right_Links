@@ -25,6 +25,8 @@ pref("extensions.rightlinks.fakeMouseup", true); // Dispatch fake event to stop 
 pref("extensions.rightlinks.fakeMouseup.content", true); // Allow dispatch fake event in content document
 pref("extensions.rightlinks.workaroundForMousedownImitation", true);
 pref("extensions.rightlinks.dontUseTabsInPopupWindows", true);
+pref("extensions.rightlinks.e10sWaitDelay", 130); // Wait delay for multi-process mode (in ms)
+// The most notable: delay to reset "stop click" flag after mouseup and before click event 
 
 pref("extensions.rightlinks.loadInBackground", true);
 pref("extensions.rightlinks.loadInBackground.left", false);

@@ -7,7 +7,7 @@
 
 ##### master/HEAD
 `x` Исправлено поддельное событие «mouseup» в мультипроцессном режиме (<em>extensions.rightlinks.fakeMouseup</em> = true).<br>
-`x` Подкорректирован долгий клик левой кнопкой мыши в мультипроцессном режиме: увеличено время ожидания для остановки события click.<br>
+`x` Подкорректирован долгий клик левой кнопкой мыши в мультипроцессном режиме: увеличено время ожидания для остановки события click (настройка <em>extensions.rightlinks.e10sWaitDelay</em>).<br>
 
 ##### 0.4.0 (2017-01-30)
 `+` Добавлена немецкая локаль (de), спасибо <a href="https://github.com/milupo">milupo</a> (<a href="https://github.com/Infocatcher/Right_Links/issues/18">#18</a>).<br>

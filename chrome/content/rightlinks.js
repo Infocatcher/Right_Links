@@ -1400,6 +1400,17 @@ var rightLinks = {
 			enabled
 		);
 	},
+	setContextMenu: function(e) {
+		if(this.fxVersion < 24)
+			return; // Trick with context menu doesn't work in old versions
+		var it = e.currentTarget;
+		var useRLContext = !(e.ctrlKey || e.shiftKey || e.altKey || e.metaKey);
+		var hasRLContext = it.hasAttribute("context");
+		if(useRLContext && !hasRLContext)
+			it.setAttribute("context", "rightLinks-settingsPopup");
+		else if(!useRLContext && hasRLContext)
+			it.removeAttribute("context");
+	},
 	showSettingsPopup: function() {
 		var popup = this.popup;
 		var anchor = gBrowser.selectedBrowser;

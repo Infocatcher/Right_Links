@@ -14,24 +14,35 @@
 	</keyset>
 	<menupopup id="menu_ToolsPopup">
 		<menuitem id="rightLinks-toggleStatus-mi" insertafter="menu_pageInfo,menu_inspector,javascriptConsole" type="checkbox"
-			key="rightLinks-key-toggleStatus" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();"
+			key="rightLinks-key-toggleStatus"
+			context="rightLinks-settingsPopup"
+			oncontextmenu="rightLinks.setContextMenu(event);"
+			oncommand="rightLinks.toggleStatus();"
 			label="&rl.menuitemLabel;" />
 	</menupopup>
 	<menupopup id="appmenu_customizeMenu"> <!-- Firefox 4 -->
 		<menuitem id="rightLinks-toggleStatus-mi-app" insertafter="appmenu_preferences" type="checkbox"
-			key="rightLinks-key-toggleStatus" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();"
+			key="rightLinks-key-toggleStatus"
+			context="rightLinks-settingsPopup"
+			oncontextmenu="rightLinks.setContextMenu(event);"
+			oncommand="rightLinks.toggleStatus();"
 			label="&rl.menuitemLabel;" />
 		<menuseparator id="rightLinks-toggleStatus-mi-app-separator" insertafter="appmenu_preferences" />
 	</menupopup>
 	<statusbar id="status-bar">
 		<statusbarpanel id="rightLinks-toggleStatus-status" class="statusbarpanel-iconic" insertafter="page-report-button"
-			context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();" />
+			context="rightLinks-settingsPopup"
+			oncontextmenu="rightLinks.setContextMenu(event);"
+			oncommand="rightLinks.toggleStatus();" />
 	</statusbar>
 	<toolbarpalette id="BrowserToolbarPalette">
 		<toolbarbutton id="rightLinks-toggleStatus-tbutton"
 			class="chromeclass-toolbar-additional toolbarbutton-1"
 			type="checkbox" autoCheck="false"
-			label="&rl.tbuttonLabel;" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();" />
+			label="&rl.tbuttonLabel;"
+			context="rightLinks-settingsPopup"
+			oncontextmenu="rightLinks.setContextMenu(event);"
+			oncommand="rightLinks.toggleStatus();" />
 	</toolbarpalette>
 	<popupset id="mainPopupSet">
 		<menupopup id="rightLinks-settingsPopup"
@@ -101,6 +112,9 @@
 	<!-- SeaMonkey -->
 	<menupopup id="taskPopup">
 		<menuitem id="rightLinks-toggleStatus-mi" insertafter="downloadmgr" type="checkbox" label="&rl.menuitemLabel;"
-			key="rightLinks-key-toggleStatus" context="rightLinks-settingsPopup" oncommand="rightLinks.toggleStatus();" />
+			key="rightLinks-key-toggleStatus"
+			context="rightLinks-settingsPopup"
+			oncontextmenu="rightLinks.setContextMenu(event);"
+			oncommand="rightLinks.toggleStatus();" />
 	</menupopup>
 </overlay>

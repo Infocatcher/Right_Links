@@ -1407,7 +1407,7 @@ var rightLinks = {
 		var useRLContext = !(e.ctrlKey || e.shiftKey || e.altKey || e.metaKey);
 		var hasRLContext = it.hasAttribute("context");
 		if(useRLContext && !hasRLContext)
-			it.setAttribute("context", "rightLinks-settingsPopup");
+			it.setAttribute("context", this.popup.id);
 		else if(!useRLContext && hasRLContext)
 			it.removeAttribute("context");
 	},

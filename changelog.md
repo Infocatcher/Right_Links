@@ -9,6 +9,7 @@
 `x` Fixed fake “mouseup” event in multi-process mode (<em>extensions.rightlinks.fakeMouseup</em> = true).<br>
 `x` Corrected long left-click in multi-process mode: increased waiting time to stop click event (<em>extensions.rightlinks.e10sWaitDelay</em> preference).<br>
 `+` Added ability to open original browser's context menu using right click with any modifier on Right Links button and menu item.<br>
+`x` Fixed detection of links from CSS Inspector in Firefox 52+.<br>
 
 ##### 0.4.0 (2017-01-30)
 `+` Added German locale (de), thanks to <a href="https://github.com/milupo">milupo</a> (<a href="https://github.com/Infocatcher/Right_Links/issues/18">#18</a>).<br>

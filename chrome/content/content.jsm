@@ -24,7 +24,10 @@ RightLinksContent.prototype = {
 		this.fg.removeEventListener("click", this, true);
 		this.fg.removeEventListener("contextmenu", this, true);
 		this.fg.removeEventListener("unload", this, false);
-		force && this.fg.removeMessageListener("RightLinks:Action", this);
+		if(force) {
+			this.fg.removeMessageListener("RightLinks:Action", this);
+			delete this.fg.RightLinksContent;
+		}
 	},
 	handleEvent: function(e) {
 		switch(e.type) {

@@ -6,6 +6,7 @@
 `*` – improved<br>
 
 ##### master/HEAD
+##### 0.4.1 (2017-05-16)
 `x` Fixed fake “mouseup” event in multi-process mode (<em>extensions.rightlinks.fakeMouseup</em> = true).<br>
 `x` Corrected long left-click in multi-process mode: increased waiting time to stop click event (<em>extensions.rightlinks.e10sWaitDelay</em> preference).<br>
 `+` Added ability to open original browser's context menu using right click with any modifier on Right Links button and menu item.<br>

@@ -45,6 +45,16 @@
 
 		<em:localized>
 			<Description>
+				<em:locale>bg</em:locale>
+				<em:name>Right Links</em:name>
+				<em:description>Right Links - Щракнете, за да отворите връзка в нов раздел (за тъчпади и др.)</em:description>
+				<em:creator>Infocatcher</em:creator>
+				<em:translator>Peyu Yovev</em:translator>
+			</Description>
+		</em:localized>
+
+		<em:localized>
+			<Description>
 				<em:locale>de</em:locale>
 				<em:name>Right Links</em:name>
 				<em:description>Klicken Sie mit der rechten Maustaste, um Verweise auf neuen Tabs zu öffnen (für Touchpads usw.)</em:description>

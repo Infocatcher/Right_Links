@@ -1,0 +1,36 @@
+<!-- Item in Tools and App menu -->
+<!ENTITY rl.menuitemLabel "Right Links">
+<!-- Toolbar button -->
+<!ENTITY rl.tbuttonLabel "Right Links">
+
+<!-- Settings pop-up -->
+<!ENTITY rl.enabled "Включено">
+<!ENTITY rl.loadInBackground "Зареждай връзките на на заден фон">
+<!ENTITY rl.loadBookmarksInBackground "Зарежда отметките на заден фон">
+<!ENTITY rl.loadJavaScriptLinksInBackground "Зареди JavaScript-връзките на заден фон">
+<!ENTITY rl.sendReferer "Изпрати referer">
+<!ENTITY rl.enabledOnImages "Прихващай кликове върху изображения">
+<!ENTITY rl.enabledOnBookmarks "Прихващай кликове върху отметки">
+<!ENTITY rl.enabledOnHistoryItems "Прихващай кликове върху елементи от историята">
+<!ENTITY rl.closePopups "Затваряй менютата след щракване">
+
+<!ENTITY rl.longLeftClick "Дълъг ляв бутон">
+
+<!ENTITY rl.optionsMenu "Опции">
+<!ENTITY rl.enableRight "Включване на десен бутон">
+<!ENTITY rl.enableLeft "Включване на дълъг ляв бутон">
+<!ENTITY rl.loadJavaScriptLinks "Зареждане на JavaScript-връзки (javascript: …)">
+<!ENTITY rl.notifyJavaScriptLinks "Известявай при JavaScript-връзки (javascript: …)">
+<!ENTITY rl.loadVoidLinksWithHandlers "Зареждай “празни” връзки в манипулатора за кликове.">
+<!ENTITY rl.notifyVoidLinksWithHandlers "Известявай при “празни” връзки в манипулатора за кликове.">
+
+<!ENTITY rl.appearance "Преглед">
+<!ENTITY rl.toolbarbuttonCheckedStyle "Стил на бутона “Отбелязано”">
+<!ENTITY rl.showInToolsMenu "Покажи в менюто с инструменти">
+<!ENTITY rl.showInAppMenu "Покажи в менюто с приложения">
+<!ENTITY rl.showInStatusbar "Покажи в лентата на състоянието">
+<!ENTITY rl.closeMenu "Затвори това меню с ляв бутон">
+<!ENTITY rl.closeMenuRightClick "Затвори това меню с десен бутон">
+
+<!-- Options button in Gecko 7.0 and higher -->
+<!ENTITY rl.options "Опции…">

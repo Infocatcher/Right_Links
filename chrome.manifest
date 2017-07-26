@@ -6,6 +6,6 @@ style   chrome://global/content/customizeToolbar.xul chrome://rightlinks/content
 overlay chrome://navigator/content/navigator.xul chrome://rightlinks/content/rightlinks.xul
 
 locale  rightlinks en-US chrome/locale/en-US/
+locale  rightlinks bg    chrome/locale/bg/
 locale  rightlinks de    chrome/locale/de/
 locale  rightlinks ru    chrome/locale/ru/
-locale  rightlinks bg    chrome/locale/bg/

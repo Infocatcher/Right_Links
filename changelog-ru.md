@@ -6,6 +6,8 @@
 `*` – улучшено<br>
 
 ##### master/HEAD
+`+` Добавлена болгарская локаль (bg), спасибо <a href="https://github.com/spacy01">Peyu Yovev</a> (<a href="https://github.com/Infocatcher/Right_Links/pull/34">#34</a>, <a href="https://github.com/Infocatcher/Right_Links/pull/35">#35</a>, <a href="https://github.com/Infocatcher/Right_Links/pull/36">#36</a>).<br>
+
 ##### 0.4.1 (2017-05-16)
 `x` Исправлено поддельное событие «mouseup» в мультипроцессном режиме (<em>extensions.rightlinks.fakeMouseup</em> = true).<br>
 `x` Подкорректирован долгий клик левой кнопкой мыши в мультипроцессном режиме: увеличено время ожидания для остановки события click (настройка <em>extensions.rightlinks.e10sWaitDelay</em>).<br>

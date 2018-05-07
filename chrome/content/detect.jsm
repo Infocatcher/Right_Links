@@ -84,7 +84,7 @@ var detect = {
 		const docNode = window.Node.DOCUMENT_NODE; // 9
 		const eltNode = window.Node.ELEMENT_NODE; // 1
 
-		for(it = it; it && it.nodeType != docNode; it = it.parentNode) {
+		for(; it && it.nodeType != docNode; it = it.parentNode) {
 			// https://bugzilla.mozilla.org/show_bug.cgi?id=266932
 			// https://bug266932.bugzilla.mozilla.org/attachment.cgi?id=206815
 			// It's strange to see another link in Status Bar

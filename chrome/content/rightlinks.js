@@ -1560,6 +1560,10 @@ var rightLinks = {
 		this.e("closePopups.left").setAttribute("disabled", !this.enabledLeft || noClosePopups);
 		document.getElementById("rightLinks-settings-longLeftClickMenu").setAttribute("disabled", !this.enabledLeft);
 
+		var dontNotify = this.pu.pref("notifyOpenTime") < 0;
+		this.e("notifyJavaScriptLinks").setAttribute("disabled", dontNotify);
+		this.e("notifyVoidLinksWithHandlers").setAttribute("disabled", dontNotify);
+
 		if(!("_optionsCompatibilityChecked" in this)) { // Hide unsupported options
 			this._optionsCompatibilityChecked = true;
 			this.e("ui.closeMenu").hidden = this.fxVersion < 3; // Attribute "closemenu" doesn't work

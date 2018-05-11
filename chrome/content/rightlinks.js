@@ -120,12 +120,13 @@ var rightLinks = {
 		return this.isMultiProcess = "gMultiProcessBrowser" in window && gMultiProcessBrowser;
 	},
 
-	isVoidURI: function(uri) {
-		uri = (uri || "").replace(/(?:\s|%20)+/g, " ");
-		return /^javascript: *(?:|\/\/|void *(?: +0|\( *0 *\))) *;? *$/i.test(uri);
-	},
 	isJSURI: function(uri) {
 		return /^javascript:/i.test(uri);
+	},
+	isVoidURI: function(uri) {
+		return this.isJSURI(uri) && /^javascript: *(?:|\/\/|void *(?: +0|\( *0 *\))) *;? *$/i.test(
+			uri.replace(/(?:\s|%20)+/g, " ")
+		);
 	},
 	isDummyURI: function(item, uri, evt) {
 		if("_rightLinksIsDummy" in item)
@@ -963,26 +964,12 @@ var rightLinks = {
 			window.addEventListener("popuphiding", evtHandler, true);
 		}
 
-		var voidURI = this.isVoidURI(href);
-		if(!voidURI && this.isJSURI(href)) {
-			var _this = this;
-			var loadJSFunc = function() {
-				_this.loadJSLink(a);
-			};
-			var loadJS = this.pu.pref("loadJavaScriptLinks");
-			if(this.pu.pref("notifyJavaScriptLinks"))
-				this.notify(
-					this.getLocalized("title"),
-					this.getLocalized("javaScriptLink" + (loadJS ? "" : "Click")),
-					true,
-					loadJS ? null : loadJSFunc
-				);
-			loadJS && loadJSFunc();
-			return;
-		}
-		var dummyURI = !voidURI && this.isDummyURI(a, href, e);
-		var isTree = a.localName == "treechildren";
-		if(voidURI || dummyURI) {
+		var dummyURI;
+		if(
+			this.isVoidURI(href)
+			|| (dummyURI = this.isDummyURI(a, href, e))
+		) {
+			var isTree = a.localName == "treechildren";
 			var evts = this.createMouseEvents(e, a, ["mousedown", "mouseup", "click"], {
 				button: isTree ? 1 : 0,
 				ctrlKey: isTree ? false : dummyURI == 2 // Link may be real
@@ -1026,7 +1013,22 @@ var rightLinks = {
 			loadVoid && loadVoidFunc();
 			return;
 		}
-
+		if(this.isJSURI(href)) {
+			var _this = this;
+			var loadJSFunc = function() {
+				_this.loadJSLink(a);
+			};
+			var loadJS = this.pu.pref("loadJavaScriptLinks");
+			if(this.pu.pref("notifyJavaScriptLinks"))
+				this.notify(
+					this.getLocalized("title"),
+					this.getLocalized("javaScriptLink" + (loadJS ? "" : "Click")),
+					true,
+					loadJS ? null : loadJSFunc
+				);
+			loadJS && loadJSFunc();
+			return;
+		}
 		var loadInCurTab = false;
 		var flp = this.pu.pref("filesLinksPolicy");
 		if(flp > 0) {

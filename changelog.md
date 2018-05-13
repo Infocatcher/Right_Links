@@ -7,6 +7,7 @@
 
 ##### master/HEAD
 `+` Added Bulgarian locale (bg), thanks to <a href="https://github.com/spacy01">Peyu Yovev</a> (<a href="https://github.com/Infocatcher/Right_Links/pull/34">#34</a>, <a href="https://github.com/Infocatcher/Right_Links/pull/35">#35</a>, <a href="https://github.com/Infocatcher/Right_Links/pull/36">#36</a>).<br>
+`*` Disable “Notify…” items, if notifications are globally disabled (<em>extensions.rightlinks.notifyOpenTime</em> = -1).<br>
 
 ##### 0.4.1 (2017-05-16)
 `x` Fixed fake “mouseup” event in multi-process mode (<em>extensions.rightlinks.fakeMouseup</em> = true).<br>
